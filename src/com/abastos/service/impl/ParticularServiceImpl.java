@@ -135,7 +135,7 @@ public class ParticularServiceImpl implements ParticularService {
 			logger.info("Usuario creado");
 			commit = true;			
 
-			logger.info(new StringBuilder().append("Usuario ").append(particular.getEmail())
+			logger.info(new StringBuilder().append("Usuario ").append(parti.getEmail())
 					.append(" registrado").toString());
 		} catch (SQLException se) {
 			logger.error(se);
