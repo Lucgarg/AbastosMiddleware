@@ -112,7 +112,7 @@ public class TiendaServiceImpl implements TiendaService{
 			velo.put("tienda", tienda);
 			mailService.sendMailHtml(velo,6L,tienda.getEmail());
 			commit = true;	
-			logger.info(new StringBuilder().append("tienda creada ").append(tiend.getEmail()));
+			logger.info(new StringBuilder().append("tienda creada ").append(tienda.getEmail()));
 		}catch(SQLException se) {
 			logger.error(se);
 			throw new DataException(se);
