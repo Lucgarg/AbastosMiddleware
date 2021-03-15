@@ -158,6 +158,7 @@ public class TiendaDAOImpl implements TiendaDAO {
 				isFirst = true;
 
 			}
+			
 			if (tiendaCriteria.getCategoria() != null) {
 				if (isFirst == false) {
 					sql.append( " WHERE A.ID_CATEGORIA = ? ");

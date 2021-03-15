@@ -1,6 +1,7 @@
 package com.abastos.service.impl;
 
 import java.sql.Connection;
+
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
@@ -18,7 +19,6 @@ import com.abastos.service.ContenidoService;
 import com.abastos.service.DataException;
 import com.abastos.service.EmpresaService;
 import com.abastos.service.MailService;
-import com.abastos.service.MailServiceImpl;
 import com.abastos.service.exceptions.ConfirmationRegistrationException;
 import com.abastos.service.exceptions.IncorrectPasswordException;
 import com.abastos.service.exceptions.MailException;
@@ -30,12 +30,10 @@ public class EmpresaServiceImpl implements EmpresaService{
 	private static Logger logger = LogManager.getLogger(EmpresaServiceImpl.class);
 	private static final StrongPasswordEncryptor ENCRYPTOR = new StrongPasswordEncryptor();
 	private EmpresaDAO empresaDAO;
-	private MailService mailService;
-	private Map<String, Object> velo;
+
 	public EmpresaServiceImpl() {
 		empresaDAO = new EmpresaDAOImpl();
-		mailService = new MailServiceImpl();
-		velo = new HashMap<String, Object>();
+
 	}
 	@Override
 	public Empresa findById(Long idEmpresa) throws DataException {
@@ -114,9 +112,6 @@ public class EmpresaServiceImpl implements EmpresaService{
 			empres = empresaDAO.create(connection, empresa);
 		
 
-			velo.put("user", empresa);
-			velo.put("codigo", 123);
-			mailService.sendMail(velo,4L, empresa.getCorreoElectronico());
 			commit = true;			
 
 			logger.info(new StringBuilder().append("Usuario ")

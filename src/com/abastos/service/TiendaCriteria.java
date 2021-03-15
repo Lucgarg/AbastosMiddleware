@@ -6,7 +6,7 @@ public class TiendaCriteria {
 		private Boolean envioDomicilio;
 		private Integer categoria;
 		private Long idLocalidad;
-
+		
 		
 		public TiendaCriteria() {
 			

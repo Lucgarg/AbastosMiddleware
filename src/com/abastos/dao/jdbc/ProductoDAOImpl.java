@@ -132,6 +132,9 @@ public class ProductoDAOImpl implements ProductoDAO{
 			if (producto.getIdOrigen() != null) {
 				sql.append( " AND UPPER(A.ID_ORIGEN) LIKE ? "); 
 			}
+			if(producto.getNombre() != null) {
+				sql.append( " AND UPPER(G.Nombre_producto) like ?   ");
+			}
 			if(producto.getOferta() !=null) {
 				if(producto.getOferta() != false) {
 
@@ -163,7 +166,9 @@ public class ProductoDAOImpl implements ProductoDAO{
 			if(producto.getIdOrigen() != null) {
 				preparedStatement.setString(i++, String.valueOf(producto.getIdOrigen()).toUpperCase());
 			}
-
+			if(producto.getNombre() != null) {
+				preparedStatement.setString(i++, producto.getNombre());
+			}
 			if(producto.getOferta() != null) {
 				if(producto.getOferta() !=false) {
 					preparedStatement.setTimestamp(i++,new java.sql.Timestamp(new Date().getTime()));

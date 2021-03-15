@@ -1,4 +1,4 @@
-package com.abastos.service;
+package com.abastos.service.impl;
 
 import java.util.Map;
 
@@ -11,6 +11,7 @@ import org.apache.commons.mail.SimpleEmail;
 
 import com.abastos.dao.ContenidoDAO;
 import com.abastos.dao.jdbc.ContenidoDAOImpl;
+import com.abastos.service.MailService;
 import com.abastos.service.exceptions.MailException;
 import com.abastos.service.utils.VelocityUtils;
 import com.google.gson.Gson;
@@ -23,6 +24,7 @@ public class MailServiceImpl implements MailService {
 	}
 
 	private static final String EMAIL = "abastosmarketplace@gmail.com";
+	private static final String PASSWORD = "27004Pardoba";
 	public void sendMail(Map<String, Object> mapa, Long templat, String...to) throws MailException {
 		try {
 			String templ = VelocityUtils.generateTemplate(templat, mapa);
@@ -31,9 +33,9 @@ public class MailServiceImpl implements MailService {
 			Email email = new SimpleEmail();
 			email.setHostName("smtp.gmail.com");
 			email.setSmtpPort(465);
-			email.setAuthenticator(new DefaultAuthenticator("abastosmarketplace@gmail.com", "27004Pardoba"));
+			email.setAuthenticator(new DefaultAuthenticator(EMAIL, PASSWORD));
 			email.setSSLOnConnect(true);
-			email.setFrom("abastosmarketplace@gmail.com");
+			email.setFrom(EMAIL);
 			email.setSubject(json.get("subject").getAsString());
 			email.setMsg(json.get("mensaje").getAsString());
 			email.addTo(to);

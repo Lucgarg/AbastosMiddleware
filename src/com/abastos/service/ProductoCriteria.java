@@ -7,6 +7,7 @@ public class ProductoCriteria {
 	private Boolean oferta;
 	private Long idTienda;
 	private Integer idCategoria;
+	private String nombre;
 	private Long idEmpresa;
 	public ProductoCriteria() {
 		
@@ -52,6 +53,12 @@ public class ProductoCriteria {
 	}
 	public void setIdEmpresa(Long idEmpresa) {
 		this.idEmpresa = idEmpresa;
+	}
+	public String getNombre() {
+		return nombre;
+	}
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
 	}
 	
 }
