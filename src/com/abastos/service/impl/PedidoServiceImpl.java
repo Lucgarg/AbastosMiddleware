@@ -1,6 +1,7 @@
 package com.abastos.service.impl;
 
 import java.sql.Connection;
+
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
@@ -22,7 +23,6 @@ import com.abastos.model.Producto;
 import com.abastos.service.DataException;
 import com.abastos.service.LineaPedidoService;
 import com.abastos.service.MailService;
-import com.abastos.service.MailServiceImpl;
 import com.abastos.service.ParticularService;
 import com.abastos.service.PedidoService;
 import com.abastos.service.exceptions.MailException;
