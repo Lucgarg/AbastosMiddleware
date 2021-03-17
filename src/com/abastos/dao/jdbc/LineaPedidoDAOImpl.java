@@ -136,6 +136,7 @@ public class LineaPedidoDAOImpl implements LineaPedidoDAO{
 		lineaPedido.setIdProducto(resultSet.getLong(i++));
 		lineaPedido.setNumeroUnidades(resultSet.getInt(i++));
 		lineaPedido.setAddDate(resultSet.getDate(i++));
+		lineaPedido.setPrecio(resultSet.getDouble(i++));
 		lineaPedido.setIdOferta(resultSet.getLong(i++));
 		lineaPedido.setDescuentoPcn(resultSet.getDouble(i++));
 		lineaPedido.setDescuentoFijo(resultSet.getDouble(i++));
