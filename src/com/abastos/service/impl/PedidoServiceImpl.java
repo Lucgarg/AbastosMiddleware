@@ -1,6 +1,7 @@
 package com.abastos.service.impl;
 
 import java.sql.Connection;
+
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
@@ -22,7 +23,6 @@ import com.abastos.model.Producto;
 import com.abastos.service.DataException;
 import com.abastos.service.LineaPedidoService;
 import com.abastos.service.MailService;
-import com.abastos.service.MailServiceImpl;
 import com.abastos.service.ParticularService;
 import com.abastos.service.PedidoService;
 import com.abastos.service.exceptions.MailException;
@@ -51,7 +51,7 @@ public class PedidoServiceImpl implements PedidoService{
 		double descuento = 0.0d;
 
 		for(LineaPedido linPed: pedido.getLineaPedido()) {
-
+			if(linPed.getIdTipoOferta() != null) {
 			if(linPed.getIdTipoOferta() == 3) {
 				for(LineaPedido linPedid: pedido.getLineaPedido()) {
 
@@ -62,7 +62,7 @@ public class PedidoServiceImpl implements PedidoService{
 					}
 				}
 			}
-
+			}
 			precio+=linPed.getPrecioFinal() - descuento;
 			descuento = 0d;
 		}

@@ -49,17 +49,7 @@ public class OfertaServiceTest {
 
 		logger.traceExit();
 	}
-	@Test
-	public void testFindByIdProducto() throws Exception{
-		logger.traceEntry();
 
-		//producto con oferta con fecha no valida
-		assertNull(oferServ.findByIdProducto(1L));
-		//producto con oferta  con fecha valida
-		assertNotNull(oferServ.findByIdProducto(39L));
-
-		logger.traceExit();
-	}
 
 	@Test
 	public void testCreate() throws Exception{

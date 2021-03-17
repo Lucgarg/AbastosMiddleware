@@ -59,25 +59,6 @@ public class OfertaServiceImpl implements OfertaService{
 		}
 		return oferta;
 	}
-	@Override
-	public Oferta findByIdProducto(Long idProducto) throws DataException {
-		logger.info("Iniciando findByIdProducto...");
-		Connection connection = ConnectionManager.getConnection();
-		boolean commit = false;
-		Oferta oferta  = null;
-		try {
-			connection.setAutoCommit(false);
-			oferta = ofertaDAO.findByIdProducto(connection, idProducto);
-			commit = true;
-		}catch(SQLException se) {
-			logger.error(se);
-			throw new DataException(se);
-		}
-		finally {
-			ConnectionManager.closeConnection(connection, commit);
-		}
-		return oferta;
-	}
 
 	@Override
 	public Oferta create(Oferta oferta) throws DataException {

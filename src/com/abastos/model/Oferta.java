@@ -15,6 +15,7 @@ public class Oferta extends ValueObject{
 	private Date fechaDesde;
 	private Date fechaHasta;
 	private Long idProdOferta;
+	private String nombreProdOferta;
 
 	public Oferta() {
 	}
@@ -113,6 +114,14 @@ public class Oferta extends ValueObject{
 
 	public void setIdEmpresa(Long idEmpresa) {
 		this.idEmpresa = idEmpresa;
+	}
+
+	public String getNombreProdOferta() {
+		return nombreProdOferta;
+	}
+
+	public void setNombreProdOferta(String nombreProdOferta) {
+		this.nombreProdOferta = nombreProdOferta;
 	}
 
 	

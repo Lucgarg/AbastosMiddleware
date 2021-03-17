@@ -16,8 +16,10 @@ public class LineaPedido extends ValueObject{
 	private Integer denominador;
 	private Integer idTipoOferta;
 	private Long idProdOferta;
+	private String nombreProdOferta;
 	private Double precioFinal;
-
+	private String nombreOferta;
+	private Long idTienda;
 	public LineaPedido() {
 	}
 
@@ -129,8 +131,32 @@ public class LineaPedido extends ValueObject{
 		this.idProdOferta = idProdOferta;
 	}
 
+	public String getNombreProdOferta() {
+		return nombreProdOferta;
+	}
+
+	public void setNombreProdOferta(String nombreProdOferta) {
+		this.nombreProdOferta = nombreProdOferta;
+	}
+
 	public void setPrecioFinal(Double precioFinal) {
 		this.precioFinal = precioFinal;
+	}
+
+	public String getNombreOferta() {
+		return nombreOferta;
+	}
+
+	public Long getIdTienda() {
+		return idTienda;
+	}
+
+	public void setNombreOferta(String nombreOferta) {
+		this.nombreOferta = nombreOferta;
+	}
+
+	public void setIdTienda(Long idTienda) {
+		this.idTienda = idTienda;
 	}
 
 	

@@ -46,17 +46,7 @@ public class OfertaDAOTest {
 		logger.traceExit();
 	}
 
-	@Test
-	public void testFindByIdProducto()throws Exception {
-		logger.traceEntry();
 
-		//producto con oferta con fecha no valida
-		assertNull(ofertaDAO.findByIdProducto(connection, 1L));
-		//producto con oferta  con fecha valida
-		assertNotNull(ofertaDAO.findByIdProducto(connection, 39L));
-
-		logger.traceExit();
-	}
 
 	@Test
 	public void testCreate() throws Exception{
