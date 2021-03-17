@@ -177,7 +177,7 @@ public class PedidoDAOImpl implements PedidoDAO {
 			sql=new StringBuilder();          
 
 			logger.trace("Create statement...");
-
+			
 			sql.append( " UPDATE PEDIDO SET FECHA_PEDIDO = ? , PRECIO_TOTAL = ? , ");
 			sql.append(" APLICAR_DESCUENTO = ? where id_pedido = ?  ");
 			preparedStatement = connection.prepareStatement(sql.toString());
