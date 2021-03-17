@@ -43,9 +43,9 @@ public class LineaPedidoDAOImpl implements LineaPedidoDAO{
 
 			sql.append( " SELECT ID_PEDIDO, ID_PRODUCTO, ");
 			sql.append(" NUMERO_UNIDADES, ADD_DATE, PRECIO, ");
-			sql.append(" ID_OFERTA, DESCUENTO_PCN, DESCUENTO_FIJO, NUMERADOR");
+			sql.append(" ID_OFERTA, DESCUENTO_PCN, DESCUENTO_FIJO, NUMERADOR, ");
 			sql.append(" DENOMINADOR, PRECIO_FINAL, NOMBRE_PRODUCTO, ");
-			sql.append("ID_TIPO_OFERTA, ID_PRODUCTO_OFERTA  ");
+			sql.append(" ID_TIPO_OFERTA, ID_PRODUCTO_OFERTA  ");
 			sql.append(" FROM LINEA_PEDIDO  ");
 			sql.append(" WHERE ID_PEDIDO = ? ORDER BY ADD_DATE ASC ");
 			preparedStatement = connection.prepareStatement
