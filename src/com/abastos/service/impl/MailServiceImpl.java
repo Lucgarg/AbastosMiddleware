@@ -56,9 +56,9 @@ public class MailServiceImpl implements MailService {
 			HtmlEmail email = new HtmlEmail();
 			email.setHostName("smtp.gmail.com");
 			email.setSmtpPort(465);
-			email.setAuthenticator(new DefaultAuthenticator("abastosmarketplace@gmail.com", "27004Pardoba"));
+			email.setAuthenticator(new DefaultAuthenticator(EMAIL, PASSWORD));
 			email.setSSLOnConnect(true);
-			email.setFrom("abastosmarketplace@gmail.com");
+			email.setFrom(EMAIL,PASSWORD);
 			email.setSubject(json.get("subject").getAsString());
 			email.setHtmlMsg(json.get("mensaje").getAsString());
 			email.addTo(to[0]);

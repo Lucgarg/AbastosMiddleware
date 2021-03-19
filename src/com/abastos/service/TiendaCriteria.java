@@ -6,7 +6,7 @@ public class TiendaCriteria {
 		private Boolean envioDomicilio;
 		private Integer categoria;
 		private Long idLocalidad;
-		
+		private Long idEmpresa;
 		
 		public TiendaCriteria() {
 			
@@ -60,6 +60,16 @@ public class TiendaCriteria {
 
 		public void setIdLocalidad(Long idLocalidad) {
 			this.idLocalidad = idLocalidad;
+		}
+
+
+		public Long getIdEmpresa() {
+			return idEmpresa;
+		}
+
+
+		public void setIdEmpresa(Long idEmpresa) {
+			this.idEmpresa = idEmpresa;
 		}		
 		
 		

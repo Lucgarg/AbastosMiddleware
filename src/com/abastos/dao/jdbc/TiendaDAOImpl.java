@@ -186,7 +186,15 @@ public class TiendaDAOImpl implements TiendaDAO {
 				}
 
 			}
+			if (tiendaCriteria.getIdEmpresa() != null) {
+				if (isFirst == false) {
+					sql.append( " WHERE A.ID_EMPRESA = ? ");
+					isFirst = true;
+				} else {
+					sql.append( " AND A.ID_EMPRESA = ? ");
+				}
 
+			}
 			sql.append( isFirst == false ? " WHERE A.DATA_BAJA IS NULL ORDER BY A.FECHA_CREACION ASC  ":
 					" AND A.DATA_BAJA IS NULL ORDER BY A.FECHA_CREACION ASC  ");
 			
@@ -212,6 +220,9 @@ public class TiendaDAOImpl implements TiendaDAO {
 			}
 			if (tiendaCriteria.getNombre() != null) {
 				preparedStatement.setString(i++, "%" + tiendaCriteria.getNombre().toUpperCase() + "%");
+			}
+			if (tiendaCriteria.getIdEmpresa() != null) {
+				preparedStatement.setLong(i++, tiendaCriteria.getIdEmpresa() );
 			}
 			resultSet = preparedStatement.executeQuery();
 			
