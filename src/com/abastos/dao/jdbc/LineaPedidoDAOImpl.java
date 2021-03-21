@@ -174,7 +174,7 @@ public class LineaPedidoDAOImpl implements LineaPedidoDAO{
 
 			preparedStatement = connection.prepareStatement(sql.toString());
 			logger.trace(sql.toString());
-
+			
 			int i = 1;
 			preparedStatement.setLong(i++, lineaPedido.getIdProducto());
 			preparedStatement.setInt(i++, lineaPedido.getNumeroUnidades());
@@ -192,6 +192,7 @@ public class LineaPedidoDAOImpl implements LineaPedidoDAO{
 				DBNullUtils.toNull(preparedStatement, i++, lineaPedido.getIdTipoOferta());
 				DBNullUtils.toNull(preparedStatement, i++, lineaPedido.getIdProdOferta());
 			}
+			logger.info(preparedStatement.toString());
 			preparedStatement.executeUpdate();
 
 		}catch (SQLException se) {

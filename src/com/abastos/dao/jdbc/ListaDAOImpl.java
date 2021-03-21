@@ -93,7 +93,7 @@ public class ListaDAOImpl implements ListaDAO{
 
 			listaDeseos = new ArrayList<Lista>();
 			resultSet = preparedStatement.executeQuery();
-			if(resultSet.next()) {
+			while(resultSet.next()) {
 				results = loadNext(connection, resultSet);
 				listaDeseos.add(results);
 			}
@@ -188,7 +188,9 @@ public class ListaDAOImpl implements ListaDAO{
 			} 
 			list = findById(connection, lista.getId());
 			for(LineaLista lis : lista.getLineaLista()) {
-				lineaLista.delete(connection, lis.getId(), lis.getIdProducto());
+				if(lis != null) {
+				lineaLista.delete(connection, lis.getId(), null);
+				}
 				lineaLista.create(connection, lis);
 			}
 

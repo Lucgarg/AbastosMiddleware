@@ -58,7 +58,7 @@ public class MailServiceImpl implements MailService {
 			email.setSmtpPort(465);
 			email.setAuthenticator(new DefaultAuthenticator(EMAIL, PASSWORD));
 			email.setSSLOnConnect(true);
-			email.setFrom(EMAIL,PASSWORD);
+			email.setFrom(EMAIL);
 			email.setSubject(json.get("subject").getAsString());
 			email.setHtmlMsg(json.get("mensaje").getAsString());
 			email.addTo(to[0]);

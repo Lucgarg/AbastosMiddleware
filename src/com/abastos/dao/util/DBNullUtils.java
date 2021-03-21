@@ -14,7 +14,7 @@ public  class DBNullUtils {
 		}
 	}
 	public static void toNull(PreparedStatement p, int pos, Integer value) throws SQLException{
-		if(value == null) {
+		if(value == null || value== 0) {
 			p.setNull(pos, Types.INTEGER);
 		}
 		else {
@@ -22,7 +22,7 @@ public  class DBNullUtils {
 		}
 	}
 	public static void toNull(PreparedStatement p, int pos, Long value) throws SQLException{
-		if(value == null) {
+		if(value == null|| value== 0) {
 			p.setNull(pos, Types.BIGINT);
 		}
 		else {
@@ -38,7 +38,7 @@ public  class DBNullUtils {
 		}
 	}
 	public static void toNull(PreparedStatement p, int pos, Double value) throws SQLException{
-		if(value == null) {
+		if(value == null|| value== 0) {
 			p.setNull(pos, Types.DOUBLE);
 		}
 		else {

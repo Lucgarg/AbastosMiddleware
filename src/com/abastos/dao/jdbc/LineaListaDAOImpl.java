@@ -168,7 +168,6 @@ public class LineaListaDAOImpl  implements LineaListaDAO{
 	@Override
 	public boolean update(Connection connection ,LineaLista lineaList)throws DataException {
 		PreparedStatement preparedStatement = null;
-
 		StringBuilder sql=null;
 		try {
 			sql=new StringBuilder();       
@@ -241,6 +240,7 @@ public class LineaListaDAOImpl  implements LineaListaDAO{
 			if(idProducto != null) {
 				preparedStatement.setLong(i++, idProducto);
 			}
+			logger.info(preparedStatement.toString());
 			int deleteRows = preparedStatement.executeUpdate();
 
 			if (deleteRows == 0) {
