@@ -3,8 +3,9 @@ package com.abastos.service;
 
 import java.util.List;
 
+
 import com.abastos.model.LineaPedido;
-import com.abastos.service.exceptions.NegativePriceDiscountException;
+
 
 public interface LineaPedidoService {
 

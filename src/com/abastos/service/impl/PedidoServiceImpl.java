@@ -45,7 +45,7 @@ public class PedidoServiceImpl implements PedidoService{
 		map = new HashMap<String, Object>();
 	}
 
-	private Double calcPrecio(Pedido pedido)throws DataException {
+	public Double calcPrecio(Pedido pedido)throws DataException {
 
 		double precio = 0d;
 		double descuento = 0.0d;
@@ -73,11 +73,11 @@ public class PedidoServiceImpl implements PedidoService{
 
 		}
 
-		return precio;
+		return ServiceUtils.round(precio,2);
 	}
 
 
-	private Integer calcPuntos(Double precio)throws DataException{
+	public Integer calcPuntos(Double precio)throws DataException{
 		int puntos = (int)ServiceUtils.round(precio/10, 0);
 
 		return puntos;
@@ -121,7 +121,7 @@ public class PedidoServiceImpl implements PedidoService{
 		return Pedido;
 	}
 	@Override
-	public Pedido create(Pedido pedido) throws DataException, MailException {
+	public Pedido create(Pedido pedido) throws DataException {
 		logger.info("Creando pedido...");
 		Connection connection = ConnectionManager.getConnection();
 		boolean commit = false;
@@ -145,11 +145,6 @@ public class PedidoServiceImpl implements PedidoService{
 			pedid.setPrecioTotal(precioTotal);
 			puntos = calcPuntos(pedido.getPrecioTotal());
 			particularDAO.updatePuntos(connection, pedido.getIdParticular(), puntos);
-			map.put("user", pedido);
-			map.put("pedido", pedido);
-			map.put("lineaP", pedido.getLineaPedido());
-			map.put("puntos", puntos);
-			mailService.sendMailHtml(map, 5L, "lugarcia132@gmail.com");
 			pedidoDAO.updateEstado(connection, 'C', pedid.getId());
 			commit = true;
 

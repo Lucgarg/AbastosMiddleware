@@ -11,7 +11,9 @@ public interface PedidoService {
 
 	public Pedido findById( Long idPedido) throws DataException;
 	public List<Pedido> findByIdParticular(Long idParticular) throws DataException;
-	public Pedido create(Pedido pedido) throws DataException, MailException;
+	public Double calcPrecio (Pedido pedido)throws DataException;
+	public Integer calcPuntos(Double precio)throws DataException;
+	public Pedido create(Pedido pedido) throws DataException;
 	public boolean updateEstado(char estado, Long idPedido)throws DataException;
 
 	
