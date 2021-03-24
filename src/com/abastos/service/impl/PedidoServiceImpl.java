@@ -51,19 +51,24 @@ public class PedidoServiceImpl implements PedidoService{
 		double descuento = 0.0d;
 
 		for(LineaPedido linPed: pedido.getLineaPedido()) {
+			
 			if(linPed.getIdTipoOferta() != null) {
 			if(linPed.getIdTipoOferta() == 3) {
 				for(LineaPedido linPedid: pedido.getLineaPedido()) {
-
+				
 					if(linPedid.getIdProducto() == linPed.getIdProdOferta()) {
+						
 						descuento = linPed.getDescuentoFijo() == null? linPedid.getPrecio() * (linPed.getDescuentoPcn()/100)
 								: linPed.getDescuentoFijo();
-
+					
+						
+						
 					}
 				}
 			}
 			}
 			precio+=linPed.getPrecioFinal() - descuento;
+			
 			descuento = 0d;
 		}
 		if(pedido.getAplicarDescuento() == true) {
@@ -72,7 +77,7 @@ public class PedidoServiceImpl implements PedidoService{
 			precio -= particular.findPuntos(pedido.getIdParticular())/10;
 
 		}
-
+		
 		return ServiceUtils.round(precio,2);
 	}
 

@@ -167,7 +167,7 @@ public class ProductoDAOImpl implements ProductoDAO{
 				preparedStatement.setString(i++, String.valueOf(producto.getIdOrigen()).toUpperCase());
 			}
 			if(producto.getNombre() != null) {
-				preparedStatement.setString(i++, producto.getNombre());
+				preparedStatement.setString(i++,"%" + producto.getNombre()+ "%" );
 			}
 			if(producto.getOferta() != null) {
 				if(producto.getOferta() !=false) {
@@ -178,7 +178,7 @@ public class ProductoDAOImpl implements ProductoDAO{
 			preparedStatement.setString(i++, idioma);
 
 			resultSet = preparedStatement.executeQuery();
-
+			logger.info(preparedStatement.toString());
 			results = new ArrayList<Producto>();
 
 			Producto pro = null;

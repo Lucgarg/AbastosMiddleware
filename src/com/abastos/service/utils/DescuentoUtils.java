@@ -22,5 +22,15 @@ public class DescuentoUtils {
 		}
 		
 	}
+	public static Double setNullTipoDesc(Double tipoDesc) {
+		if(tipoDesc == 0.0) {
+			return null;
+		}
+		else {
+			return tipoDesc;
+		}
+			
+	}
+
 
 }
