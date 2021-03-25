@@ -81,11 +81,15 @@ public class ProductoServiceImpl implements ProductoService {
 			if(producto.getOferta() != null) {
 
 				if(producto.getOferta().getIdTipoOferta() == 1) {
-
+					
 					producto.setPrecioFinal(DescuentoUtils.descuento(producto));
+				}
+				else {
+					producto.setPrecioFinal(producto.getPrecio());
 				}
 			}
 			else {
+				
 				producto.setPrecioFinal(producto.getPrecio());
 			}
 			product = productoDAO.create(connection, producto);

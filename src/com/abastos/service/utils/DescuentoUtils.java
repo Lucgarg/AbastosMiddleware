@@ -12,12 +12,12 @@ public class DescuentoUtils {
 	}
 	public static Double descuento(Producto product)  {
 	
-		if(product.getOferta().getDescuentoFijo() != 0) {
-			
+		if(product.getOferta().getDescuentoFijo() != 0.0) {
+		
 			return product.getPrecio() - product.getOferta().getDescuentoFijo();
 		}
 		else {
-			
+		
 			return product.getPrecio()  - product.getPrecio() * product.getOferta().getDescuentoPcn()/100;
 		}
 		
