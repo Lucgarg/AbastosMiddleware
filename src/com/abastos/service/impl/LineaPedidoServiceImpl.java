@@ -97,13 +97,14 @@ public class LineaPedidoServiceImpl implements LineaPedidoService {
 				if(lineaPedido.getNumeroUnidades() >= lineaPedido.getDenominador()) {
 					int producDescuento = (lineaPedido.getNumeroUnidades()/lineaPedido.getDenominador())
 							*(lineaPedido.getDenominador() - lineaPedido.getNumerador());
-					double desct =  lineaPedido.getDescuentoFijo() == null? 
+					
+					double desct =  lineaPedido.getDescuentoFijo() == 0.0? 
 							lineaPedido.getDescuentoPcn()/100: lineaPedido.getDescuentoFijo();
-							descuento = lineaPedido.getDescuentoFijo() == null?  lineaPedido.getPrecio() * desct:
+							descuento = lineaPedido.getDescuentoFijo() == 0.0?  lineaPedido.getPrecio() * desct:
 								desct;
 							descuento = ServiceUtils.round(descuento,2);
-							
-							return (lineaPedido.getPrecio()*lineaPedido.getNumeroUnidades()) - (descuento * producDescuento);
+						
+							return ServiceUtils.round((lineaPedido.getPrecio()*lineaPedido.getNumeroUnidades()) - (descuento * producDescuento),2);
 				}
 			}}
 		

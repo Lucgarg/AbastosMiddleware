@@ -54,13 +54,15 @@ public class PedidoServiceImpl implements PedidoService{
 			
 			if(linPed.getIdTipoOferta() != null) {
 			if(linPed.getIdTipoOferta() == 3) {
-				for(LineaPedido linPedid: pedido.getLineaPedido()) {
 				
+				
+				for(LineaPedido linPedid: pedido.getLineaPedido()) {
+			
 					if(linPedid.getIdProducto() == linPed.getIdProdOferta()) {
 						
-						descuento = linPed.getDescuentoFijo() == null? linPedid.getPrecio() * (linPed.getDescuentoPcn()/100)
+						descuento = linPed.getDescuentoFijo() == 0.0? linPedid.getPrecio() * (linPed.getDescuentoPcn()/100)
 								: linPed.getDescuentoFijo();
-					
+						
 						
 						
 					}

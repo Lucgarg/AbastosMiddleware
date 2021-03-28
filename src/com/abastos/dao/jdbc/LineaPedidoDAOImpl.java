@@ -52,7 +52,7 @@ public class LineaPedidoDAOImpl implements LineaPedidoDAO{
 					(sql.toString(), ResultSet.TYPE_SCROLL_INSENSITIVE,
 							ResultSet.CONCUR_READ_ONLY);
 			logger.trace(sql.toString());
-			
+
 			int i = 1;
 
 			preparedStatement.setLong(i++, idPedido);
@@ -107,7 +107,7 @@ public class LineaPedidoDAOImpl implements LineaPedidoDAO{
 					(sql.toString(), ResultSet.TYPE_SCROLL_INSENSITIVE,
 							ResultSet.CONCUR_READ_ONLY);
 			logger.trace(sql.toString());
-		
+
 			int i = 1;
 			if(idPed != null) {
 				preparedStatement.setLong(i++, idPed);
@@ -174,7 +174,7 @@ public class LineaPedidoDAOImpl implements LineaPedidoDAO{
 
 			preparedStatement = connection.prepareStatement(sql.toString());
 			logger.trace(sql.toString());
-			
+
 			int i = 1;
 			preparedStatement.setLong(i++, lineaPedido.getIdProducto());
 			preparedStatement.setInt(i++, lineaPedido.getNumeroUnidades());
@@ -187,7 +187,7 @@ public class LineaPedidoDAOImpl implements LineaPedidoDAO{
 				preparedStatement.setLong(i++, lineaPedido.getIdOferta());
 				DBNullUtils.toNull(preparedStatement, i++, lineaPedido.getDescuentoPcn());
 				DBNullUtils.toNull(preparedStatement, i++, lineaPedido.getDescuentoFijo());
-				DBNullUtils.toNull(preparedStatement, i++,lineaPedido.getNumerador());
+				DBNullUtils.toNull(preparedStatement, i++,	lineaPedido.getNumerador());
 				DBNullUtils.toNull(preparedStatement, i++, lineaPedido.getDenominador());
 				DBNullUtils.toNull(preparedStatement, i++, lineaPedido.getIdTipoOferta());
 				DBNullUtils.toNull(preparedStatement, i++, lineaPedido.getIdProdOferta());
