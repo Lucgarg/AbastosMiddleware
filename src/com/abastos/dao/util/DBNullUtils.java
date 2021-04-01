@@ -6,7 +6,7 @@ import java.sql.Types;
 
 public  class DBNullUtils {
 	public  static void toNull(PreparedStatement p, int pos, String value) throws SQLException{
-		if(value == null) {
+		if(null == value) {
 			p.setNull(pos, Types.VARCHAR);
 		}
 		else {
@@ -14,7 +14,7 @@ public  class DBNullUtils {
 		}
 	}
 	public static void toNull(PreparedStatement p, int pos, Integer value) throws SQLException{
-		if(value== 0) {
+		if(null == value || 0 == value) {
 			p.setNull(pos, Types.INTEGER);
 		}
 		else {
@@ -22,7 +22,7 @@ public  class DBNullUtils {
 		}
 	}
 	public static void toNull(PreparedStatement p, int pos, Long value) throws SQLException{
-		if( value== 0) {
+		if( null == value || 0L == value) {
 			p.setNull(pos, Types.BIGINT);
 		}
 		else {
@@ -30,7 +30,7 @@ public  class DBNullUtils {
 		}
 	}
 	public static void toNull(PreparedStatement p, int pos, Character value) throws SQLException{
-		if(value == null) {
+		if( null == value) {
 			p.setNull(pos, Types.CHAR);
 		}
 		else {
@@ -38,7 +38,8 @@ public  class DBNullUtils {
 		}
 	}
 	public static void toNull(PreparedStatement p, int pos, Double value) throws SQLException{
-		if( value== 0.0) {
+	
+		if(null == value || 0.0 == value) {
 			p.setNull(pos, Types.DOUBLE);
 		}
 		else {
