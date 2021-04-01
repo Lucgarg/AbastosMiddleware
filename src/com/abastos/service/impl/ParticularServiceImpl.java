@@ -113,7 +113,7 @@ public class ParticularServiceImpl implements ParticularService {
 	}
 
 	@Override
-	public Particular registrar(Particular parti) throws DataException, ServiceException {
+	public Particular registrar(Particular parti) throws DataException {
 		logger.info(new StringBuilder().append("Registrando usuario ").append(parti.getEmail()).toString());
 		Particular particular = null;
 		Connection connection = ConnectionManager.getConnection();

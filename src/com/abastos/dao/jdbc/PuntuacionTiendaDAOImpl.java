@@ -105,6 +105,47 @@ public class PuntuacionTiendaDAOImpl implements PuntuacionTiendaDAO {
 		} 
 		return puntTienda;
 	}
+	@Override
+	public PuntuacionTienda findPuntuacion(Connection connection ,Long idParticular, Long idTienda) throws DataException{
+		PuntuacionTienda results = null;
+		ResultSet resultSet = null;
+		PreparedStatement preparedStatement = null;
+		StringBuilder sql=null;
+		try {
+			sql=new StringBuilder();
+
+			logger.trace("Create statement...");
+
+			sql.append( " SELECT ID_PARTICULAR, ID_TIENDA, PUNTUACION_ATENCION_CLIENTE, ");
+			sql.append(" PUNTUACION_PRECIO, PUNTUACION_SERVICIO_DOMICILIO, FECHA_VALORACION ");
+			sql.append(" FROM PARTICULAR_VALORA_TIENDA ");
+			sql.append(" WHERE ID_PARTICULAR = ? AND ID_TIENDA = ? ORDER BY FECHA_VALORACION ASC ");
+			preparedStatement = connection.prepareStatement
+					(sql.toString(), ResultSet.TYPE_SCROLL_INSENSITIVE,
+							ResultSet.CONCUR_READ_ONLY);
+			logger.trace(sql.toString());
+			results = new PuntuacionTienda();
+			int i = 1;
+
+			preparedStatement.setLong(i++, idParticular);
+			preparedStatement.setLong(i++, idTienda);
+
+			resultSet = preparedStatement.executeQuery();
+			if(resultSet.next()) {
+				results = loadNextPuntTi(connection, resultSet);
+				
+			}
+
+		}catch (SQLException se) {
+			logger.error(se);
+			
+			throw new DataException( new StringBuilder().append("Buscando las puntuaciones del particular ")
+					.append(idParticular).toString(), se);
+		} finally {
+			ConnectionManager.close(resultSet, preparedStatement);
+		} 
+		return results;
+	}
 
 
 

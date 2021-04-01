@@ -11,7 +11,7 @@ import com.abastos.service.exceptions.ServiceException;
 public interface ParticularService {
 	public Particular findById(Long idParticular)throws DataException;
 	public Particular login(String email, String alias, String password) throws DataException, ServiceException;
-	public Particular registrar( Particular Parti) throws DataException, ServiceException;
+	public Particular registrar( Particular Parti) throws DataException;
 	public Integer findPuntos( Long idParticular) throws DataException;
 	public Particular update(Particular Parti) throws DataException;
 	public boolean updatePuntos(Long idParticular, Integer puntos) throws DataException;

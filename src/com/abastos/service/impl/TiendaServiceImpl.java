@@ -1,6 +1,7 @@
 package com.abastos.service.impl;
 
 import java.sql.Connection;
+
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
@@ -16,10 +17,10 @@ import com.abastos.model.Tienda;
 import com.abastos.service.ContenidoService;
 import com.abastos.service.DataException;
 import com.abastos.service.MailService;
-import com.abastos.service.MailServiceImpl;
 import com.abastos.service.TiendaCriteria;
 import com.abastos.service.TiendaService;
 import com.abastos.service.exceptions.LimitCreationException;
+import com.abastos.service.exceptions.MailException;
 import com.abastos.service.exceptions.ServiceException;
 
 public class TiendaServiceImpl implements TiendaService{
@@ -98,7 +99,7 @@ public class TiendaServiceImpl implements TiendaService{
 	}
 
 	@Override
-	public Tienda create(Tienda tienda) throws DataException, ServiceException {
+	public Tienda create(Tienda tienda) throws DataException,  LimitCreationException, MailException {
 		logger.info("Creando tienda...");
 		Connection connection = ConnectionManager.getConnection();
 		boolean commit = false;
@@ -109,9 +110,7 @@ public class TiendaServiceImpl implements TiendaService{
 				throw new LimitCreationException("Número máximo de tiendas creadas alcanzado");
 			}
 			tiend = tiendaDAO.create(connection, tienda);
-			velo.put("tienda", tienda);
-			mailService.sendMailHtml(velo,6L,tienda.getEmail());
-			commit = true;	
+		
 			logger.info(new StringBuilder().append("tienda creada ").append(tienda.getEmail()));
 		}catch(SQLException se) {
 			logger.error(se);

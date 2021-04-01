@@ -23,7 +23,7 @@ public class PuntuacionProductoServiceImpl implements PuntuacionProductoService{
 	}
 
 	@Override
-	public List<Integer> findById(Long idProducto, Long idParticular) throws DataException {
+	public List<Integer> findByIdProducto(Long idProducto) throws DataException {
 		logger.info("Iniciando findById...");
 		Connection connection = ConnectionManager.getConnection();
 		boolean commit = false;
@@ -31,8 +31,7 @@ public class PuntuacionProductoServiceImpl implements PuntuacionProductoService{
 		try {
 			connection.setAutoCommit(false);
 
-			puntuacion = idProducto !=null? puntuacionProductoDAO.findByIdProducto(connection, idProducto):
-				puntuacionProductoDAO.findByIdParticular(connection, idParticular);
+			puntuacion = puntuacionProductoDAO.findByIdProducto(connection, idProducto);
 			commit = true;
 		}catch(SQLException se) {
 			logger.error(se);
@@ -43,7 +42,46 @@ public class PuntuacionProductoServiceImpl implements PuntuacionProductoService{
 		}
 		return puntuacion;
 	}
+	@Override
+	public List<Integer> findByIdParticular(Long idParticular) throws DataException {
+		logger.info("Iniciando findById...");
+		Connection connection = ConnectionManager.getConnection();
+		boolean commit = false;
+		List<Integer> puntuacion  = null;
+		try {
+			connection.setAutoCommit(false);
 
+			puntuacion = puntuacionProductoDAO.findByIdParticular(connection, idParticular);
+			commit = true;
+		}catch(SQLException se) {
+			logger.error(se);
+			throw new DataException(se);
+		}
+		finally {
+			ConnectionManager.closeConnection(connection, commit);
+		}
+		return puntuacion;
+	}
+	@Override
+	public Integer findPuntuacion(Long idParticular, Long idProducto) throws DataException {
+		logger.info("Iniciando findById...");
+		Connection connection = ConnectionManager.getConnection();
+		boolean commit = false;
+		Integer puntuacion  = null;
+		try {
+			connection.setAutoCommit(false);
+
+			puntuacion = puntuacionProductoDAO.findPuntuacion(connection, idParticular, idProducto);
+			commit = true;
+		}catch(SQLException se) {
+			logger.error(se);
+			throw new DataException(se);
+		}
+		finally {
+			ConnectionManager.closeConnection(connection, commit);
+		}
+		return puntuacion;
+	}
 
 
 	@Override

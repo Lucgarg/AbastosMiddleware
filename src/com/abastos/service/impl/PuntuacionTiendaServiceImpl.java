@@ -24,7 +24,7 @@ public class PuntuacionTiendaServiceImpl implements PuntuacionTiendaService{
 	}
 
 	@Override
-	public List<PuntuacionTienda> findByIdTienda(Long idTienda, Long idParticular) throws DataException {
+	public List<PuntuacionTienda> findByIdTienda(Long idTienda) throws DataException {
 		logger.info("Iniciando findByIdTienda...");
 		Connection connection = ConnectionManager.getConnection();
 		boolean commit = false;
@@ -32,8 +32,7 @@ public class PuntuacionTiendaServiceImpl implements PuntuacionTiendaService{
 		try {
 			connection.setAutoCommit(false);
 
-			puntuacionTienda = idTienda !=null ? puntuacionTiendaDAO.findByIdTienda(connection, idTienda): 
-				puntuacionTiendaDAO.findByIdTienda(connection, idParticular);
+			puntuacionTienda =  puntuacionTiendaDAO.findByIdTienda(connection, idTienda);
 			commit = true;
 
 		}catch(SQLException se) {
@@ -45,6 +44,49 @@ public class PuntuacionTiendaServiceImpl implements PuntuacionTiendaService{
 		}
 		return puntuacionTienda;
 	}
+	@Override
+	public List<PuntuacionTienda> findByIdParticular(Long idParticular) throws DataException {
+		logger.info("Iniciando findByIdTienda...");
+		Connection connection = ConnectionManager.getConnection();
+		boolean commit = false;
+		List<PuntuacionTienda> puntuacionTienda  = null;
+		try {
+			connection.setAutoCommit(false);
+
+			puntuacionTienda =  puntuacionTiendaDAO.findByIdParticular(connection, idParticular);
+			commit = true;
+
+		}catch(SQLException se) {
+			logger.error(se);
+			throw new DataException(se);
+		}
+		finally {
+			ConnectionManager.closeConnection(connection, commit);
+		}
+		return puntuacionTienda;
+	}
+	@Override
+	public PuntuacionTienda findPuntuacion(Long idParticular, Long idTienda) throws DataException {
+		logger.info("Iniciando findByIdTienda...");
+		Connection connection = ConnectionManager.getConnection();
+		boolean commit = false;
+		PuntuacionTienda puntuacionTienda  = null;
+		try {
+			connection.setAutoCommit(false);
+
+			puntuacionTienda =  puntuacionTiendaDAO.findPuntuacion(connection, idParticular, idTienda);
+			commit = true;
+
+		}catch(SQLException se) {
+			logger.error(se);
+			throw new DataException(se);
+		}
+		finally {
+			ConnectionManager.closeConnection(connection, commit);
+		}
+		return puntuacionTienda;
+	}
+
 
 
 

@@ -45,7 +45,7 @@ public class LineaPedidoDAOImpl implements LineaPedidoDAO{
 			sql.append(" NUMERO_UNIDADES, ADD_DATE, PRECIO, ");
 			sql.append(" ID_OFERTA, DESCUENTO_PCN, DESCUENTO_FIJO, NUMERADOR, ");
 			sql.append(" DENOMINADOR, PRECIO_FINAL, NOMBRE_PRODUCTO, ");
-			sql.append(" ID_TIPO_OFERTA, ID_PRODUCTO_OFERTA  ");
+			sql.append(" ID_TIPO_OFERTA, ID_PRODUCTO_OFERTA, ID_TIENDA  ");
 			sql.append(" FROM LINEA_PEDIDO  ");
 			sql.append(" WHERE ID_PEDIDO = ? ORDER BY ADD_DATE ASC ");
 			preparedStatement = connection.prepareStatement
@@ -90,7 +90,7 @@ public class LineaPedidoDAOImpl implements LineaPedidoDAO{
 			sql.append( " SELECT ID_PEDIDO, ID_PRODUCTO, ");
 			sql.append(" NUMERO_UNIDADES, ADD_DATE, PRECIO, ");
 			sql.append(" ID_OFERTA, DESCUENTO_PCN, DESCUENTO_FIJO, NUMERADOR, ");
-			sql.append(" DENOMINADOR, PRECIO_FINAL, NOMBRE_PRODUCTO, ");
+			sql.append(" DENOMINADOR, PRECIO_FINAL, NOMBRE_PRODUCTO , ID_TIENDA ");
 			sql.append("ID_TIPO_OFERTA, ID_PRODUCTO_OFERTA ");
 			sql.append(" FROM LINEA_PEDIDO  ");
 
@@ -146,6 +146,7 @@ public class LineaPedidoDAOImpl implements LineaPedidoDAO{
 		lineaPedido.setNombreProducto(resultSet.getString(i++));
 		lineaPedido.setIdTipoOferta(resultSet.getInt(i++));
 		lineaPedido.setIdProdOferta(resultSet.getLong(i++));
+		lineaPedido.setIdTienda(resultSet.getLong(i++));
 		return lineaPedido;
 
 
@@ -161,14 +162,14 @@ public class LineaPedidoDAOImpl implements LineaPedidoDAO{
 			logger.trace("Create statement...");
 
 			sql.append( " INSERT INTO LINEA_PEDIDO(ID_PRODUCTO, NUMERO_UNIDADES, ");
-			sql.append(" ID_PEDIDO, ADD_DATE, PRECIO, PRECIO_FINAL, nombre_producto ");
+			sql.append(" ID_PEDIDO, ADD_DATE, PRECIO, PRECIO_FINAL, nombre_producto , ID_TIENDA ");
 			if(lineaPedido.getIdOferta() != null) {
 				sql.append( " , ID_OFERTA, ");
 				sql.append(" DESCUENTO_PCN, DESCUENTO_FIJO, NUMERADOR, DENOMINADOR, ID_TIPO_OFERTA, ID_PRODUCTO_OFERTA ) "); 
-				sql.append(" VALUE(?, ? , ? , ?, ? , ?, ? , ? , ? , ?, ?, ?, ?, ?) "); 
+				sql.append(" VALUE(?, ? , ? , ?, ? , ?, ? , ? , ? , ?, ?, ?, ?, ?, ?) "); 
 			}
 			else {
-				sql.append(  " ) VALUE(?, ? , ? , ?, ?, ?, ? ) "); 
+				sql.append(  " ) VALUE(?, ? , ? , ?, ?, ?, ?, ? ) "); 
 			}
 
 
@@ -183,6 +184,7 @@ public class LineaPedidoDAOImpl implements LineaPedidoDAO{
 			preparedStatement.setDouble(i++, lineaPedido.getPrecio());
 			preparedStatement.setDouble(i++, lineaPedido.getPrecioFinal());
 			preparedStatement.setString(i++, lineaPedido.getNombreProducto());
+			preparedStatement.setLong(i++, lineaPedido.getIdTienda());
 			if(lineaPedido.getIdOferta() !=null) {
 				preparedStatement.setLong(i++, lineaPedido.getIdOferta());
 				DBNullUtils.toNull(preparedStatement, i++, lineaPedido.getDescuentoPcn());

@@ -102,6 +102,48 @@ public class PuntuacionProductoDAOImpl implements PuntuacionProductoDAO {
 		return puntProduc;
 	}
 	@Override
+	public Integer findPuntuacion(Connection connection ,Long idParticular, Long idProducto) throws DataException {
+		ResultSet resultSet = null;
+		PreparedStatement preparedStatement = null;
+		StringBuilder sql=null;
+		Integer punt = null;
+		try {
+			sql=new StringBuilder();
+
+			logger.trace("Create statement...");
+			sql.append( " SELECT  PUNTUACION_PRODUCTO FROM ");
+			sql.append(" PARTICULAR_VALORA_PRODUCTO ");
+			sql.append(" WHERE ID_PARTICULAR = ? AND ID_PRODUCTO = ?  ORDER BY FECHA_VALORACION ASC ");
+			preparedStatement = connection.prepareStatement
+					(sql.toString(), ResultSet.TYPE_SCROLL_INSENSITIVE,
+							ResultSet.CONCUR_READ_ONLY);
+			logger.trace(sql.toString());
+		
+			int i = 1;
+
+			preparedStatement.setLong(i++, idParticular);
+			preparedStatement.setLong(i++, idProducto);
+
+
+			
+			resultSet = preparedStatement.executeQuery();
+
+			if(resultSet.next()) {
+				punt = resultSet.getInt(1);
+				
+			}
+
+		}catch (SQLException se) {
+			logger.error(se);
+			throw new DataException(new StringBuilder().append("Buscando las puntuaciones del particular ")
+					.append(idParticular).toString(),se);
+		} 
+		finally {
+			ConnectionManager.close(resultSet, preparedStatement);
+		} 
+		return punt;
+	}
+	@Override
 	public Double findMedia(Connection connection ,Long idProducto)throws DataException {
 		Double media = null;
 		ResultSet resultSet = null;

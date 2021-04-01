@@ -11,6 +11,7 @@ import com.abastos.service.DataException;
 public interface PuntuacionTiendaDAO {
 	public List<PuntuacionTienda> findByIdTienda(Connection connection, Long idTienda)throws DataException;
 	public List<PuntuacionTienda> findByIdParticular(Connection connection, Long idParticular)throws DataException;
+	public PuntuacionTienda findPuntuacion(Connection connection ,Long idParticular, Long idTienda) throws DataException;
 	public PuntuacionMediaTienda findMedia(Connection connection, Long idTienda)throws DataException;
 	public void create(Connection connection, PuntuacionTienda puntuacion)throws DataException;
 	public boolean update(Connection connection, PuntuacionTienda puntuacion)throws DataException;

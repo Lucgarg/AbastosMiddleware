@@ -4,7 +4,9 @@ package com.abastos.service;
 import java.util.List;
 
 public interface PuntuacionProductoService {
-	public List<Integer> findById( Long idProducto, Long idParticular)throws DataException;
+	public List<Integer> findByIdProducto( Long idProducto)throws DataException;
+	public List<Integer> findByIdParticular( Long idParticular)throws DataException;
+	public Integer findPuntuacion(Long idParticular, Long idProducto)throws DataException;
 	public Double findMedia(Long idProducto)throws DataException;
 	public void create(Long idParticular,  Long idProducto, Integer puntuPro)throws DataException;
 	public boolean update( Long idParticular,  Long idProducto, Integer puntuPro)throws DataException;

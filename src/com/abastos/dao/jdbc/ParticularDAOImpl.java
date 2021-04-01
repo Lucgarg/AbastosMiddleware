@@ -213,8 +213,8 @@ public class ParticularDAOImpl implements ParticularDAO {
 
 			sql.append( " INSERT INTO PARTICULAR(CONTRASENA, ");
 			sql.append(" CORREO_ELECTRONICO, ALIAS, NUMERO_TELEFONO, NUMERO_MOVIL, NOMBRE, ");
-			sql.append(" APELLIDOS, NUMERO_PUNTOS ) ");
-			sql.append(" VALUES (? , ? , ? , ? , ? , ? , ?, ?) ");
+			sql.append(" APELLIDOS) ");
+			sql.append(" VALUES (? , ? , ? , ? , ? , ? , ?) ");
 
 			preparedStatement = connection.prepareStatement(sql.toString(), Statement.RETURN_GENERATED_KEYS);
 			logger.trace(sql.toString());
@@ -226,7 +226,7 @@ public class ParticularDAOImpl implements ParticularDAO {
 			DBNullUtils.toNull(preparedStatement, i++, particular.getNumberoMovil());
 			preparedStatement.setString(i++, particular.getNombre());
 			preparedStatement.setString(i++, particular.getApellidos());
-			DBNullUtils.toNull(preparedStatement, i++, particular.getPuntos());
+			
 
 			preparedStatement.executeUpdate();
 			resultSet = preparedStatement.getGeneratedKeys();

@@ -98,7 +98,7 @@ public class EmpresaServiceImpl implements EmpresaService{
 	}
 
 	@Override
-	public Empresa registrar(Empresa empresa) throws DataException, MailException {
+	public Empresa registrar(Empresa empresa) throws DataException{
 		logger.info( new StringBuilder().append("Registrando usuario ")
 				.append(empresa.getCorreoElectronico()).toString());
 		String encryptedPassword = ENCRYPTOR.encryptPassword(empresa.getContrasena());
@@ -110,8 +110,6 @@ public class EmpresaServiceImpl implements EmpresaService{
 
 			connection.setAutoCommit(false); 
 			empres = empresaDAO.create(connection, empresa);
-		
-
 			commit = true;			
 
 			logger.info(new StringBuilder().append("Usuario ")
