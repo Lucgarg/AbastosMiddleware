@@ -51,7 +51,7 @@ public class TiendaServiceTest {
 		logger.traceExit();
 
 	}
-
+	@Ignore
 	@Test
 	public void testFindByIdEmpresa() throws Exception{
 		logger.traceEntry();
@@ -60,6 +60,7 @@ public class TiendaServiceTest {
 
 		logger.traceExit();
 	}
+	@Ignore
 	@Test
 	public void testFindByCriteria() throws Exception{
 		logger.traceEntry();
@@ -75,6 +76,7 @@ public class TiendaServiceTest {
 
 		logger.traceExit();
 	}
+	@Ignore
 	@Test
 	public void testFindByCriteriaNombreLocalidad() throws Exception{
 		logger.traceEntry();
@@ -87,6 +89,7 @@ public class TiendaServiceTest {
 
 		logger.traceExit();
 	}
+	@Ignore
 	@Test
 	public void testFindByCriteriaCategoriaEnvio() throws Exception{
 		logger.traceEntry();
@@ -100,6 +103,7 @@ public class TiendaServiceTest {
 		logger.traceExit();
 		
 	}
+	@Ignore
 	@Test
 	public void testFindByCriteriaNombre() throws Exception{
 		logger.traceEntry();
@@ -110,6 +114,7 @@ public class TiendaServiceTest {
 
 		logger.traceExit();
 	}
+	@Ignore
 	@Test
 	public void testFindByCriteriaLocalidad() throws Exception {
 		logger.traceEntry();
@@ -121,6 +126,7 @@ public class TiendaServiceTest {
 
 		logger.traceExit();
 	}
+	@Ignore
 	@Test
 	public void testFindByCriteriaCategoria() throws Exception {
 		logger.traceEntry();
@@ -132,7 +138,7 @@ public class TiendaServiceTest {
 
 		logger.traceExit();
 	}
-
+	@Ignore
 	@Test
 	public void testFindByCriteriaEnvio() throws Exception{
 		logger.traceEntry();
@@ -150,10 +156,10 @@ public class TiendaServiceTest {
 		logger.traceEntry();
 		Tienda tienda = new Tienda();
 		tienda.setCategoria(1);
-		tienda.setEmail("lugarcia132@gmail.com");
+		tienda.setEmail("prueba12000@gmail.com");
 		tienda.setEnvioDomicilio(true);
 		tienda.setIdEmpresa(1L);
-		tienda.setNombre("Maria del Carmen Gondar Prol");
+		tienda.setNombre("Maria del  Gondar Prol");
 		tienda.setNumeroTelefono("986785645");
 		DireccionDto direccionDto = new DireccionDto();
 		direccionDto.setCalle("prueba006");
@@ -166,11 +172,11 @@ public class TiendaServiceTest {
 
 
 		tienda = tiendaService.create(tienda);
-
+		logger.info(tienda);
 
 		logger.traceExit();
 	}
-
+	@Ignore
 	@Test
 	public void testUpdate() throws Exception{
 		logger.traceEntry();
@@ -182,7 +188,7 @@ public class TiendaServiceTest {
 
 		logger.traceExit();
 	}
-
+	@Ignore
 	@Test
 	public void testDelete() throws Exception{
 		logger.traceEntry();

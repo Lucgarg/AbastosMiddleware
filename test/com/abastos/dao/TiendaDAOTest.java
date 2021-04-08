@@ -12,6 +12,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import com.abastos.dao.jdbc.TiendaDAOImpl;
@@ -35,7 +36,7 @@ public class TiendaDAOTest {
 	public void tearDown() throws Exception {
 		ConnectionManager.closeConnection(connection, false);
 	}
-
+	@Ignore
 	@Test
 	public void testFindById() throws Exception{
 		logger.traceEntry();
@@ -45,7 +46,7 @@ public class TiendaDAOTest {
 		logger.traceExit();
 
 	}
-
+	@Ignore
 	@Test
 	public void testFindByIdEmpresa() throws Exception{
 		logger.traceEntry();
@@ -55,6 +56,7 @@ public class TiendaDAOTest {
 
 		logger.traceExit();
 	}
+	@Ignore
 	@Test
 	public void testFindByCriteria() throws Exception{
 		logger.traceEntry();
@@ -71,6 +73,7 @@ public class TiendaDAOTest {
 
 		logger.traceExit();
 	}
+	@Ignore
 	@Test
 	public void testFindByCriteriaNombreLocalidad() throws Exception{
 		logger.traceEntry();
@@ -84,6 +87,7 @@ public class TiendaDAOTest {
 
 		logger.traceExit();
 	}
+	@Ignore
 	@Test
 	public void testFindByCriteriaCategoriaEnvio() throws Exception{
 		logger.traceEntry();
@@ -98,6 +102,7 @@ public class TiendaDAOTest {
 		logger.traceExit();
 		
 	}
+	@Ignore
 	@Test
 	public void testFindByCriteriaNombre() throws Exception{
 		logger.traceEntry();
@@ -109,6 +114,7 @@ public class TiendaDAOTest {
 
 		logger.traceExit();
 	}
+	@Ignore
 	@Test
 	public void testFindByCriteriaLocalidad() throws Exception {
 		logger.traceEntry();
@@ -121,6 +127,7 @@ public class TiendaDAOTest {
 
 		logger.traceExit();
 	}
+	@Ignore
 	@Test
 	public void testFindByCriteriaCategoria() throws Exception {
 		logger.traceEntry();
@@ -133,7 +140,7 @@ public class TiendaDAOTest {
 
 		logger.traceExit();
 	}
-
+	@Ignore
 	@Test
 	public void testFindByCriteriaEnvio() throws Exception{
 		logger.traceEntry();
@@ -172,7 +179,7 @@ public class TiendaDAOTest {
 
 		logger.traceExit();
 	}
-
+	@Ignore
 	@Test
 	public void testUpdate() throws Exception{
 		logger.traceEntry();
@@ -184,7 +191,7 @@ public class TiendaDAOTest {
 
 		logger.traceExit();
 	}
-
+	@Ignore
 	@Test
 	public void testDelete() throws Exception{
 		logger.traceEntry();

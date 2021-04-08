@@ -330,8 +330,9 @@ public class TiendaDAOImpl implements TiendaDAO {
 			preparedStatement.setLong(i++, tienda.getIdEmpresa());
 			preparedStatement.setInt(i++, tienda.getCategoria());
 			preparedStatement.setTimestamp(i++, new Timestamp(new Date().getTime()));
-
+			
 			preparedStatement.executeUpdate();
+		
 
 			resultSet = preparedStatement.getGeneratedKeys();
 			tien = new Tienda();
@@ -341,7 +342,8 @@ public class TiendaDAOImpl implements TiendaDAO {
 				tien.setId(resultSet.getLong(i++));
 				tienda.setId(tien.getId());
 			}
-
+		
+		
 			createDireccionTienda(connection, tienda);
 
 		} catch (SQLException se) {
