@@ -19,6 +19,7 @@ import com.abastos.dao.OfertaDAO;
 import com.abastos.dao.ProductoDAO;
 import com.abastos.dao.ProductoIdiomaDAO;
 import com.abastos.dao.PuntuacionProductoDAO;
+import com.abastos.dao.Results;
 import com.abastos.dao.util.ConnectionManager;
 import com.abastos.dao.util.DAOUtils;
 import com.abastos.dao.util.DBNullUtils;
@@ -84,11 +85,13 @@ public class ProductoDAOImpl implements ProductoDAO{
 		return producto;
 	}
 	@Override
-	public List<Producto> findBy(Connection connection ,ProductoCriteria producto, String idioma)throws DataException {
+	public Results<Producto> findBy(Connection connection ,ProductoCriteria producto, String idioma, 
+			int startIndex, int count)throws DataException {
 		List<Producto> results = null;
 		ResultSet resultSet = null;
 		PreparedStatement preparedStatement = null;
 		StringBuilder sql=null;
+		Results<Producto> resultsProducts = null;
 		try {
 			sql=new StringBuilder();
 
@@ -143,7 +146,7 @@ public class ProductoDAOImpl implements ProductoDAO{
 				}
 			}
 
-			sql.append( " AND g.id_idioma = ? AND A.DATA_BAJA IS  NULL ");
+			sql.append( " AND g.id_idioma = ? AND A.DATA_BAJA IS  NULL ORDER BY A.FECHA_CREACION ASC");
 
 			preparedStatement = connection.prepareStatement(sql.toString(),
 					ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
@@ -183,13 +186,17 @@ public class ProductoDAOImpl implements ProductoDAO{
 
 			Producto pro = null;
 
-			while (resultSet.next()) {
-
-				pro = new Producto();
-				pro = loadNext(connection, resultSet);				
-				results.add(pro);
+			int currentCount = 0;
+			if ((startIndex >=1) && resultSet.absolute(startIndex)) {
+				do {
+				
+					pro = loadNext(connection, resultSet);				
+					results.add(pro);
+					currentCount++; 
+				} while ((currentCount < count) && resultSet.next()) ;
 			}
-
+			int totalRows = DAOUtils.getTotalRows(resultSet);
+			 resultsProducts = new Results<Producto>(results, startIndex, totalRows);
 		} catch (SQLException se) {
 			logger.error(se);
 			throw new DataException("Buscando productos ",se);
@@ -198,7 +205,7 @@ public class ProductoDAOImpl implements ProductoDAO{
 			ConnectionManager.close(resultSet, preparedStatement);
 		}
 
-		return results;
+		return resultsProducts;
 	}
 	@Override
 	public Integer count(Connection connection, Producto producto) throws DataException {
@@ -345,8 +352,8 @@ public class ProductoDAOImpl implements ProductoDAO{
 		PreparedStatement preparedStatement = null;
 		StringBuilder sql=null;
 		try {
-			
-			
+
+
 			for(ProductoIdioma pro : producto.getProductoIdioma()) {
 				sql=new StringBuilder();
 				logger.trace("Create statement...");
@@ -545,7 +552,7 @@ public class ProductoDAOImpl implements ProductoDAO{
 
 			productoCriteria = new ProductoCriteria();
 			productoCriteria.setIdTienda(idTienda);
-			listProduct = findBy(connection, productoCriteria, "es");
+			//listProduct = findBy(connection, productoCriteria, "es");
 			for(Producto p: listProduct) {
 				deleteContenidoProducto(connection, p);
 			}

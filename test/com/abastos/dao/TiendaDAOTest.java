@@ -1,5 +1,6 @@
 package com.abastos.dao;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
@@ -18,6 +19,7 @@ import org.junit.Test;
 import com.abastos.dao.jdbc.TiendaDAOImpl;
 import com.abastos.dao.util.ConnectionManager;
 import com.abastos.model.DireccionDto;
+import com.abastos.model.Producto;
 import com.abastos.model.Tienda;
 import com.abastos.service.TiendaCriteria;
 
@@ -66,11 +68,21 @@ public class TiendaDAOTest {
 		tiendaCrit.setEnvioDomicilio(true);
 		tiendaCrit.setIdLocalidad(1L);
 
+		int index = 1;
 
+		int total = Integer.MAX_VALUE;
 
-		assertNotEquals(Collections.EMPTY_LIST,tiendaDAO
-				.findByCriteria(connection,tiendaCrit));
+		Results<Tienda>  listTienda = null;
+		while(index < total) {
+			listTienda = tiendaDAO.findByCriteria(connection, tiendaCrit, index, 10);
+			for(Tienda p : listTienda.getPage()) {
+				logger.info(p.getId());
+			}
+			total = listTienda.getTotal();		
+			index += 10;
 
+		}
+		assertEquals(Collections.EMPTY_LIST,listTienda);
 		logger.traceExit();
 	}
 	@Ignore
@@ -82,9 +94,21 @@ public class TiendaDAOTest {
 		tiendaCrit.setNombre("Ali");
 		tiendaCrit.setIdLocalidad(1L);
 
-		assertNotEquals(Collections.EMPTY_LIST,tiendaDAO
-				.findByCriteria(connection,tiendaCrit));
+		int index = 1;
 
+		int total = Integer.MAX_VALUE;
+
+		Results<Tienda>  listTienda = null;
+		while(index < total) {
+			listTienda = tiendaDAO.findByCriteria(connection, tiendaCrit, index, 10);
+			for(Tienda p : listTienda.getPage()) {
+				logger.info(p.getId());
+			}
+			total = listTienda.getTotal();		
+			index += 10;
+
+		}
+		assertEquals(Collections.EMPTY_LIST,listTienda);
 		logger.traceExit();
 	}
 	@Ignore
@@ -96,11 +120,22 @@ public class TiendaDAOTest {
 		tiendaCrit.setCategoria(8);
 		tiendaCrit.setEnvioDomicilio(false);
 
-		assertNotEquals(Collections.EMPTY_LIST,tiendaDAO
-				.findByCriteria(connection,tiendaCrit));
+		int index = 1;
 
+		int total = Integer.MAX_VALUE;
+
+		Results<Tienda>  listTienda = null;
+		while(index < total) {
+			listTienda = tiendaDAO.findByCriteria(connection, tiendaCrit, index, 10);
+			for(Tienda p : listTienda.getPage()) {
+				logger.info(p.getId());
+			}
+			total = listTienda.getTotal();		
+			index += 10;
+
+		}
+		assertEquals(Collections.EMPTY_LIST,listTienda);
 		logger.traceExit();
-		
 	}
 	@Ignore
 	@Test
@@ -109,9 +144,21 @@ public class TiendaDAOTest {
 		TiendaCriteria tiendaCrit = new TiendaCriteria();
 		tiendaCrit.setNombre("Ali");
 
-		assertNotEquals(Collections.EMPTY_LIST,tiendaDAO
-				.findByCriteria(connection,tiendaCrit));
+		int index = 1;
 
+		int total = Integer.MAX_VALUE;
+
+		Results<Tienda>  listTienda = null;
+		while(index < total) {
+			listTienda = tiendaDAO.findByCriteria(connection, tiendaCrit, index, 10);
+			for(Tienda p : listTienda.getPage()) {
+				logger.info(p.getId());
+			}
+			total = listTienda.getTotal();		
+			index += 10;
+
+		}
+		assertEquals(Collections.EMPTY_LIST,listTienda);
 		logger.traceExit();
 	}
 	@Ignore
@@ -122,9 +169,21 @@ public class TiendaDAOTest {
 		tiendaCrit.setIdLocalidad(1L);
 
 
-		assertNotEquals(Collections.EMPTY_LIST,tiendaDAO
-				.findByCriteria(connection,tiendaCrit));
+		int index = 1;
 
+		int total = Integer.MAX_VALUE;
+
+		Results<Tienda>  listTienda = null;
+		while(index < total) {
+			listTienda = tiendaDAO.findByCriteria(connection, tiendaCrit, index, 10);
+			for(Tienda p : listTienda.getPage()) {
+				logger.info(p.getId());
+			}
+			total = listTienda.getTotal();		
+			index += 10;
+
+		}
+		assertEquals(Collections.EMPTY_LIST,listTienda);
 		logger.traceExit();
 	}
 	@Ignore
@@ -135,9 +194,21 @@ public class TiendaDAOTest {
 		tiendaCrit.setCategoria(8);
 
 
-		assertNotEquals(Collections.EMPTY_LIST,tiendaDAO
-				.findByCriteria(connection,tiendaCrit));
+		int index = 1;
 
+		int total = Integer.MAX_VALUE;
+
+		Results<Tienda>  listTienda = null;
+		while(index < total) {
+			listTienda = tiendaDAO.findByCriteria(connection, tiendaCrit, index, 10);
+			for(Tienda p : listTienda.getPage()) {
+				logger.info(p.getId());
+			}
+			total = listTienda.getTotal();		
+			index += 10;
+
+		}
+		assertEquals(Collections.EMPTY_LIST,listTienda);
 		logger.traceExit();
 	}
 	@Ignore
@@ -148,9 +219,21 @@ public class TiendaDAOTest {
 		tiendaCrit.setEnvioDomicilio(true);
 
 
-		assertNotEquals(Collections.EMPTY_LIST,tiendaDAO
-				.findByCriteria(connection,tiendaCrit));
+		int index = 1;
 
+		int total = Integer.MAX_VALUE;
+
+		Results<Tienda>  listTienda = null;
+		while(index < total) {
+			listTienda = tiendaDAO.findByCriteria(connection, tiendaCrit, index, 10);
+			for(Tienda p : listTienda.getPage()) {
+				logger.info(p.getId());
+			}
+			total = listTienda.getTotal();		
+			index += 10;
+
+		}
+		assertEquals(Collections.EMPTY_LIST,listTienda);
 		logger.traceExit();
 	}
 

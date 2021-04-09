@@ -1,7 +1,6 @@
 package com.abastos.service.impl;
 
 import java.sql.Connection;
-
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
@@ -10,18 +9,17 @@ import java.util.Map;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import com.abastos.dao.Results;
 import com.abastos.dao.TiendaDAO;
 import com.abastos.dao.jdbc.TiendaDAOImpl;
 import com.abastos.dao.util.ConnectionManager;
 import com.abastos.model.Tienda;
-import com.abastos.service.ContenidoService;
 import com.abastos.service.DataException;
 import com.abastos.service.MailService;
 import com.abastos.service.TiendaCriteria;
 import com.abastos.service.TiendaService;
 import com.abastos.service.exceptions.LimitCreationException;
 import com.abastos.service.exceptions.MailException;
-import com.abastos.service.exceptions.ServiceException;
 
 public class TiendaServiceImpl implements TiendaService{
 	private static Logger logger = LogManager.getLogger(TiendaServiceImpl.class);
@@ -77,15 +75,15 @@ public class TiendaServiceImpl implements TiendaService{
 	}
 
 	@Override
-	public List<Tienda> findByCriteria(TiendaCriteria tiendaCri) throws DataException {
+	public Results<Tienda> findByCriteria(TiendaCriteria tiendaCri, int startIndex, int count) throws DataException {
 		logger.info("Iniciando findByCriteria...");
 		Connection connection = ConnectionManager.getConnection();
 		boolean commit = false;
-		List<Tienda> tienda  = null;
+		Results<Tienda> tienda  = null;
 		try {
 			
 			connection.setAutoCommit(false);
-			tienda = tiendaDAO.findByCriteria(connection, tiendaCri);
+			tienda = tiendaDAO.findByCriteria(connection, tiendaCri, startIndex, count);
 			commit = true;
 		}catch(SQLException se) {
 			logger.error(se);

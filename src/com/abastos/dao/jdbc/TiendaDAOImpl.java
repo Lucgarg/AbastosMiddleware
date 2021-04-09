@@ -18,10 +18,13 @@ import com.abastos.dao.DireccionDAO;
 import com.abastos.dao.DireccionDtoDAO;
 import com.abastos.dao.ProductoDAO;
 import com.abastos.dao.PuntuacionTiendaDAO;
+import com.abastos.dao.Results;
 import com.abastos.dao.TiendaDAO;
 import com.abastos.dao.util.ConnectionManager;
+import com.abastos.dao.util.DAOUtils;
 import com.abastos.dao.util.DBNullUtils;
 import com.abastos.model.Direccion;
+import com.abastos.model.Producto;
 import com.abastos.model.Tienda;
 import com.abastos.service.DataException;
 import com.abastos.service.TiendaCriteria;
@@ -64,7 +67,7 @@ public class TiendaDAOImpl implements TiendaDAO {
 			logger.trace(sql.toString());
 			int i = 1;
 			preparedStatement.setLong(i++, idTienda);
-			
+
 			resultSet = preparedStatement.executeQuery();
 			if (resultSet.next()) {
 				tienda = loadNext(connection, resultSet);
@@ -72,7 +75,7 @@ public class TiendaDAOImpl implements TiendaDAO {
 
 		} catch (SQLException se) {
 			logger.error(se);
- 
+
 			throw new DataException( new StringBuilder().append("Buscando la tienda ")
 					.append(idTienda).toString(),se);
 		} 
@@ -119,7 +122,7 @@ public class TiendaDAOImpl implements TiendaDAO {
 
 		} catch (SQLException se) {
 			logger.error(se);
-			 
+
 			throw new DataException( new StringBuilder().append("Buscando las tiendas de la empresa ")
 					.append(idEmpresa).toString(),se);
 		}  
@@ -131,12 +134,12 @@ public class TiendaDAOImpl implements TiendaDAO {
 	}
 
 	@Override
-	public List<Tienda> findByCriteria(Connection connection ,TiendaCriteria tiendaCriteria) throws DataException {
+	public Results<Tienda> findByCriteria(Connection connection ,TiendaCriteria tiendaCriteria, int startIndex, int count) throws DataException {
 
 		List<Tienda> results = null;
 		ResultSet resultSet = null;
 		PreparedStatement preparedStatement = null;
-
+		Results<Tienda> resultsTienda = null;
 		StringBuilder sql=null;
 		try {
 			sql=new StringBuilder();
@@ -158,7 +161,7 @@ public class TiendaDAOImpl implements TiendaDAO {
 				isFirst = true;
 
 			}
-			
+
 			if (tiendaCriteria.getCategoria() != null) {
 				if (isFirst == false) {
 					sql.append( " WHERE A.ID_CATEGORIA = ? ");
@@ -197,7 +200,7 @@ public class TiendaDAOImpl implements TiendaDAO {
 			}
 			sql.append( isFirst == false ? " WHERE A.DATA_BAJA IS NULL ORDER BY A.FECHA_CREACION ASC  ":
 					" AND A.DATA_BAJA IS NULL ORDER BY A.FECHA_CREACION ASC  ");
-			
+
 			preparedStatement = connection.prepareStatement(sql.toString(), ResultSet.TYPE_SCROLL_INSENSITIVE,
 					ResultSet.CONCUR_READ_ONLY);
 			logger.trace(sql.toString());
@@ -225,13 +228,16 @@ public class TiendaDAOImpl implements TiendaDAO {
 				preparedStatement.setLong(i++, tiendaCriteria.getIdEmpresa() );
 			}
 			resultSet = preparedStatement.executeQuery();
-			
-			while (resultSet.next()) {
 
-				e = loadNext(connection, resultSet);
-				results.add(e);
+			int currentCount = 0;
+			if ((startIndex >=1) && resultSet.absolute(startIndex)) {
+				do {
+					e = loadNext(connection, resultSet);
+					results.add(e);
+				} while ((currentCount < count) && resultSet.next()) ;
 			}
-
+			int totalRows = DAOUtils.getTotalRows(resultSet);
+			resultsTienda = new Results<Tienda>(results, startIndex, totalRows);
 		} catch (SQLException se) {
 			logger.error(se);
 			throw new DataException("Buscando tiendas ",se);
@@ -239,7 +245,7 @@ public class TiendaDAOImpl implements TiendaDAO {
 			ConnectionManager.close(resultSet, preparedStatement);
 		}
 
-		return results;
+		return resultsTienda;
 	}
 	@Override
 	public Integer count(Connection connection, Tienda tienda) throws DataException{
@@ -260,7 +266,7 @@ public class TiendaDAOImpl implements TiendaDAO {
 			logger.trace(sql.toString());
 			int i = 1;
 			preparedStatement.setLong(i++, tienda.getIdEmpresa());
-			
+
 			resultSet = preparedStatement.executeQuery();
 			i = 1;
 			if (resultSet.next()) {
@@ -269,7 +275,7 @@ public class TiendaDAOImpl implements TiendaDAO {
 
 		} catch (SQLException se) {
 			logger.error(se);
- 
+
 			throw new DataException( new StringBuilder().append("Contando las tiendas de la empresa ")
 					.append(tienda.getIdEmpresa()).toString(),se);
 		} 
@@ -282,22 +288,22 @@ public class TiendaDAOImpl implements TiendaDAO {
 	}
 	private Tienda loadNext(Connection connection ,ResultSet resultSet) throws SQLException, DataException {
 		int i = 1;
-			Tienda tienda = new Tienda();
-			tienda.setId(resultSet.getLong(i++));
-			tienda.setNombre(resultSet.getString(i++));
-			tienda.setFechaCreacion(resultSet.getTimestamp(i++));
-			tienda.setCategoria(resultSet.getInt(i++));
-			tienda.setNumeroMovil(resultSet.getString(i++));
-			tienda.setNumeroTelefono(resultSet.getString(i++));
-			tienda.setEmail(resultSet.getString(i++));
-			tienda.setEnvioDomicilio(resultSet.getBoolean(i++));
-			tienda.setIdEmpresa(resultSet.getLong(i++));
-			tienda.setIdContenido(resultSet.getLong(i++));
-			tienda.setPuntuacionMedia(puntTienda.findMedia(connection, tienda.getId())); 
-			tienda.setDireccionDto(direccionDto.findByIdTienda (connection, tienda.getId()));
+		Tienda tienda = new Tienda();
+		tienda.setId(resultSet.getLong(i++));
+		tienda.setNombre(resultSet.getString(i++));
+		tienda.setFechaCreacion(resultSet.getTimestamp(i++));
+		tienda.setCategoria(resultSet.getInt(i++));
+		tienda.setNumeroMovil(resultSet.getString(i++));
+		tienda.setNumeroTelefono(resultSet.getString(i++));
+		tienda.setEmail(resultSet.getString(i++));
+		tienda.setEnvioDomicilio(resultSet.getBoolean(i++));
+		tienda.setIdEmpresa(resultSet.getLong(i++));
+		tienda.setIdContenido(resultSet.getLong(i++));
+		tienda.setPuntuacionMedia(puntTienda.findMedia(connection, tienda.getId())); 
+		tienda.setDireccionDto(direccionDto.findByIdTienda (connection, tienda.getId()));
 
-			return tienda;
-		
+		return tienda;
+
 	}
 
 	@Override
@@ -330,9 +336,9 @@ public class TiendaDAOImpl implements TiendaDAO {
 			preparedStatement.setLong(i++, tienda.getIdEmpresa());
 			preparedStatement.setInt(i++, tienda.getCategoria());
 			preparedStatement.setTimestamp(i++, new Timestamp(new Date().getTime()));
-			
+
 			preparedStatement.executeUpdate();
-		
+
 
 			resultSet = preparedStatement.getGeneratedKeys();
 			tien = new Tienda();
@@ -342,8 +348,8 @@ public class TiendaDAOImpl implements TiendaDAO {
 				tien.setId(resultSet.getLong(i++));
 				tienda.setId(tien.getId());
 			}
-		
-		
+
+
 			createDireccionTienda(connection, tienda);
 
 		} catch (SQLException se) {
@@ -379,7 +385,7 @@ public class TiendaDAOImpl implements TiendaDAO {
 
 		} catch (SQLException se) {
 			logger.error(se);
-			  
+
 			throw new DataException(new StringBuilder().append("Creando direccion de tienda ")
 					.append(tienda.getId()).toString(),se);
 		}  finally {
@@ -420,7 +426,7 @@ public class TiendaDAOImpl implements TiendaDAO {
 			int updatedRows = preparedStatement.executeUpdate();
 
 			if (updatedRows == 0) {
-		
+
 				throw new DataException( new StringBuilder().append("No ha sido posible actualizar la tienda ")
 						.append(tienda.getId()).toString());
 			} 
@@ -431,7 +437,7 @@ public class TiendaDAOImpl implements TiendaDAO {
 
 		} catch (SQLException se) {
 			logger.error(se);
-			  
+
 			throw new DataException(new StringBuilder().append("Actualizando la tienda ")
 					.append(tienda.getId()).toString(), se);
 		} finally {
@@ -460,7 +466,7 @@ public class TiendaDAOImpl implements TiendaDAO {
 
 		} catch (SQLException se) {
 			logger.error(se);
-			  
+
 			throw new DataException(new StringBuilder().append("Creando direccion tienda ")
 					.append(tienda.getId()).toString(), se);
 		}  finally {
@@ -496,7 +502,7 @@ public class TiendaDAOImpl implements TiendaDAO {
 			int deleteRows = preparedStatement.executeUpdate();
 
 			if (deleteRows == 0) {
-				 
+
 				throw new DataException( new StringBuilder().append("No ha sido posible dar de baja la tienda ")
 						.append(idTienda).toString());
 			}
@@ -505,7 +511,7 @@ public class TiendaDAOImpl implements TiendaDAO {
 
 		} catch (SQLException se) {
 			logger.error(se);
-			 
+
 			throw new DataException( new StringBuilder().append("Dando de baja la tienda ")
 					.append(tienda.getId()).toString(), se);
 		}  finally {
@@ -547,7 +553,7 @@ public class TiendaDAOImpl implements TiendaDAO {
 			}
 		} catch (SQLException se) {
 			logger.error(se);
-			
+
 			throw new DataException(  new StringBuilder().append("Dando de baja la tienda por la empresa ")
 					.append(idEmpresa).toString(),se);
 		}  finally {

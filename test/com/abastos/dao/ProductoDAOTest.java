@@ -12,6 +12,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import com.abastos.dao.jdbc.OfertaDAOImpl;
@@ -46,18 +47,30 @@ public class ProductoDAOTest {
 		logger.traceEntry();
 		ProductoCriteria productoCriteria = new ProductoCriteria();
 
-		productoCriteria.setIdOrigen('I');
+
 		productoCriteria.setIdTienda(1L);
-		productoCriteria.setOferta(true);
-		
-	
 
 
-		assertNotEquals(Collections.EMPTY_LIST,productoDAO.findBy(connection, productoCriteria, "es"));
 
+		int index = 1;
+
+		int total = Integer.MAX_VALUE;
+
+		Results<Producto>  listProducts = null;
+		while(index < total) {
+			listProducts = productoDAO.findBy(connection, productoCriteria, "es", index, 10);
+			for(Producto p : listProducts.getPage()) {
+				logger.info(p.getId());
+			}
+			total = listProducts.getTotal();		
+			index += 10;
+
+		}
+		assertEquals(Collections.EMPTY_LIST,listProducts);
 		logger.traceExit();
 	}
-	@Test
+
+	@Ignore
 	public void testFindByCategoriaPrecioDesde() throws Exception{
 		logger.traceEntry();
 		ProductoCriteria productoCriteria = new ProductoCriteria();
@@ -67,10 +80,25 @@ public class ProductoDAOTest {
 		productoCriteria.setPredioDesde(10d);
 
 
-		assertNotEquals(Collections.EMPTY_LIST,productoDAO.findBy(connection, productoCriteria, "es"));
+		int index = 1;
 
+		int total = Integer.MAX_VALUE;
+
+		Results<Producto>  listProducts = null;
+		while(index < total) {
+			listProducts = productoDAO.findBy(connection, productoCriteria, "es", index, 10);
+			for(Producto p : listProducts.getPage()) {
+				logger.info(p.getId());
+			}
+			total = listProducts.getTotal();		
+			index += 10;
+
+		}
+		assertEquals(Collections.EMPTY_LIST,listProducts);
 		logger.traceExit();
+
 	}
+	@Ignore
 	@Test
 	public void testFindByOfertaPrecioHasta() throws Exception{
 		logger.traceEntry();
@@ -80,11 +108,25 @@ public class ProductoDAOTest {
 		productoCriteria.setOferta(false);
 		productoCriteria.setPrecioHasta(10d);
 
-		
-		assertNotEquals(Collections.EMPTY_LIST,productoDAO.findBy(connection, productoCriteria, "es"));
 
+		int index = 1;
+
+		int total = Integer.MAX_VALUE;
+
+		Results<Producto>  listProducts = null;
+		while(index < total) {
+			listProducts = productoDAO.findBy(connection, productoCriteria, "es", index, 10);
+			for(Producto p : listProducts.getPage()) {
+				logger.info(p.getId());
+			}
+			total = listProducts.getTotal();		
+			index += 10;
+
+		}
+		assertEquals(Collections.EMPTY_LIST,listProducts);
 		logger.traceExit();
 	}
+	@Ignore
 	@Test
 	public void testFindByOfertaOrigen() throws Exception{
 		logger.traceEntry();
@@ -93,23 +135,52 @@ public class ProductoDAOTest {
 		productoCriteria.setIdTienda(1L);
 		productoCriteria.setOferta(false);
 		productoCriteria.setIdOrigen('N');
-		
-		assertNotEquals(Collections.EMPTY_LIST,productoDAO.findBy(connection, productoCriteria, "es"));
 
+
+		int index = 1;
+
+		int total = Integer.MAX_VALUE;
+
+		Results<Producto>  listProducts = null;
+		while(index < total) {
+			listProducts = productoDAO.findBy(connection, productoCriteria, "es", index, 10);
+			for(Producto p : listProducts.getPage()) {
+				logger.info(p.getId());
+			}
+			total = listProducts.getTotal();		
+			index += 10;
+
+		}
+		assertEquals(Collections.EMPTY_LIST,listProducts);
 		logger.traceExit();
 	}
+	@Ignore
 	@Test
 	public void testFindByCategoria() throws Exception{
 		logger.traceEntry();
 		ProductoCriteria productoCriteria = new ProductoCriteria();
 		productoCriteria.setIdCategoria(46);
 		productoCriteria.setIdTienda(1L);
-	
-		assertNotEquals(Collections.EMPTY_LIST,productoDAO.findBy(connection, productoCriteria, "es"));
 
+
+		int index = 1;
+
+		int total = Integer.MAX_VALUE;
+
+		Results<Producto>  listProducts = null;
+		while(index < total) {
+			listProducts = productoDAO.findBy(connection, productoCriteria, "es", index, 10);
+			for(Producto p : listProducts.getPage()) {
+				logger.info(p.getId());
+			}
+			total = listProducts.getTotal();		
+			index += 10;
+
+		}
+		assertEquals(Collections.EMPTY_LIST,listProducts);
 		logger.traceExit();
 	}
-
+	@Ignore
 	@Test
 	public void testFindByOrigen() throws Exception{
 		logger.traceEntry();
@@ -117,11 +188,25 @@ public class ProductoDAOTest {
 		productoCriteria.setIdOrigen('N');
 		productoCriteria.setIdTienda(1L);
 		productoCriteria.setOferta(false);
-		assertNotEquals(Collections.EMPTY_LIST,productoDAO.findBy(connection, productoCriteria, "es"));
+		
+		int index = 1;
+		
+		int total = Integer.MAX_VALUE;
+	
+		Results<Producto>  listProducts = null;
+		while(index < total) {
+			 listProducts = productoDAO.findBy(connection, productoCriteria, "es", index, 10);
+			 for(Producto p : listProducts.getPage()) {
+				 logger.info(p.getId());
+			 }
+			total = listProducts.getTotal();		
+			index += 10;
 
+		}
+		assertEquals(Collections.EMPTY_LIST,listProducts);
 		logger.traceExit();
 	}
-
+	@Ignore
 	@Test
 	public void testFindByTienda() throws Exception{
 		logger.traceEntry();
@@ -129,11 +214,25 @@ public class ProductoDAOTest {
 		productoCriteria.setIdTienda(1L);
 		productoCriteria.setOferta(false);
 
-		assertNotEquals(Collections.EMPTY_LIST,productoDAO.findBy(connection, productoCriteria, "es"));
+		
+		int index = 1;
+		
+		int total = Integer.MAX_VALUE;
+	
+		Results<Producto>  listProducts = null;
+		while(index < total) {
+			 listProducts = productoDAO.findBy(connection, productoCriteria, "es", index, 10);
+			 for(Producto p : listProducts.getPage()) {
+				 logger.info(p.getId());
+			 }
+			total = listProducts.getTotal();		
+			index += 10;
 
+		}
+		assertEquals(Collections.EMPTY_LIST,listProducts);
 		logger.traceExit();
 	}
-
+	@Ignore
 	@Test
 	public void testFindByOferta() throws Exception{
 		logger.traceEntry();
@@ -141,11 +240,25 @@ public class ProductoDAOTest {
 		productoCriteria.setIdTienda(1L);
 		productoCriteria.setOferta(false);
 
-		assertNotEquals(Collections.EMPTY_LIST,productoDAO.findBy(connection, productoCriteria, "es"));
+		
+		int index = 1;
+		
+		int total = Integer.MAX_VALUE;
+	
+		Results<Producto>  listProducts = null;
+		while(index < total) {
+			 listProducts = productoDAO.findBy(connection, productoCriteria, "es", index, 10);
+			 for(Producto p : listProducts.getPage()) {
+				 logger.info(p.getId());
+			 }
+			total = listProducts.getTotal();		
+			index += 10;
 
+		}
+		assertEquals(Collections.EMPTY_LIST,listProducts);
 		logger.traceExit();
 	}
-
+	@Ignore
 	@Test
 	public void testFindByPrecioHasta() throws Exception{
 		logger.traceEntry();
@@ -154,11 +267,25 @@ public class ProductoDAOTest {
 		productoCriteria.setPrecioHasta(50d);
 		productoCriteria.setOferta(false);
 
-		assertNotEquals(Collections.EMPTY_LIST,productoDAO.findBy(connection, productoCriteria, "es"));
+		
+		int index = 1;
+		
+		int total = Integer.MAX_VALUE;
+	
+		Results<Producto>  listProducts = null;
+		while(index < total) {
+			 listProducts = productoDAO.findBy(connection, productoCriteria, "es", index, 10);
+			 for(Producto p : listProducts.getPage()) {
+				 logger.info(p.getId());
+			 }
+			total = listProducts.getTotal();		
+			index += 10;
 
+		}
+		assertEquals(Collections.EMPTY_LIST,listProducts);
 		logger.traceExit();
 	}
-
+	@Ignore
 	@Test
 	public void testFindByPrecioDesde() throws Exception{
 		logger.traceEntry();
@@ -166,11 +293,25 @@ public class ProductoDAOTest {
 		productoCriteria.setIdTienda(1L);
 		productoCriteria.setPredioDesde(10d);
 		productoCriteria.setOferta(false);
-		assertNotEquals(Collections.EMPTY_LIST,productoDAO.findBy(connection, productoCriteria, "es"));
+		
+		int index = 1;
+		
+		int total = Integer.MAX_VALUE;
+	
+		Results<Producto>  listProducts = null;
+		while(index < total) {
+			 listProducts = productoDAO.findBy(connection, productoCriteria, "es", index, 10);
+			 for(Producto p : listProducts.getPage()) {
+				 logger.info(p.getId());
+			 }
+			total = listProducts.getTotal();		
+			index += 10;
 
+		}
+		assertEquals(Collections.EMPTY_LIST,listProducts);
 		logger.traceExit();
 	}
-
+	@Ignore
 	@Test
 	public void testFindById() throws Exception{
 		logger.traceEntry();
@@ -179,7 +320,7 @@ public class ProductoDAOTest {
 
 		logger.traceExit();
 	}
-
+	@Ignore
 	@Test
 	public void testCreate() throws Exception{
 		logger.traceEntry();
@@ -220,7 +361,7 @@ public class ProductoDAOTest {
 
 
 	}
-
+	@Ignore
 	@Test
 	public void testUpdate() throws Exception{
 		logger.traceEntry();
@@ -239,7 +380,7 @@ public class ProductoDAOTest {
 
 		logger.traceExit();
 	}
-
+	@Ignore
 	@Test
 	public void testDelete() throws Exception{
 		logger.traceEntry();
@@ -248,7 +389,7 @@ public class ProductoDAOTest {
 
 		logger.traceExit();
 	}
-
+	@Ignore
 	@Test
 	public void testUpdateStock() throws Exception {
 		logger.traceEntry();

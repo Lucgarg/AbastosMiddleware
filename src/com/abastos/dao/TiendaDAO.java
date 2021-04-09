@@ -10,7 +10,7 @@ import com.abastos.service.TiendaCriteria;
 public interface TiendaDAO {
 		public Tienda findById(Connection connection, Long idTienda) throws DataException;
 		public List<Tienda> findByIdEmpresa(Connection connection, Long idEmpresa) throws DataException;
-		public List<Tienda> findByCriteria(Connection connection, TiendaCriteria tiendaCri) throws DataException;
+		public Results<Tienda> findByCriteria(Connection connection, TiendaCriteria tiendaCri, int startIndex, int count) throws DataException;
 		public Integer count(Connection connection, Tienda tienda) throws DataException;
 		public Tienda create(Connection connection, Tienda tienda) throws DataException;
 		public Tienda update(Connection connection, Tienda tienda) throws DataException;

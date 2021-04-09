@@ -1,14 +1,13 @@
 package com.abastos.service.impl;
 
 import java.sql.Connection;
-
 import java.sql.SQLException;
-import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import com.abastos.dao.ProductoDAO;
+import com.abastos.dao.Results;
 import com.abastos.dao.jdbc.ProductoDAOImpl;
 import com.abastos.dao.util.ConnectionManager;
 import com.abastos.model.Producto;
@@ -27,14 +26,14 @@ public class ProductoServiceImpl implements ProductoService {
 	}
 
 	@Override
-	public List<Producto> findBy(ProductoCriteria producto, String idioma) throws DataException {
+	public Results<Producto> findBy(ProductoCriteria producto, String idioma, int startIndex, int count) throws DataException {
 		logger.info("Iniciando findBy...");
 		Connection connection = ConnectionManager.getConnection();
 		boolean commit = false;
-		List<Producto> produc  = null;
+		Results<Producto> produc  = null;
 		try {
 			connection.setAutoCommit(false);
-			produc = productoDAO.findBy(connection, producto, idioma);
+			produc = productoDAO.findBy(connection, producto, idioma, startIndex, count);
 			commit = true;
 		}catch(SQLException se) {
 			logger.error(se);

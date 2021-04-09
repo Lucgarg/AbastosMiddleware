@@ -1,10 +1,9 @@
 package com.abastos.dao.util;
 
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
-
-import com.abastos.service.DataException;
 
 public class DAOUtils {
 	public static String listToString(List<Long> a) {
@@ -36,6 +35,25 @@ public class DAOUtils {
 			pre.setLong(i++, b);
 		}
 	}
-
-	
+	/**
+	 * Obtencion del total de filas de un resultSet, sin repetir consulta.
+	 * Metodo orientado a implementar paginación.
+	 * No existe una solución en el API estandar de JDBC.
+	 * Esta es un solución para todas las BD pero NO ES LA MEJOR EN RENDIMIENTO.
+	 * Por ello en este caso es habitual usar soluciones propietarias
+	 * de cada BD (rownum de Oracle, y similar en MySQL).
+	 * (En Hibernate, con ScrollableResults, no lo vemos porque lo implementa con el dialecto de cada DB).
+	 * 
+	 * Encantado de recibir mensajes son soluciones mejores (válidas para todas las BD): 
+	 * @author https://www.linkedin.com/in/joseantoniolopezperez
+	 * @version 0.2  
+	 */
+	public static final int getTotalRows(ResultSet resultSet) throws SQLException {
+		int totalRows = 0;
+		if(resultSet.last()) {
+			totalRows = resultSet.getRow();
+		}
+		resultSet.beforeFirst();
+		return totalRows;
+	}
 }
