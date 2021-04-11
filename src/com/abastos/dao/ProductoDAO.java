@@ -11,6 +11,7 @@ public interface ProductoDAO {
 	
 	public Results<Producto> findBy(Connection connection, ProductoCriteria producto, String idioma, int startIndex, int count) throws DataException;
 	public Producto findById(Connection connection, Long idProducto, String idioma) throws DataException;
+	public List<Producto> findByIdTienda(Connection connection, Long idTienda, String idioma) throws DataException;
 	public Producto create(Connection connection, Producto producto) throws DataException;
 	public Producto update(Connection connection, Producto producto, String idioma) throws DataException;
 	public Integer count(Connection connection, Producto producto) throws DataException;

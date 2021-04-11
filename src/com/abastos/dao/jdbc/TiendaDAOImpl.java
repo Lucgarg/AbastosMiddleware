@@ -234,6 +234,7 @@ public class TiendaDAOImpl implements TiendaDAO {
 				do {
 					e = loadNext(connection, resultSet);
 					results.add(e);
+					currentCount++;
 				} while ((currentCount < count) && resultSet.next()) ;
 			}
 			int totalRows = DAOUtils.getTotalRows(resultSet);

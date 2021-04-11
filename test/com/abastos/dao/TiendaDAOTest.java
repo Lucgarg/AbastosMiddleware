@@ -58,14 +58,13 @@ public class TiendaDAOTest {
 
 		logger.traceExit();
 	}
-	@Ignore
+	
 	@Test
 	public void testFindByCriteria() throws Exception{
 		logger.traceEntry();
 		TiendaCriteria tiendaCrit = new TiendaCriteria();
 
-		tiendaCrit.setCategoria(8);
-		tiendaCrit.setEnvioDomicilio(true);
+
 		tiendaCrit.setIdLocalidad(1L);
 
 		int index = 1;
@@ -74,12 +73,13 @@ public class TiendaDAOTest {
 
 		Results<Tienda>  listTienda = null;
 		while(index < total) {
-			listTienda = tiendaDAO.findByCriteria(connection, tiendaCrit, index, 10);
+			
+			listTienda = tiendaDAO.findByCriteria(connection, tiendaCrit, index, 3);
 			for(Tienda p : listTienda.getPage()) {
 				logger.info(p.getId());
 			}
 			total = listTienda.getTotal();		
-			index += 10;
+			index +=2;
 
 		}
 		assertEquals(Collections.EMPTY_LIST,listTienda);

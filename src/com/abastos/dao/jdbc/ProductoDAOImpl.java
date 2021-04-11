@@ -208,6 +208,45 @@ public class ProductoDAOImpl implements ProductoDAO{
 		return resultsProducts;
 	}
 	@Override
+	public List<Producto> findByIdTienda(Connection connection, Long idTienda, String idioma)throws DataException {
+		List<Producto> producto = null;
+		ResultSet resultSet = null;
+		PreparedStatement preparedStatement = null;
+		StringBuilder sql=null;
+		try {
+			sql=new StringBuilder();
+			logger.trace("Create statement...");
+			sql.append( "SELECT p.ID_PRODUCTO, g.NOMBRE_PRODUCTO, p.PRECIO, ");
+			sql.append(" g.CARACTERISTICAS_PRODUCTO, ");
+			sql.append(" p.ID_ORIGEN, p.FECHA_CREACION, p.ID_TIENDA, p.ID_CATEGORIA, p.STOCK, p.ID_OFERTA, p.precio_final  ");
+			sql.append(" FROM PRODUCTO  p inner join producto_idioma g on p.id_producto = g.id_producto ");
+			sql.append(" WHERE p.ID_TIENDA = ? AND g.id_idioma = ? AND p.DATA_BAJA IS  NULL ") ;
+			preparedStatement = connection.prepareStatement
+					(sql.toString(), ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+			logger.trace(sql.toString());
+
+			int i = 1;
+
+			preparedStatement.setLong(i++, idTienda);
+			preparedStatement.setString(i++, String.valueOf(idioma));
+
+			resultSet = preparedStatement.executeQuery();
+			Producto prod = null;
+			producto = new ArrayList<Producto>();
+			while(resultSet.next()) {
+				prod = loadNext(connection, resultSet);
+				producto.add(prod);
+			}
+
+		}catch (SQLException se) {
+			logger.error(se);
+			throw new DataException(new StringBuilder().append("Buscando productos de la tienda " ).append(idTienda).toString(),se);
+		}  finally {
+			ConnectionManager.close(resultSet, preparedStatement);
+		}
+		return producto;
+	}
+	@Override
 	public Integer count(Connection connection, Producto producto) throws DataException {
 		Integer count = null;
 		ResultSet resultSet = null;

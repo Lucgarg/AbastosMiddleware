@@ -2,6 +2,7 @@ package com.abastos.service.impl;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -64,7 +65,24 @@ public class ProductoServiceImpl implements ProductoService {
 		}
 		return producto;
 	}
-
+	public List<Producto> findByIdTienda(Long idTienda, String idioma)throws DataException{
+		logger.info("Iniciando findById...");
+		Connection connection = ConnectionManager.getConnection();
+		boolean commit = false;
+		List<Producto> producto  = null;
+		try {
+			connection.setAutoCommit(false);
+			producto = productoDAO.findByIdTienda(connection, idTienda, idioma);
+			commit = true;
+		}catch(SQLException se) {
+			logger.error(se);
+			throw new DataException(se);
+		}
+		finally {
+			ConnectionManager.closeConnection(connection, commit);
+		}
+		return producto;
+	}
 	@Override
 	public Producto create(Producto producto) throws DataException, LimitCreationException {
 		logger.info("Creando producto...");
