@@ -79,9 +79,8 @@ public class ProvinciaDAOImpl implements ProvinciaDAO {
 			preparedStatement.setLong(i++, idComunidad);
 
 			resultSet = preparedStatement.executeQuery();
-			Provincia a = new Provincia();
+			Provincia a = null;
 			while(resultSet.next()) {
-
 				a = loadNext(resultSet);
 				results.add(a);
 			}
@@ -122,9 +121,8 @@ public class ProvinciaDAOImpl implements ProvinciaDAO {
 			int i = 1;
 			preparedStatement.setLong(i++, idComunidad);
 
-
 			resultSet = preparedStatement.executeQuery();
-			Provincia a = new Provincia();
+			Provincia a = null;
 			while(resultSet.next()) {
 
 				a = loadNext(resultSet);
@@ -143,17 +141,14 @@ public class ProvinciaDAOImpl implements ProvinciaDAO {
 	private Provincia loadNext(ResultSet resultSet) throws SQLException, DataException{
 		Provincia prov = new Provincia();
 		int i = 1;
-		StringBuilder sql=null;
-		try {
-			sql=new StringBuilder();
+		
 			prov.setId(resultSet.getLong(i++));
 			prov.setNombre(resultSet.getString(i++));
 			prov.setIdComunidadAutonoma(resultSet.getLong(i++));
 			return prov;
-		}catch (SQLException se) {
-			logger.error(se);
-			throw new DataException(se);
-		}
+		
+			
+		
 	}
 
 

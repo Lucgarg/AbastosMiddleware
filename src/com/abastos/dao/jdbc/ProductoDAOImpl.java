@@ -589,9 +589,8 @@ public class ProductoDAOImpl implements ProductoDAO{
 		try {
 			sql=new StringBuilder(); 
 
-			productoCriteria = new ProductoCriteria();
-			productoCriteria.setIdTienda(idTienda);
-			//listProduct = findBy(connection, productoCriteria, "es");
+			
+			listProduct = findByIdTienda(connection, idTienda, "es");
 			for(Producto p: listProduct) {
 				deleteContenidoProducto(connection, p);
 			}

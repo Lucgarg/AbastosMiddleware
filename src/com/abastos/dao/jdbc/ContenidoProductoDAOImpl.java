@@ -49,9 +49,6 @@ public class ContenidoProductoDAOImpl implements ContenidoProductoDAO{
 
 			results = new ArrayList<ContenidoProducto>();
 
-			
-
-			
 			while (resultSet.next()) {
 
 				pro = loadNext(connection, resultSet);				

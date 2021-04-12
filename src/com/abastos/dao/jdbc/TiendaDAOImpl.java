@@ -205,9 +205,7 @@ public class TiendaDAOImpl implements TiendaDAO {
 					ResultSet.CONCUR_READ_ONLY);
 			logger.trace(sql.toString());
 
-			results = new ArrayList<Tienda>();
-
-			Tienda e = new Tienda();
+		
 
 			int i = 1;
 
@@ -228,7 +226,9 @@ public class TiendaDAOImpl implements TiendaDAO {
 				preparedStatement.setLong(i++, tiendaCriteria.getIdEmpresa() );
 			}
 			resultSet = preparedStatement.executeQuery();
+			results = new ArrayList<Tienda>();
 
+			Tienda e = null;
 			int currentCount = 0;
 			if ((startIndex >=1) && resultSet.absolute(startIndex)) {
 				do {

@@ -54,10 +54,8 @@ public class ContenidoDAOImpl implements ContenidoDAO {
 
 		Contenido contenido = null;
 		ResultSet resultSet = null;
-
 		PreparedStatement preparedStatement = null;
 
-	
 		try {
 			
 

@@ -124,7 +124,7 @@ public class PuntuacionTiendaDAOImpl implements PuntuacionTiendaDAO {
 					(sql.toString(), ResultSet.TYPE_SCROLL_INSENSITIVE,
 							ResultSet.CONCUR_READ_ONLY);
 			logger.trace(sql.toString());
-			results = new PuntuacionTienda();
+			results = null;
 			int i = 1;
 
 			preparedStatement.setLong(i++, idParticular);
@@ -255,9 +255,7 @@ public class PuntuacionTiendaDAOImpl implements PuntuacionTiendaDAO {
 
 	private PuntuacionTienda loadNextPuntTi(Connection connection ,ResultSet resultSet) throws SQLException, DataException {
 		int i = 1;
-		StringBuilder sql=null;
-		try {
-			sql=new StringBuilder();
+		
 			PuntuacionTienda puntTienda  = new PuntuacionTienda();
 			puntTienda.setIdPerfilParticular(resultSet.getLong(i++));
 			puntTienda.setIdTienda(resultSet.getLong(i++));
@@ -266,16 +264,11 @@ public class PuntuacionTiendaDAOImpl implements PuntuacionTiendaDAO {
 			puntTienda.setValoracionServDomicilio(resultSet.getInt(i++));
 			puntTienda.setFechaValoracion(resultSet.getTimestamp(i++));
 			return puntTienda;
-		}catch (SQLException se) {
-			logger.error(se);
-			throw new DataException(se);
-		}
+	
 	}
 	private PuntuacionMediaTienda loadNextPuntTiMe(Connection connection ,ResultSet resultSet) throws SQLException, DataException {
 		int i = 1;
-		StringBuilder sql=null;
-		try {
-			sql=new StringBuilder();
+		
 			PuntuacionMediaTienda puntTienda  = new PuntuacionMediaTienda();
 			puntTienda.setIdTienda(resultSet.getLong(i++));
 			puntTienda.setValoracionAtncClienteMedia(resultSet.getDouble(i++));
@@ -283,10 +276,7 @@ public class PuntuacionTiendaDAOImpl implements PuntuacionTiendaDAO {
 			puntTienda.setValoracionServDomicilioMedia(resultSet.getDouble(i++));
 			puntTienda.setValoracionMedia(findMediaTotal(connection, puntTienda.getIdTienda()));
 			return puntTienda;
-		}catch (SQLException se) {
-			logger.error(se);
-			throw new DataException(se);
-		}
+	
 	}
 
 	@Override

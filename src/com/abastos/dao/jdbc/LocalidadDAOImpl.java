@@ -44,10 +44,10 @@ public class LocalidadDAOImpl implements LocalidadDAO {
 			preparedStatement.setLong(i++, idProvincia);
 
 			resultSet = preparedStatement.executeQuery();
-			Localidad local = new Localidad();
+			Localidad local = null;
 			while(resultSet.next()) {
 
-				local = loadNext(resultSet);
+				 local  = loadNext(resultSet);
 				results.add(local);
 			}
 
@@ -123,10 +123,10 @@ public class LocalidadDAOImpl implements LocalidadDAO {
 			preparedStatement.setLong(i++, idProvincia);
 
 			resultSet = preparedStatement.executeQuery();
-			Localidad a = new Localidad();
+			Localidad local = null;
 			while(resultSet.next()) {
-				a = loadNext(resultSet);
-				results.add(a);
+				 local = loadNext(resultSet);
+				results.add(local);
 			}
 
 		}catch (SQLException se) {

@@ -1,6 +1,7 @@
 package com.abastos.dao.jdbc;
 
 import java.sql.Connection;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -19,7 +20,6 @@ import com.abastos.dao.util.ConnectionManager;
 import com.abastos.dao.util.DBNullUtils;
 import com.abastos.model.Direccion;
 import com.abastos.model.Empresa;
-import com.abastos.model.Particular;
 import com.abastos.service.DataException;
 
 public class EmpresaDAOImpl implements EmpresaDAO {

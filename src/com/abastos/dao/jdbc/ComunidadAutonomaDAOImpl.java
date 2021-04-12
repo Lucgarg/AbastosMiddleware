@@ -81,11 +81,11 @@ public class ComunidadAutonomaDAOImpl implements ComunidadAutonomaDAO {
 			preparedStatement.setLong(i++, idPais);
 
 			resultSet = preparedStatement.executeQuery();
-			ComunidadAutonoma a = new ComunidadAutonoma();
+			ComunidadAutonoma com = null;
 			while(resultSet.next()) {
 
-				a = loadNext(resultSet);
-				results.add(a);
+				 com = loadNext(resultSet);
+				results.add(com);
 			}
 
 		}catch (SQLException se) {
@@ -123,11 +123,11 @@ public class ComunidadAutonomaDAOImpl implements ComunidadAutonomaDAO {
 					int i = 1;
 					preparedStatement.setLong(i++, idPais);
 					resultSet = preparedStatement.executeQuery();
-					ComunidadAutonoma a = new ComunidadAutonoma();
+					ComunidadAutonoma com = null;
 					while(resultSet.next()) {
 
-						a = loadNext(resultSet);
-						results.add(a);
+						 com = loadNext(resultSet);
+						results.add(com);
 					}
 
 		}catch (SQLException se) {
@@ -139,12 +139,13 @@ public class ComunidadAutonomaDAOImpl implements ComunidadAutonomaDAO {
 		return results;
 	}
 	private ComunidadAutonoma loadNext(ResultSet resultSet) throws SQLException{
-		ComunidadAutonoma a = new ComunidadAutonoma();
+		ComunidadAutonoma com = new ComunidadAutonoma();
 		int i = 1;
-		a.setId(resultSet.getLong(i++));
-		a.setNombre(resultSet.getString(i++));
-		a.setPais(resultSet.getInt(i++));
-		return a;
+		com.setId(resultSet.getLong(i++));
+		com.setNombre(resultSet.getString(i++));
+		com.setPais(resultSet.getInt(i++));
+		
+		return com;
 	}
 
 

@@ -88,11 +88,12 @@ public class DireccionDtoDAOImpl implements DireccionDtoDAO{
 
 			int i = 1;
 			preparedStatement.setLong(i++, idParticular);
-			DireccionDto direccion = null;
+			 
 			results = new ArrayList<DireccionDto>();
 			resultSet = preparedStatement.executeQuery();
+			DireccionDto direccion = null;
 			while(resultSet.next()) {
-				direccion = loadNext(resultSet);
+				 direccion = loadNext(resultSet);
 				results.add(direccion);
 			}
 
