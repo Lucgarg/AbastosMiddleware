@@ -7,12 +7,14 @@ import java.util.List;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import com.abastos.cache.impl.CacheManagerImpl;
 import com.abastos.dao.PuntuacionProductoDAO;
 import com.abastos.dao.jdbc.PuntuacionProductoDAOImpl;
 import com.abastos.dao.util.ConnectionManager;
 import com.abastos.model.Localidad;
 import com.abastos.service.DataException;
 import com.abastos.service.PuntuacionProductoService;
+import com.abastos.service.utils.CacheNames;
 import com.abastos.service.utils.ServiceUtils;
 
 public class PuntuacionProductoServiceImpl implements PuntuacionProductoService{
@@ -107,6 +109,7 @@ public class PuntuacionProductoServiceImpl implements PuntuacionProductoService{
 	@Override
 	public void create(Long idParticular, Long idProducto, Integer puntuPro) throws DataException {
 		logger.info("Creando puntuacion...");
+		CacheManagerImpl.getInstance().remove(CacheNames.PRODUCTO);
 		Connection connection = ConnectionManager.getConnection();
 		boolean commit = false;
 		try {
@@ -129,6 +132,7 @@ public class PuntuacionProductoServiceImpl implements PuntuacionProductoService{
 	@Override
 	public boolean update(Long idParticular, Long idProducto, Integer puntuPro) throws DataException {
 		logger.info("Actualizando puntuacion...");
+		CacheManagerImpl.getInstance().remove(CacheNames.PRODUCTO);
 		Connection connection = ConnectionManager.getConnection();
 		boolean commit = false;
 		boolean puntuacion = false;

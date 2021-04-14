@@ -7,6 +7,7 @@ import java.util.List;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import com.abastos.cache.impl.CacheManagerImpl;
 import com.abastos.dao.PuntuacionTiendaDAO;
 import com.abastos.dao.jdbc.PuntuacionTiendaDAOImpl;
 import com.abastos.dao.util.ConnectionManager;
@@ -14,6 +15,7 @@ import com.abastos.model.PuntuacionMediaTienda;
 import com.abastos.model.PuntuacionTienda;
 import com.abastos.service.DataException;
 import com.abastos.service.PuntuacionTiendaService;
+import com.abastos.service.utils.CacheNames;
 import com.abastos.service.utils.ServiceUtils;
 
 public class PuntuacionTiendaServiceImpl implements PuntuacionTiendaService{
@@ -113,6 +115,7 @@ public class PuntuacionTiendaServiceImpl implements PuntuacionTiendaService{
 	@Override
 	public void create(PuntuacionTienda puntuacion) throws DataException {
 		logger.info("Creando puntuacion de la Tienda...");
+		CacheManagerImpl.getInstance().remove(CacheNames.TIENDA);
 		Connection connection = ConnectionManager.getConnection();
 		boolean commit = false;
 		try {
@@ -138,6 +141,7 @@ public class PuntuacionTiendaServiceImpl implements PuntuacionTiendaService{
 	@Override
 	public boolean update(PuntuacionTienda puntuacion) throws DataException {
 		logger.info("Actualizando puntuacion de la Tienda...");
+		CacheManagerImpl.getInstance().remove(CacheNames.TIENDA);
 		Connection connection = ConnectionManager.getConnection();
 		boolean commit = false;
 		boolean punt = false;

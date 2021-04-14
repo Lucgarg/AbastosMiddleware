@@ -37,8 +37,7 @@ public class PedidoServiceTest {
 	@After
 	public void tearDown() throws Exception {
 	}
-	
-	
+
 	@Test
 	public void testCalcPrecioOferta() throws Exception{
 		LineaPedido linPed = new LineaPedido();
@@ -55,16 +54,19 @@ public class PedidoServiceTest {
 			linPed.setIdOferta(1L);
 			linPed.setIdProducto(20L);
 			linPed.setPrecio(13d);
+			linPed.setIdTienda(2L);
 			pedido.add(linPed);
 			//48  145,5
+			linPed1.setDescuentoFijo(0.0d);
 			linPed1.setDescuentoPcn(50d);
 			linPed1.setIdTipoOferta(3);
 			linPed1.setNumeroUnidades(6);
 			linPed1.setNombreProducto("prueba001");
 			linPed1.setIdOferta(1L);
 			linPed1.setIdProducto(18L);
-			linPed1.setIdProdOferta(20L);
+			linPed1.setIdProdOferta(9L);
 			linPed1.setPrecio(130d);
+			linPed1.setIdTienda(1L);
 			pedido.add(linPed1);
 			//780
 			pedido.setIdParticular(1L);
@@ -76,6 +78,7 @@ public class PedidoServiceTest {
 
 	}
 	
+	@Ignore
 	@Test
 	public void testFindById() throws Exception{
 		logger.traceEntry();
@@ -85,6 +88,7 @@ public class PedidoServiceTest {
 		logger.traceExit();
 	}
 	
+	@Ignore
 	@Test
 	public void testFindByIdParticular() throws Exception{
 		logger.traceEntry();
@@ -95,6 +99,7 @@ public class PedidoServiceTest {
 	}
 	
 	
+	@Ignore
 	@Test
 	public void testUpdateEstado() throws Exception{
 		logger.traceEntry();

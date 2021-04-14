@@ -205,6 +205,8 @@ public class ProductoServiceImpl implements ProductoService {
 	@Override
 	public void updateStock(Integer stock, Long idProducto) throws DataException {
 		logger.info("Actualizando el stock del producto...");
+		 CacheManagerImpl.getInstance().remove(CacheNames.PRODUCTO);
+		 CacheManagerImpl.getInstance().remove(CacheNames.PRODUCTO_OFERTA);
 		Connection connection = ConnectionManager.getConnection();
 		boolean commit = false;
 		Producto product = null;

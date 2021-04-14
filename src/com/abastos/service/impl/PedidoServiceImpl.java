@@ -34,15 +34,14 @@ public class PedidoServiceImpl implements PedidoService{
 	private PedidoDAO pedidoDAO;
 	private LineaPedidoService lineaPedidoService;
 	private ParticularDAO particularDAO;
-	private MailService mailService;
-	private Map <String, Object> map;
+	private ProductoDAO productoDAO;
 	public PedidoServiceImpl() {
 		lineaPedidoService = new LineaPedidoServiceImpl();
 		particular = new ParticularServiceImpl();
 		particularDAO = new ParticularDAOImpl();
 		pedidoDAO = new PedidoDAOImpl();
-		mailService = new MailServiceImpl();
-		map = new HashMap<String, Object>();
+		productoDAO = new ProductoDAOImpl();
+
 	}
 
 	public Double calcPrecio(Pedido pedido)throws DataException {
@@ -144,7 +143,7 @@ public class PedidoServiceImpl implements PedidoService{
 
 				pedido.getLineaPedido().get(i).setPrecioFinal(
 						lineaPedidoService.calcPrecio(pedido.getLineaPedido().get(i)));
-
+				
 			}
 			pedido.setPrecioTotal(calcPrecio(pedido));
 			precioTotal = pedido.getPrecioTotal();
@@ -153,6 +152,7 @@ public class PedidoServiceImpl implements PedidoService{
 			puntos = calcPuntos(pedido.getPrecioTotal());
 			particularDAO.updatePuntos(connection, pedido.getIdParticular(), puntos);
 			pedidoDAO.updateEstado(connection, 'C', pedid.getId());
+		
 			commit = true;
 
 			logger.info(new StringBuilder().append("Pedido creado ").append(pedid.getId()).toString());

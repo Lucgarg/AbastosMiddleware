@@ -41,7 +41,7 @@ public class ProductoDAOTest {
 	public void tearDown() throws Exception {
 		ConnectionManager.closeConnection(connection, false);
 	}
-	@Ignore
+
 	@Test
 	public void testFindBy() throws Exception{
 		logger.traceEntry();
@@ -69,11 +69,12 @@ public class ProductoDAOTest {
 		assertEquals(Collections.EMPTY_LIST,listProducts);
 		logger.traceExit();
 	}
+	@Ignore
 	@Test
 	public void testfindByProducTOfert() throws Exception{
 		logger.traceEntry();
 		
-		assertEquals(Collections.EMPTY_LIST,  productoDAO.findByProducTOfert(connection, "es"));
+		assertEquals(Collections.EMPTY_LIST,  productoDAO.findByProductOfert(connection, "es"));
 		logger.traceExit();
 	}
 	@Ignore
