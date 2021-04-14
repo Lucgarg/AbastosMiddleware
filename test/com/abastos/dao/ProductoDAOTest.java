@@ -1,12 +1,12 @@
 package com.abastos.dao;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import java.sql.Connection;
 import java.util.Collections;
+
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -41,7 +41,7 @@ public class ProductoDAOTest {
 	public void tearDown() throws Exception {
 		ConnectionManager.closeConnection(connection, false);
 	}
-
+	@Ignore
 	@Test
 	public void testFindBy() throws Exception{
 		logger.traceEntry();
@@ -69,7 +69,13 @@ public class ProductoDAOTest {
 		assertEquals(Collections.EMPTY_LIST,listProducts);
 		logger.traceExit();
 	}
-
+	@Test
+	public void testfindByProducTOfert() throws Exception{
+		logger.traceEntry();
+		
+		assertEquals(Collections.EMPTY_LIST,  productoDAO.findByProducTOfert(connection, "es"));
+		logger.traceExit();
+	}
 	@Ignore
 	public void testFindByCategoriaPrecioDesde() throws Exception{
 		logger.traceEntry();

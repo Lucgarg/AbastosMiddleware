@@ -36,9 +36,8 @@ public class OfertaDAOImpl implements OfertaDAO {
 			logger.trace("Create statement...");
 
 			sql.append( " SELECT A.ID_OFERTA, A.DESCUENTO_PCN, A.DESCUENTO_FIJO, A.NUMERADOR, A.DENOMINADOR, ");
-			sql.append(" A.ID_TIPO_OFERTA, A.ID_PRODUCTO, B.NOMBRE_PRODUCTO, A.NOMBRE_OFERTA, A.FECHA_DESDE, ");
+			sql.append(" A.ID_TIPO_OFERTA, A.ID_PRODUCTO, A.NOMBRE_OFERTA, A.FECHA_DESDE, ");
 			sql.append(" A.FECHA_HASTA, F.ID_TIPO_OFERTA, F.NOMBRE, A.ID_EMPRESA FROM OFERTA A");
-			sql.append(" LEFT JOIN PRODUCTO B ON A.ID_PRODUCTO = B.ID_PRODUCTO");
 			sql.append(" INNER JOIN TIPO_OFERTA F ON F.ID_TIPO_OFERTA = A.ID_TIPO_OFERTA ");
 			sql.append(" WHERE A.ID_OFERTA = ? AND A.FECHA_DESDE < ? AND A.FECHA_HASTA > ? ");
 
@@ -79,9 +78,8 @@ public class OfertaDAOImpl implements OfertaDAO {
 			logger.trace("Create statement...");
 
 			sql.append( " SELECT A.ID_OFERTA, A.DESCUENTO_PCN, A.DESCUENTO_FIJO, A.NUMERADOR, A.DENOMINADOR, ");
-			sql.append(" A.ID_TIPO_OFERTA, A.ID_PRODUCTO, B.NOMBRE_PRODUCTO, A.NOMBRE_OFERTA, A.FECHA_DESDE, ");
+			sql.append(" A.ID_TIPO_OFERTA, A.ID_PRODUCTO, A.NOMBRE_OFERTA, A.FECHA_DESDE, ");
 			sql.append(" A.FECHA_HASTA, F.ID_TIPO_OFERTA, F.NOMBRE, A.ID_EMPRESA FROM OFERTA A");
-			sql.append(" LEFT JOIN PRODUCTO B ON A.ID_PRODUCTO = B.ID_PRODUCTO");
 			sql.append(" INNER JOIN TIPO_OFERTA F ON F.ID_TIPO_OFERTA = A.ID_TIPO_OFERTA ");
 			sql.append(" WHERE A.ID_EMPRESA = ? AND  A.FECHA_HASTA > ? ORDER BY A.FECHA_DESDE DESC");
 
@@ -121,7 +119,6 @@ public class OfertaDAOImpl implements OfertaDAO {
 		oferta.setDenominador(resultset.getInt(i++));
 		oferta.setIdTipoOferta(resultset.getInt(i++));
 		oferta.setIdProdOferta(resultset.getLong(i++));
-		oferta.setNombreProdOferta(resultset.getString(i++));
 		oferta.setNombreOferta(resultset.getString(i++));
 		oferta.setFechaDesde(resultset.getTimestamp(i++));
 		oferta.setFechaHasta(resultset.getTimestamp(i++));

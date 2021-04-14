@@ -7,12 +7,16 @@ import java.util.List;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import com.abastos.cache.Cache;
+import com.abastos.cache.impl.CacheManagerImpl;
 import com.abastos.dao.ProvinciaDAO;
 import com.abastos.dao.jdbc.ProvinciaDAOImpl;
 import com.abastos.dao.util.ConnectionManager;
+import com.abastos.model.ComunidadAutonoma;
 import com.abastos.model.Provincia;
 import com.abastos.service.DataException;
 import com.abastos.service.ProvinciaService;
+import com.abastos.service.utils.CacheNames;
 
 public class ProvinciaServiceImpl implements ProvinciaService {
 	private static Logger logger = LogManager.getLogger(ProvinciaServiceImpl.class);
@@ -44,19 +48,28 @@ public class ProvinciaServiceImpl implements ProvinciaService {
 	@Override
 	public List<Provincia> findByIdComunidad(Long idComunidad) throws DataException {
 		logger.info("Iniciando findByIdComunidad");
-		Connection connection = ConnectionManager.getConnection();
-		boolean commit = false;
-		List<Provincia> provincia  = null;
-		try {
-			connection.setAutoCommit(false);
-			provincia = provinciaDAO.findByIdComunidad(connection, idComunidad);
-			commit = true;
-		}catch(SQLException se) {
-			logger.error(se);
-			throw new DataException(se);
+		Cache cacheProvincia = CacheManagerImpl.getInstance().get(CacheNames.PROVINCIA);
+		List<Provincia> provincia=  (List<Provincia>)cacheProvincia.get(idComunidad);
+		if(provincia != null) {
+			logger.info("cache hit");
 		}
-		finally {
-			ConnectionManager.closeConnection(connection, commit);
+		else {
+			logger.info("cache miss");
+			Connection connection = ConnectionManager.getConnection();
+			boolean commit = false;
+
+			try {
+				connection.setAutoCommit(false);
+				provincia = provinciaDAO.findByIdComunidad(connection, idComunidad);
+				commit = true;
+			}catch(SQLException se) {
+				logger.error(se);
+				throw new DataException(se);
+			}
+			finally {
+				ConnectionManager.closeConnection(connection, commit);
+			}
+			cacheProvincia.put(idComunidad, provincia);
 		}
 		return provincia;
 	}

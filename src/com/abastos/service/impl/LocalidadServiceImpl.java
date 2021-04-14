@@ -7,12 +7,16 @@ import java.util.List;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import com.abastos.cache.Cache;
+import com.abastos.cache.impl.CacheManagerImpl;
 import com.abastos.dao.LocalidadDAO;
 import com.abastos.dao.jdbc.LocalidadDAOImpl;
 import com.abastos.dao.util.ConnectionManager;
+import com.abastos.model.ComunidadAutonoma;
 import com.abastos.model.Localidad;
 import com.abastos.service.DataException;
 import com.abastos.service.LocalidadService;
+import com.abastos.service.utils.CacheNames;
 
 public class LocalidadServiceImpl implements LocalidadService {
 	private static Logger logger = LogManager.getLogger(LocalidadServiceImpl.class);
@@ -23,9 +27,16 @@ public class LocalidadServiceImpl implements LocalidadService {
 	@Override
 	public List<Localidad> findByIdProvincia(Long idProvincia) throws DataException {
 		logger.info("Iniciando findByIdProvincia...");
+		Cache cacheLocalidad = CacheManagerImpl.getInstance().get(CacheNames.LOCALIDAD);
+		List<Localidad> localidad=  (List<Localidad>)cacheLocalidad.get(idProvincia);
+		if(localidad != null) {
+			logger.info("cache hit");
+		}
+		else {
+			logger.info("cache miss");
 		Connection connection = ConnectionManager.getConnection();
 		boolean commit = false;
-		List<Localidad> localidad  = null;
+	
 		try {
 			connection.setAutoCommit(false);
 			localidad = localidadDAO.findByIdProvincia(connection, idProvincia);
@@ -36,6 +47,8 @@ public class LocalidadServiceImpl implements LocalidadService {
 		}
 		finally {
 			ConnectionManager.closeConnection(connection, commit);
+		}
+		cacheLocalidad.put(idProvincia, localidad);
 		}
 		return localidad;
 	}

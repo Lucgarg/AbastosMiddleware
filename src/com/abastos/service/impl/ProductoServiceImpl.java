@@ -3,10 +3,14 @@ package com.abastos.service.impl;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Map;
 
+import org.apache.commons.collections4.keyvalue.MultiKey;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import com.abastos.cache.Cache;
+import com.abastos.cache.impl.CacheManagerImpl;
 import com.abastos.dao.ProductoDAO;
 import com.abastos.dao.Results;
 import com.abastos.dao.jdbc.ProductoDAOImpl;
@@ -16,6 +20,7 @@ import com.abastos.service.DataException;
 import com.abastos.service.ProductoCriteria;
 import com.abastos.service.ProductoService;
 import com.abastos.service.exceptions.LimitCreationException;
+import com.abastos.service.utils.CacheNames;
 import com.abastos.service.utils.DescuentoUtils;
 
 public class ProductoServiceImpl implements ProductoService {
@@ -29,9 +34,17 @@ public class ProductoServiceImpl implements ProductoService {
 	@Override
 	public Results<Producto> findBy(ProductoCriteria producto, String idioma, int startIndex, int count) throws DataException {
 		logger.info("Iniciando findBy...");
-		Connection connection = ConnectionManager.getConnection();
-		boolean commit = false;
-		Results<Producto> produc  = null;
+		Cache cacheProducts = CacheManagerImpl.getInstance().get(CacheNames.PRODUCTO);
+		Results<Producto> produc =  (Results<Producto>)cacheProducts.get
+				(new MultiKey(producto, idioma, startIndex, count));
+		if(produc != null) {
+			logger.info("cache hit");
+		}
+
+		else {
+			logger.info("cache miss");
+			Connection connection = ConnectionManager.getConnection();
+			boolean commit = false;
 		try {
 			connection.setAutoCommit(false);
 			produc = productoDAO.findBy(connection, producto, idioma, startIndex, count);
@@ -43,12 +56,16 @@ public class ProductoServiceImpl implements ProductoService {
 		finally {
 			ConnectionManager.closeConnection(connection, commit);
 		}
+		cacheProducts.put(new MultiKey(producto, idioma, startIndex, count), produc);
+		
+		}
 		return produc;
 	}
 
 	@Override
 	public Producto findById(Long idProducto, String idioma) throws DataException {
 		logger.info("Iniciando findById...");
+	
 		Connection connection = ConnectionManager.getConnection();
 		boolean commit = false;
 		Producto producto  = null;
@@ -84,8 +101,37 @@ public class ProductoServiceImpl implements ProductoService {
 		return producto;
 	}
 	@Override
+	public Map<Long,Producto> findByProductOfert(String idioma) throws DataException {
+		logger.info("Iniciando findByProducOfert...");
+		Cache cacheProducts = CacheManagerImpl.getInstance().get(CacheNames.PRODUCTO_OFERTA);
+		Map<Long,Producto> producto =  (Map<Long,Producto>)cacheProducts.get(idioma);
+		if(producto != null) {
+			logger.info("cache hit");
+		}
+		else {
+			logger.info("cache miss");
+		Connection connection = ConnectionManager.getConnection();
+		boolean commit = false;
+		producto  = null;
+		try {
+			connection.setAutoCommit(false);
+			producto = productoDAO.findByProductOfert(connection,idioma);
+			commit = true;
+		}catch(SQLException se) {
+			logger.error(se);
+			throw new DataException(se);
+		}
+		finally {
+			ConnectionManager.closeConnection(connection, commit);
+		}
+			cacheProducts.put(idioma, producto);
+		}
+		return producto;
+	}
+	@Override
 	public Producto create(Producto producto) throws DataException, LimitCreationException {
 		logger.info("Creando producto...");
+		 CacheManagerImpl.getInstance().remove(CacheNames.PRODUCTO);
 		Connection connection = ConnectionManager.getConnection();
 		boolean commit = false;
 		Producto product  = null;
@@ -222,5 +268,7 @@ public class ProductoServiceImpl implements ProductoService {
 		}
 		return product;
 	}
+
+
 
 }

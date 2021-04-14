@@ -7,12 +7,16 @@ import java.util.List;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import com.abastos.cache.Cache;
+import com.abastos.cache.impl.CacheManagerImpl;
 import com.abastos.dao.TipoOfertaDAO;
 import com.abastos.dao.jdbc.TipoOfertaDAOImpl;
 import com.abastos.dao.util.ConnectionManager;
+import com.abastos.model.ComunidadAutonoma;
 import com.abastos.model.TipoOferta;
 import com.abastos.service.DataException;
 import com.abastos.service.TipoOfertaService;
+import com.abastos.service.utils.CacheNames;
 
 public class TipoOfertaServiceImpl implements TipoOfertaService{
 	private TipoOfertaDAO tipoOfertaDAO= null;
@@ -23,9 +27,10 @@ public class TipoOfertaServiceImpl implements TipoOfertaService{
 	@Override
 	public List<TipoOferta> findAll() throws DataException {
 		logger.info("Iniciando findAll...");
+
 		Connection connection = ConnectionManager.getConnection();
 		boolean commit = false;
-		List<TipoOferta> tipoOferta  = null;
+		List<TipoOferta> tipoOferta = null;
 		try {
 			connection.setAutoCommit(false);
 			tipoOferta = tipoOfertaDAO.findAll(connection);
@@ -37,6 +42,7 @@ public class TipoOfertaServiceImpl implements TipoOfertaService{
 		finally {
 			ConnectionManager.closeConnection(connection, commit);
 		}
+		
 		return tipoOferta;
 	}
 

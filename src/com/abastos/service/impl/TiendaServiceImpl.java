@@ -6,13 +6,17 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.collections4.keyvalue.MultiKey;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import com.abastos.cache.Cache;
+import com.abastos.cache.impl.CacheManagerImpl;
 import com.abastos.dao.Results;
 import com.abastos.dao.TiendaDAO;
 import com.abastos.dao.jdbc.TiendaDAOImpl;
 import com.abastos.dao.util.ConnectionManager;
+import com.abastos.model.Producto;
 import com.abastos.model.Tienda;
 import com.abastos.service.DataException;
 import com.abastos.service.MailService;
@@ -20,6 +24,7 @@ import com.abastos.service.TiendaCriteria;
 import com.abastos.service.TiendaService;
 import com.abastos.service.exceptions.LimitCreationException;
 import com.abastos.service.exceptions.MailException;
+import com.abastos.service.utils.CacheNames;
 
 public class TiendaServiceImpl implements TiendaService{
 	private static Logger logger = LogManager.getLogger(TiendaServiceImpl.class);
@@ -77,9 +82,16 @@ public class TiendaServiceImpl implements TiendaService{
 	@Override
 	public Results<Tienda> findByCriteria(TiendaCriteria tiendaCri, int startIndex, int count) throws DataException {
 		logger.info("Iniciando findByCriteria...");
+		Cache cacheTienda = CacheManagerImpl.getInstance().get(CacheNames.TIENDA);
+		Results<Tienda> tienda =  (Results<Tienda>)cacheTienda.get(new MultiKey(tiendaCri, startIndex, count));
+		if(tienda != null) {
+			logger.info("cache hit");
+		}
+		else {
+			logger.info("cache miss");
 		Connection connection = ConnectionManager.getConnection();
 		boolean commit = false;
-		Results<Tienda> tienda  = null;
+	
 		try {
 			
 			connection.setAutoCommit(false);
@@ -92,6 +104,8 @@ public class TiendaServiceImpl implements TiendaService{
 		finally {
 			ConnectionManager.closeConnection(connection, commit);
 		}
+		cacheTienda.put(new MultiKey(tiendaCri, startIndex, count), tienda);
+		}
 		return tienda;	
 
 	}
@@ -99,6 +113,7 @@ public class TiendaServiceImpl implements TiendaService{
 	@Override
 	public Tienda create(Tienda tienda) throws DataException,  LimitCreationException, MailException {
 		logger.info("Creando tienda...");
+		CacheManagerImpl.getInstance().remove(CacheNames.TIENDA);
 		Connection connection = ConnectionManager.getConnection();
 		boolean commit = false;
 		Tienda tiend  = null;

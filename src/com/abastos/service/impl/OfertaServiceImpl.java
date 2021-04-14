@@ -6,13 +6,16 @@ import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.ehcache.CacheManager;
 
+import com.abastos.cache.impl.CacheManagerImpl;
 import com.abastos.dao.OfertaDAO;
 import com.abastos.dao.jdbc.OfertaDAOImpl;
 import com.abastos.dao.util.ConnectionManager;
 import com.abastos.model.Oferta;
 import com.abastos.service.DataException;
 import com.abastos.service.OfertaService;
+import com.abastos.service.utils.CacheNames;
 
 public class OfertaServiceImpl implements OfertaService{
 	private static Logger logger = LogManager.getLogger(OfertaServiceImpl.class);
@@ -31,6 +34,7 @@ public class OfertaServiceImpl implements OfertaService{
 			connection.setAutoCommit(false);
 			oferta = ofertaDAO.findById(connection, idOferta);
 			commit = true;
+
 		}catch(SQLException se) {
 			logger.error(se);
 			throw new DataException(se);
@@ -63,6 +67,7 @@ public class OfertaServiceImpl implements OfertaService{
 	@Override
 	public Oferta create(Oferta oferta) throws DataException {
 		logger.info("Creando oferta...");
+		CacheManagerImpl.getInstance().remove(CacheNames.PRODUCTO_OFERTA);
 		Connection connection = ConnectionManager.getConnection();
 		boolean commit = false;
 		Oferta ofert  = null;
@@ -104,6 +109,8 @@ public class OfertaServiceImpl implements OfertaService{
 		}
 		return ofert;
 	}
+
+	
 
 	
 }

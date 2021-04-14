@@ -4,16 +4,19 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
 
+import org.apache.commons.collections4.keyvalue.MultiKey;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import com.abastos.cache.Cache;
+import com.abastos.cache.impl.CacheManagerImpl;
 import com.abastos.dao.CategoriaDAO;
 import com.abastos.dao.jdbc.CategoriaDAOImpl;
-import com.abastos.dao.jdbc.TipoOfertaDAOImpl;
 import com.abastos.dao.util.ConnectionManager;
 import com.abastos.model.Categoria;
 import com.abastos.service.CategoriaService;
 import com.abastos.service.DataException;
+import com.abastos.service.utils.CacheNames;
 
 public class CategoriaServiceImpl implements CategoriaService{
 	private static Logger logger = LogManager.getLogger(CategoriaServiceImpl.class);
@@ -26,13 +29,21 @@ public class CategoriaServiceImpl implements CategoriaService{
 	@Override
 	public List<Categoria> findRoot(String idioma) throws DataException {
 		logger.info("Empezando categoria findRoot...");
+		Cache cacheCateg = CacheManagerImpl.getInstance().get(CacheNames.CATEGORIA);
+		List<Categoria> categoria=  (List<Categoria>)cacheCateg.get(idioma);
+		if(categoria != null) {
+			logger.info("cache hit");
+		}
+		else { 
+			logger.info("cache miss");
 		Connection connection = ConnectionManager.getConnection();
 		boolean commit = false;
-		List<Categoria> categoria  = null;
+	
 		try {
 			connection.setAutoCommit(false);
 			categoria = categoriaDAO.findRoot(connection, idioma);
 			commit = true;
+			
 		}catch(SQLException se) {
 			logger.error(se);
 			throw new DataException(se);
@@ -40,15 +51,22 @@ public class CategoriaServiceImpl implements CategoriaService{
 		finally {
 			ConnectionManager.closeConnection(connection, commit);
 		}
+		cacheCateg.put(idioma, categoria);
+		}
+		
 		return categoria;
 	}
 
 	@Override
 	public Categoria findById(Integer idCategoria, String idioma) throws DataException {
 		logger.info("Empezando findId...");
+		Cache cacheCateg = CacheManagerImpl.getInstance().get(CacheNames.CATEGORIA);
+		Categoria categoria=  (Categoria)cacheCateg.get(new MultiKey(idCategoria, idioma));
+		if(categoria != null) {}
+		else {
 		Connection connection = ConnectionManager.getConnection();
 		boolean commit = false;
-		Categoria categoria  = null;
+
 		try {
 			connection.setAutoCommit(false);
 			categoria = categoriaDAO.findById(connection, idCategoria, idioma);
@@ -59,6 +77,9 @@ public class CategoriaServiceImpl implements CategoriaService{
 		}
 		finally {
 			ConnectionManager.closeConnection(connection, commit);
+		}
+		cacheCateg.put(new MultiKey(idCategoria, idioma), connection);
+		
 		}
 		return categoria;
 	}

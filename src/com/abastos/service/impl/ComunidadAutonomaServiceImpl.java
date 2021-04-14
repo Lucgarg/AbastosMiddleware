@@ -7,13 +7,15 @@ import java.util.List;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import com.abastos.cache.Cache;
+import com.abastos.cache.impl.CacheManagerImpl;
 import com.abastos.dao.ComunidadAutonomaDAO;
 import com.abastos.dao.jdbc.ComunidadAutonomaDAOImpl;
 import com.abastos.dao.util.ConnectionManager;
 import com.abastos.model.ComunidadAutonoma;
-import com.abastos.model.Localidad;
 import com.abastos.service.ComunidadAutonomaService;
 import com.abastos.service.DataException;
+import com.abastos.service.utils.CacheNames;
 
 public class ComunidadAutonomaServiceImpl implements ComunidadAutonomaService{
 	private static Logger logger = LogManager.getLogger(ComunidadAutonomaServiceImpl.class);
@@ -46,9 +48,16 @@ public class ComunidadAutonomaServiceImpl implements ComunidadAutonomaService{
 	@Override
 	public List<ComunidadAutonoma> findByIdPais(Long idPais) throws DataException {
 		logger.info("Iniciando findById...");
+		Cache cacheComunidad = CacheManagerImpl.getInstance().get(CacheNames.COMUNIDAD);
+		List<ComunidadAutonoma> comunidadAutonoma=  (List<ComunidadAutonoma>)cacheComunidad.get(idPais);
+		if(comunidadAutonoma != null) {
+			logger.info("cache hit");
+		}
+		else {
+			logger.info("cache miss");
 		Connection connection = ConnectionManager.getConnection();
 		boolean commit = false;
-		List<ComunidadAutonoma> comunidadAutonoma  = null;
+	
 		try {
 			connection.setAutoCommit(false);
 			comunidadAutonoma = comunidadAutonomaDAO.findByIdPais(connection, idPais);
@@ -59,6 +68,8 @@ public class ComunidadAutonomaServiceImpl implements ComunidadAutonomaService{
 		}
 		finally {
 			ConnectionManager.closeConnection(connection, commit);
+		}
+		cacheComunidad.put(idPais, comunidadAutonoma);
 		}
 		return comunidadAutonoma;
 	}

@@ -5,6 +5,9 @@ import java.sql.SQLException;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.ehcache.CacheManager;
+import org.ehcache.config.builders.CacheConfigurationBuilder;
+import org.ehcache.config.builders.CacheManagerBuilder;
 
 import com.abastos.dao.ContenidoDAO;
 import com.abastos.dao.jdbc.ContenidoDAOImpl;
@@ -27,6 +30,7 @@ public class ContenidoServiceImpl implements ContenidoService{
 		Connection connection = ConnectionManager.getConnection();
 		boolean commit = false;
 		Contenido contenido= null;
+
 		try {
 			connection.setAutoCommit(false);
 			contenido = contenidoDAO.findById(connection, id);

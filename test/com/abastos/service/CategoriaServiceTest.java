@@ -13,6 +13,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import com.abastos.model.Categoria;
@@ -40,14 +41,14 @@ public class CategoriaServiceTest {
 	@Test
 	public void testFindRoot() throws Exception{
 		logger.traceEntry();
-		
+
 			assertNotEquals(Collections.EMPTY_LIST,categoriaService.findRoot("en"));
-		
+			
 	
 		logger.traceExit();
 	}
 
-	@Test
+@Ignore
 	public void testFindById() throws Exception{
 		logger.traceEntry();
 		
@@ -56,7 +57,7 @@ public class CategoriaServiceTest {
 		logger.traceExit();
 	}
 
-	@Test
+@Ignore
 	public void testFindByIdPadre() throws Exception{
 		logger.traceEntry();
 	

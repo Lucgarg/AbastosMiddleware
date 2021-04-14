@@ -7,7 +7,9 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -241,6 +243,48 @@ public class ProductoDAOImpl implements ProductoDAO{
 		}catch (SQLException se) {
 			logger.error(se);
 			throw new DataException(new StringBuilder().append("Buscando productos de la tienda " ).append(idTienda).toString(),se);
+		}  finally {
+			ConnectionManager.close(resultSet, preparedStatement);
+		}
+		return producto;
+	}
+	@Override
+	public Map<Long,Producto> findByProductOfert(Connection connection, String idioma) throws DataException {
+		
+		Map<Long,Producto> producto = null;
+		ResultSet resultSet = null;
+		PreparedStatement preparedStatement = null;
+		StringBuilder sql=null;
+		try {
+			sql=new StringBuilder();
+			logger.trace("Create statement...");
+			sql.append( "SELECT p.ID_PRODUCTO, g.NOMBRE_PRODUCTO, p.PRECIO, ");
+			sql.append(" g.CARACTERISTICAS_PRODUCTO, ");
+			sql.append(" p.ID_ORIGEN, p.FECHA_CREACION, p.ID_TIENDA, p.ID_CATEGORIA, p.STOCK, p.ID_OFERTA, p.precio_final  ");
+			sql.append(" FROM PRODUCTO  p inner join oferta a on a.id_producto = p.id_producto");
+			sql.append(" inner join producto_idioma g on p.id_producto = g.id_producto ");
+			sql.append(" WHERE g.id_idioma = ? AND p.DATA_BAJA IS  NULL ") ;
+			preparedStatement = connection.prepareStatement
+					(sql.toString(), ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+			logger.trace(sql.toString());
+
+			int i = 1;
+
+			preparedStatement.setString(i++, String.valueOf(idioma));
+
+			resultSet = preparedStatement.executeQuery();
+			Producto prod = null;
+			producto = new HashMap<Long,Producto>();
+			while(resultSet.next()) {
+				prod = loadNext(connection, resultSet);
+				producto.put(prod.getId(), prod);
+			}
+
+		}catch (SQLException se) {
+			logger.error(se);
+			throw new DataException(new StringBuilder()
+					.append("Buscando productos de oferta tipo compra y llevate. " ).toString());
+				
 		}  finally {
 			ConnectionManager.close(resultSet, preparedStatement);
 		}
@@ -656,6 +700,7 @@ public class ProductoDAOImpl implements ProductoDAO{
 
 
 	}
+
 
 
 }
