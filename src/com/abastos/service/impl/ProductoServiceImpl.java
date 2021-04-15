@@ -9,7 +9,7 @@ import org.apache.commons.collections4.keyvalue.MultiKey;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import com.abastos.cache.Cache;
+import com.abastos.cache.EhCache;
 import com.abastos.cache.impl.CacheManagerImpl;
 import com.abastos.dao.ProductoDAO;
 import com.abastos.dao.Results;
@@ -34,7 +34,7 @@ public class ProductoServiceImpl implements ProductoService {
 	@Override
 	public Results<Producto> findBy(ProductoCriteria producto, String idioma, int startIndex, int count) throws DataException {
 		logger.info("Iniciando findBy...");
-		Cache cacheProducts = CacheManagerImpl.getInstance().get(CacheNames.PRODUCTO);
+		EhCache cacheProducts = CacheManagerImpl.getInstance().get(CacheNames.PRODUCTO);
 		Results<Producto> produc =  (Results<Producto>)cacheProducts.get
 				(new MultiKey(producto, idioma, startIndex, count));
 		if(produc != null) {
@@ -103,7 +103,7 @@ public class ProductoServiceImpl implements ProductoService {
 	@Override
 	public Map<Long,Producto> findByProductOfert(String idioma) throws DataException {
 		logger.info("Iniciando findByProducOfert...");
-		Cache cacheProducts = CacheManagerImpl.getInstance().get(CacheNames.PRODUCTO_OFERTA);
+		EhCache cacheProducts = CacheManagerImpl.getInstance().get(CacheNames.PRODUCTO_OFERTA);
 		Map<Long,Producto> producto =  (Map<Long,Producto>)cacheProducts.get(idioma);
 		if(producto != null) {
 			logger.info("cache hit");

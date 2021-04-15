@@ -7,7 +7,7 @@ import java.util.List;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import com.abastos.cache.Cache;
+import com.abastos.cache.EhCache;
 import com.abastos.cache.impl.CacheManagerImpl;
 import com.abastos.dao.PaisDAO;
 import com.abastos.dao.jdbc.PaisDAOImpl;
@@ -47,7 +47,7 @@ public class PaisServiceImpl implements PaisService{
 	@Override
 	public List<Pais> findByAll() throws DataException {
 		logger.info("Iniciando findByAll...");
-		Cache cachePais = CacheManagerImpl.getInstance().get(CacheNames.PAIS);
+		EhCache cachePais = CacheManagerImpl.getInstance().get(CacheNames.PAIS);
 		List<Pais> pais=  (List<Pais>)cachePais.get(CacheNames.PAIS);
 		if(pais != null) {
 			logger.info("cache hit");

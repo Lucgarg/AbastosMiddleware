@@ -10,7 +10,7 @@ import org.apache.commons.collections4.keyvalue.MultiKey;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import com.abastos.cache.Cache;
+import com.abastos.cache.EhCache;
 import com.abastos.cache.impl.CacheManagerImpl;
 import com.abastos.dao.Results;
 import com.abastos.dao.TiendaDAO;
@@ -82,7 +82,7 @@ public class TiendaServiceImpl implements TiendaService{
 	@Override
 	public Results<Tienda> findByCriteria(TiendaCriteria tiendaCri, int startIndex, int count) throws DataException {
 		logger.info("Iniciando findByCriteria...");
-		Cache cacheTienda = CacheManagerImpl.getInstance().get(CacheNames.TIENDA);
+		EhCache cacheTienda = CacheManagerImpl.getInstance().get(CacheNames.TIENDA);
 		Results<Tienda> tienda =  (Results<Tienda>)cacheTienda.get(new MultiKey(tiendaCri, startIndex, count));
 		if(tienda != null) {
 			logger.info("cache hit");

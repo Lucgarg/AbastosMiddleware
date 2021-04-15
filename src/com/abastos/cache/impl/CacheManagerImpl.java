@@ -1,18 +1,21 @@
 package com.abastos.cache.impl;
 
 import java.util.HashMap;
-
 import java.util.Map;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.ehcache.xml.XmlConfiguration;
 
-
-import com.abastos.cache.Cache;
 import com.abastos.cache.CacheManager;
+import com.abastos.cache.EhCache;
 
 public class CacheManagerImpl implements CacheManager {
-	private static Map<String, Cache> caches = null;
+	private static Map<String, EhCache> caches = null;
+	private static Logger logger = LogManager.getLogger(CacheImpl.class);
 	private CacheManagerImpl() {
-		caches = new HashMap<String, Cache>();
+		
+		caches = new HashMap<String, EhCache>();
 	}
 	public static CacheManager INSTANCE = null;
 	public static CacheManager getInstance() {
@@ -23,17 +26,20 @@ public class CacheManagerImpl implements CacheManager {
 	};
 	@Override
 	public void put(String n, Object k, Object o2) {
-		Cache cache = new CacheImpl();
+		
+		EhCache cache = new CacheImpl(new EhCacheAdapter());
 		cache.put(k, o2);
+		
 		caches.put(n, cache);
 	}
 
 	@Override
-	public Cache get(String n) {
+	public EhCache get(String n) {
 		 
-		 Cache cache =  caches.get(n);
+		 EhCache cache =  caches.get(n);
 		if(cache == null) {
-			cache = new CacheImpl();
+			cache = new CacheImpl(new EhCacheAdapter());
+		
 			caches.put(n, cache);
 			
 		}

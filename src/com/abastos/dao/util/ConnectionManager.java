@@ -9,24 +9,25 @@ import java.sql.SQLException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import com.abastos.configuration.ConfigurationManager;
 import com.abastos.service.DataException;
 import com.abastos.service.impl.LineaListaServiceImpl;
 
 public class ConnectionManager {
 	// JDBC driver name and database URL
 	private static Logger logger = LogManager.getLogger(ConnectionManager.class);
-	static final String JDBC_DRIVER = "com.mysql.cj.jdbc.Driver";
-	static final String DB_URL = "jdbc:mysql://127.0.0.1:3306/abastos_database";
+	static final String JDBC_DRIVER = "jdbc.driver.classname";
+	static final String DB_URL = "jdbc.url";
 
 	// Database credentials
-	static final String USER = "root";
-	static final String PASS = "eiradovello";
-
+	static final String USER = "jdbc.user";
+	static final String PASS = "jdbc.password";
+	private static ConfigurationManager cfg = ConfigurationManager.getInstance();
 	static {
 
 		// Register JDBC driver	
 		try {
-			Class.forName(JDBC_DRIVER);
+			Class.forName(cfg.getParameter(JDBC_DRIVER));
 		} catch (Exception e) {
 
 			logger.error(e);
@@ -39,7 +40,7 @@ public class ConnectionManager {
 			throws DataException {		
 
 		try {
-			return DriverManager.getConnection(DB_URL, USER, PASS);
+			return DriverManager.getConnection(cfg.getParameter(DB_URL), cfg.getParameter(USER), cfg.getParameter(PASS));
 		} catch (SQLException e) {
 			logger.error(e);
 			throw new DataException(e);

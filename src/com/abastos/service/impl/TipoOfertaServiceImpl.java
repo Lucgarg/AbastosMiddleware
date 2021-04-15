@@ -7,7 +7,7 @@ import java.util.List;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import com.abastos.cache.Cache;
+import com.abastos.cache.EhCache;
 import com.abastos.cache.impl.CacheManagerImpl;
 import com.abastos.dao.TipoOfertaDAO;
 import com.abastos.dao.jdbc.TipoOfertaDAOImpl;
