@@ -6,6 +6,7 @@ import java.util.Map;
 import java.util.Set;
 
 import org.ehcache.Cache;
+import org.ehcache.config.CacheConfiguration;
 import org.ehcache.config.CacheRuntimeConfiguration;
 import org.ehcache.spi.loaderwriter.BulkCacheLoadingException;
 import org.ehcache.spi.loaderwriter.BulkCacheWritingException;
@@ -14,9 +15,10 @@ import org.ehcache.spi.loaderwriter.CacheWritingException;
 
 public class EhCacheAdapter implements Cache{
 	private Map cache = null;
+
 	public EhCacheAdapter() {
 		cache = new HashMap<Object, Object>();
-		
+
 	}
 
 	@Override
