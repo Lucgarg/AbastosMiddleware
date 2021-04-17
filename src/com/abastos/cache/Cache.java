@@ -1,8 +1,7 @@
 package com.abastos.cache;
 
-import org.apache.commons.collections4.keyvalue.MultiKey;
 
-public interface EhCache {
+public interface Cache {
 	
 	public void put(Object s, Object o2);
 	

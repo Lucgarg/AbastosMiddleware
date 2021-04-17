@@ -1,13 +1,14 @@
 package com.abastos.service.impl;
 
 import java.sql.Connection;
+
 import java.sql.SQLException;
 import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import com.abastos.cache.EhCache;
+import com.abastos.cache.Cache;
 import com.abastos.cache.impl.CacheManagerImpl;
 import com.abastos.dao.ProvinciaDAO;
 import com.abastos.dao.jdbc.ProvinciaDAOImpl;
@@ -48,7 +49,7 @@ public class ProvinciaServiceImpl implements ProvinciaService {
 	@Override
 	public List<Provincia> findByIdComunidad(Long idComunidad) throws DataException {
 		logger.info("Iniciando findByIdComunidad");
-		EhCache cacheProvincia = CacheManagerImpl.getInstance().get(CacheNames.PROVINCIA);
+		Cache cacheProvincia = CacheManagerImpl.getInstance().get(CacheNames.PROVINCIA);
 		List<Provincia> provincia=  (List<Provincia>)cacheProvincia.get(idComunidad);
 		if(provincia != null) {
 			logger.info("cache hit");

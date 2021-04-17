@@ -1,44 +1,55 @@
 package com.abastos.cache.impl;
 
+
 import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.ehcache.xml.XmlConfiguration;
 
+
+import com.abastos.cache.Cache;
 import com.abastos.cache.CacheManager;
-import com.abastos.cache.EhCache;
+
 
 public class CacheManagerImpl implements CacheManager {
-	private static Map<String, EhCache> caches = null;
+	private static Map<String, Cache> caches = null;
 	private static Logger logger = LogManager.getLogger(CacheImpl.class);
-	private CacheManagerImpl() {
-		
-		caches = new HashMap<String, EhCache>();
+	
+	
+	
+
+
+	private CacheManagerImpl()  {
+	
+		     
+		caches = new HashMap<String, Cache>();
 	}
+	
 	public static CacheManager INSTANCE = null;
 	public static CacheManager getInstance() {
 		if(INSTANCE == null) {
 			INSTANCE = new CacheManagerImpl();
+			
+			
 		}
 		return INSTANCE;
 	};
 	@Override
 	public void put(String n, Object k, Object o2) {
 		
-		EhCache cache = new CacheImpl(new EhCacheAdapter());
+		Cache cache = new CacheImpl();
 		cache.put(k, o2);
 		
 		caches.put(n, cache);
 	}
 
 	@Override
-	public EhCache get(String n) {
+	public Cache get(String n) {
 		 
-		 EhCache cache =  caches.get(n);
+		 Cache cache =  caches.get(n);
 		if(cache == null) {
-			cache = new CacheImpl(new EhCacheAdapter());
+			cache = new CacheImpl();
 		
 			caches.put(n, cache);
 			

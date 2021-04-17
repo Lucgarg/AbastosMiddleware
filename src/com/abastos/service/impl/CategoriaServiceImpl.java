@@ -1,6 +1,7 @@
 package com.abastos.service.impl;
 
 import java.sql.Connection;
+
 import java.sql.SQLException;
 import java.util.List;
 
@@ -8,7 +9,7 @@ import org.apache.commons.collections4.keyvalue.MultiKey;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import com.abastos.cache.EhCache;
+import com.abastos.cache.Cache;
 import com.abastos.cache.impl.CacheManagerImpl;
 import com.abastos.dao.CategoriaDAO;
 import com.abastos.dao.jdbc.CategoriaDAOImpl;
@@ -29,7 +30,7 @@ public class CategoriaServiceImpl implements CategoriaService{
 	@Override
 	public List<Categoria> findRoot(String idioma) throws DataException {
 		logger.info("Empezando categoria findRoot...");
-		EhCache cacheCateg = CacheManagerImpl.getInstance().get(CacheNames.CATEGORIA);
+		Cache cacheCateg = CacheManagerImpl.getInstance().get(CacheNames.CATEGORIA);
 		List<Categoria> categoria=  (List<Categoria>)cacheCateg.get(idioma);
 		if(categoria != null) {
 			logger.info("cache hit");
@@ -60,7 +61,7 @@ public class CategoriaServiceImpl implements CategoriaService{
 	@Override
 	public Categoria findById(Integer idCategoria, String idioma) throws DataException {
 		logger.info("Empezando findId...");
-		EhCache cacheCateg = CacheManagerImpl.getInstance().get(CacheNames.CATEGORIA);
+		Cache cacheCateg = CacheManagerImpl.getInstance().get(CacheNames.CATEGORIA);
 		Categoria categoria=  (Categoria)cacheCateg.get(new MultiKey(idCategoria, idioma));
 		if(categoria != null) {}
 		else {

@@ -1,13 +1,14 @@
 package com.abastos.service.impl;
 
 import java.sql.Connection;
+
 import java.sql.SQLException;
 import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import com.abastos.cache.EhCache;
+import com.abastos.cache.Cache;
 import com.abastos.cache.impl.CacheManagerImpl;
 import com.abastos.dao.ComunidadAutonomaDAO;
 import com.abastos.dao.jdbc.ComunidadAutonomaDAOImpl;
@@ -48,7 +49,7 @@ public class ComunidadAutonomaServiceImpl implements ComunidadAutonomaService{
 	@Override
 	public List<ComunidadAutonoma> findByIdPais(Long idPais) throws DataException {
 		logger.info("Iniciando findById...");
-		EhCache cacheComunidad = CacheManagerImpl.getInstance().get(CacheNames.COMUNIDAD);
+		Cache cacheComunidad = CacheManagerImpl.getInstance().get(CacheNames.COMUNIDAD);
 		List<ComunidadAutonoma> comunidadAutonoma=  (List<ComunidadAutonoma>)cacheComunidad.get(idPais);
 		if(comunidadAutonoma != null) {
 			logger.info("cache hit");

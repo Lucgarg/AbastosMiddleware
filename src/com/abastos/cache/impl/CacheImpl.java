@@ -1,20 +1,23 @@
 package com.abastos.cache.impl;
 
+import java.util.HashMap;
+
+import java.util.Map;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.ehcache.Cache;
-import org.ehcache.CacheManager;
-import org.ehcache.config.builders.CacheManagerBuilder;
 
-import com.abastos.cache.EhCache;
+import com.abastos.cache.Cache;
 
-public class CacheImpl implements EhCache{
+
+
+public class CacheImpl implements Cache{
 	private static Logger logger = LogManager.getLogger(CacheImpl.class);
-	private Cache cache = null;
-	public CacheImpl(Cache cache) {
+	private Map cache = null;
 	
-		this.cache = cache;
-
+	public CacheImpl() {
+		
+		cache = new HashMap<Object, Object>();
 	}
 
 	@Override
