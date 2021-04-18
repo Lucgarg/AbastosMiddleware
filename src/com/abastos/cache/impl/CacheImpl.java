@@ -4,6 +4,7 @@ import java.util.HashMap;
 
 import java.util.Map;
 
+import org.apache.commons.collections4.keyvalue.MultiKey;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -13,7 +14,7 @@ import com.abastos.cache.Cache;
 
 public class CacheImpl implements Cache{
 	private static Logger logger = LogManager.getLogger(CacheImpl.class);
-	private Map cache = null;
+	private Map<Object, Object> cache = null;
 	
 	public CacheImpl() {
 		
@@ -32,6 +33,10 @@ public class CacheImpl implements Cache{
 		
 		return this.cache.get(o);
 	}
+
+
+
+	
 
 
 

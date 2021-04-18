@@ -35,7 +35,7 @@ public class OfertaServiceTest {
 
 		
 		//oferta con fecha valida
-		assertNotNull(oferServ.findById(2L));
+		assertNotNull(oferServ.findById(26L));
 
 		logger.traceExit();
 	}

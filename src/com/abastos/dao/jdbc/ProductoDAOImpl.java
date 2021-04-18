@@ -130,7 +130,7 @@ public class ProductoDAOImpl implements ProductoDAO{
 
 			if(producto.getPredioDesde() != null || producto.getPrecioHasta() != null) {
 				sql.append( producto.getPredioDesde() != null? (producto.getPrecioHasta() !=null?
-						" AND A.PRECIO BETWEEN ? AND ? ": " AND A.PRECIO > ? "): "AND A.PRECIO < ? ");
+						" AND A.PRECIO BETWEEN ? AND ? ": " AND A.PRECIO >= ? "): "AND A.PRECIO <= ? ");
 
 			}
 
@@ -181,9 +181,9 @@ public class ProductoDAOImpl implements ProductoDAO{
 				}
 			}
 			preparedStatement.setString(i++, idioma);
-
+			
 			resultSet = preparedStatement.executeQuery();
-			logger.info(preparedStatement.toString());
+			
 			results = new ArrayList<Producto>();
 
 			Producto pro = null;
@@ -371,7 +371,12 @@ public class ProductoDAOImpl implements ProductoDAO{
 			preparedStatement.setString(i++, String.valueOf(producto.getTipoOrigen()));
 			preparedStatement.setInt(i++, producto.getStock());
 			preparedStatement.setLong(i++, producto.getIdTienda());
-			DBNullUtils.toNull(preparedStatement, i++, producto.getOferta().getId());
+			if(producto.getOferta() != null) {
+			preparedStatement.setLong(i++, producto.getOferta().getId());
+			}
+			else {
+			DBNullUtils.toNull(preparedStatement, i++, (Long)null);
+			}
 			preparedStatement.setInt(i++, producto.getIdCategoria());
 			preparedStatement.setDouble(i++, producto.getPrecioFinal());
 			preparedStatement.executeUpdate();

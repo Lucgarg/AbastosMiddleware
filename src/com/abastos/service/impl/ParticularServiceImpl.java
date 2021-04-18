@@ -53,6 +53,44 @@ public class ParticularServiceImpl implements ParticularService {
 		return particular;
 	}
 	@Override
+	public Particular findByEmail( String email) throws DataException {
+		Connection connection = ConnectionManager.getConnection();
+		logger.info("findById particular...");
+		boolean commit = false;
+		Particular particular  = null;
+		try {
+			connection.setAutoCommit(false);
+			particular = particularDAO.findByEmail(connection, email);
+			commit = true;
+		}catch(SQLException se) {
+			logger.error(se);
+			throw new DataException(se);
+		}
+		finally {
+			ConnectionManager.closeConnection(connection, commit);
+		}
+		return particular;
+	}
+	@Override
+	public Particular findByAlias(String alias) throws DataException {
+		Connection connection = ConnectionManager.getConnection();
+		logger.info("findById particular...");
+		boolean commit = false;
+		Particular particular  = null;
+		try {
+			connection.setAutoCommit(false);
+			particular = particularDAO.findByAlias(connection, alias);
+			commit = true;
+		}catch(SQLException se) {
+			logger.error(se);
+			throw new DataException(se);
+		}
+		finally {
+			ConnectionManager.closeConnection(connection, commit);
+		}
+		return particular;
+	}
+	@Override
 	public Integer findPuntos(Long idParticular) throws DataException {
 		logger.info("Iniciando findPuntos..");
 		Connection connection = ConnectionManager.getConnection();
@@ -218,6 +256,7 @@ public class ParticularServiceImpl implements ParticularService {
 		}
 		return particular;
 	}
+
 
 
 

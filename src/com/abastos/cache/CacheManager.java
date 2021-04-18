@@ -1,10 +1,6 @@
 package com.abastos.cache;
 
 
-
-
-
-
 public interface CacheManager {
 
 	public  void put(String n, Object k, Object o2);

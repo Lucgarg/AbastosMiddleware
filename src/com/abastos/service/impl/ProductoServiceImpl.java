@@ -1,7 +1,6 @@
 package com.abastos.service.impl;
 
 import java.sql.Connection;
-
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
@@ -36,8 +35,8 @@ public class ProductoServiceImpl implements ProductoService {
 	public Results<Producto> findBy(ProductoCriteria producto, String idioma, int startIndex, int count) throws DataException {
 		logger.info("Iniciando findBy...");
 		Cache cacheProducts = CacheManagerImpl.getInstance().get(CacheNames.PRODUCTO);
-		Results<Producto> produc =  (Results<Producto>)cacheProducts.get
-				(new MultiKey(producto, idioma, startIndex, count));
+		MultiKey mk = new MultiKey(producto, idioma, startIndex, count);
+		Results<Producto> produc =  (Results<Producto>)cacheProducts.get(mk);
 		if(produc != null) {
 			logger.info("cache hit");
 		}
@@ -57,7 +56,7 @@ public class ProductoServiceImpl implements ProductoService {
 		finally {
 			ConnectionManager.closeConnection(connection, commit);
 		}
-		cacheProducts.put(new MultiKey(producto, idioma, startIndex, count), produc);
+		cacheProducts.put(mk, produc);
 		
 		}
 		return produc;
@@ -106,6 +105,7 @@ public class ProductoServiceImpl implements ProductoService {
 		logger.info("Iniciando findByProducOfert...");
 		Cache cacheProducts = CacheManagerImpl.getInstance().get(CacheNames.PRODUCTO_OFERTA);
 		Map<Long,Producto> producto =  (Map<Long,Producto>)cacheProducts.get(idioma);
+		
 		if(producto != null) {
 			logger.info("cache hit");
 		}

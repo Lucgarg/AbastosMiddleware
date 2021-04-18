@@ -62,7 +62,8 @@ public class CategoriaServiceImpl implements CategoriaService{
 	public Categoria findById(Integer idCategoria, String idioma) throws DataException {
 		logger.info("Empezando findId...");
 		Cache cacheCateg = CacheManagerImpl.getInstance().get(CacheNames.CATEGORIA);
-		Categoria categoria=  (Categoria)cacheCateg.get(new MultiKey(idCategoria, idioma));
+		MultiKey mk  = new MultiKey(idCategoria, idioma);
+		Categoria categoria=  (Categoria)cacheCateg.get(mk);
 		if(categoria != null) {}
 		else {
 		Connection connection = ConnectionManager.getConnection();
@@ -79,7 +80,7 @@ public class CategoriaServiceImpl implements CategoriaService{
 		finally {
 			ConnectionManager.closeConnection(connection, commit);
 		}
-		cacheCateg.put(new MultiKey(idCategoria, idioma), connection);
+		cacheCateg.put(mk, connection);
 		
 		}
 		return categoria;

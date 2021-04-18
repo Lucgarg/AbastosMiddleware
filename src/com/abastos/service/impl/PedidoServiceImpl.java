@@ -1,11 +1,9 @@
 package com.abastos.service.impl;
 
 import java.sql.Connection;
-
 import java.sql.SQLException;
-import java.util.HashMap;
+import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -19,13 +17,10 @@ import com.abastos.dao.jdbc.ProductoDAOImpl;
 import com.abastos.dao.util.ConnectionManager;
 import com.abastos.model.LineaPedido;
 import com.abastos.model.Pedido;
-import com.abastos.model.Producto;
 import com.abastos.service.DataException;
 import com.abastos.service.LineaPedidoService;
-import com.abastos.service.MailService;
 import com.abastos.service.ParticularService;
 import com.abastos.service.PedidoService;
-import com.abastos.service.exceptions.MailException;
 import com.abastos.service.utils.ServiceUtils;
 
 public class PedidoServiceImpl implements PedidoService{

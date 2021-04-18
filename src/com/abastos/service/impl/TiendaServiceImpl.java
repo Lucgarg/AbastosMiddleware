@@ -85,7 +85,9 @@ public class TiendaServiceImpl implements TiendaService{
 		logger.info("Iniciando findByCriteria...");
 		
 		Cache cacheTienda = CacheManagerImpl.getInstance().get(CacheNames.TIENDA);
-		Results<Tienda> tienda =  (Results<Tienda>)cacheTienda.get(new MultiKey(tiendaCri, startIndex, count));
+		MultiKey<Object> mk = new MultiKey<Object>(tiendaCri, startIndex, count);
+	
+		Results<Tienda> tienda =  (Results<Tienda>)cacheTienda.get(mk);
 		if(tienda != null) {
 			logger.info("cache hit");
 		}
@@ -106,7 +108,7 @@ public class TiendaServiceImpl implements TiendaService{
 		finally {
 			ConnectionManager.closeConnection(connection, commit);
 		}
-		cacheTienda.put(new MultiKey(tiendaCri, startIndex, count), tienda);
+		cacheTienda.put(mk, tienda);
 		}
 		return tienda;	
 
@@ -125,7 +127,7 @@ public class TiendaServiceImpl implements TiendaService{
 				throw new LimitCreationException("Número máximo de tiendas creadas alcanzado");
 			}
 			tiend = tiendaDAO.create(connection, tienda);
-		
+			commit = true;
 			logger.info(new StringBuilder().append("tienda creada ").append(tienda.getEmail()));
 		}catch(SQLException se) {
 			logger.error(se);
