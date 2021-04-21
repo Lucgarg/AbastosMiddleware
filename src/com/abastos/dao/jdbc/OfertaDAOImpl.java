@@ -47,7 +47,7 @@ public class OfertaDAOImpl implements OfertaDAO {
 			int i = 1;
 			preparedStatement.setLong(i++, idOferta);
 			preparedStatement.setTimestamp(i++,new java.sql.Timestamp(new Date().getTime()));
-			logger.info(preparedStatement.toString());
+
 			resultSet = preparedStatement.executeQuery();
 
 			if(resultSet.next()) {
