@@ -7,14 +7,11 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import com.abastos.model.DireccionDto;
 import com.abastos.model.Empresa;
 import com.abastos.service.exceptions.IncorrectPasswordException;
-import com.abastos.service.exceptions.MailException;
-import com.abastos.service.exceptions.ServiceException;
 import com.abastos.service.exceptions.UserNotFoundException;
 import com.abastos.service.impl.EmpresaServiceImpl;
 

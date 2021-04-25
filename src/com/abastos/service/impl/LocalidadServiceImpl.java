@@ -13,7 +13,6 @@ import com.abastos.cache.impl.CacheManagerImpl;
 import com.abastos.dao.LocalidadDAO;
 import com.abastos.dao.jdbc.LocalidadDAOImpl;
 import com.abastos.dao.util.ConnectionManager;
-import com.abastos.model.ComunidadAutonoma;
 import com.abastos.model.Localidad;
 import com.abastos.service.DataException;
 import com.abastos.service.LocalidadService;

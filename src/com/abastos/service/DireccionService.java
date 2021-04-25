@@ -1,7 +1,5 @@
 package com.abastos.service;
 
-import java.sql.Connection;
-
 import com.abastos.model.Direccion;
 import com.abastos.model.DireccionDto;
 

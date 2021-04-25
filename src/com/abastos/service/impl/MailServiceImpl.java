@@ -10,8 +10,7 @@ import org.apache.commons.mail.HtmlEmail;
 import org.apache.commons.mail.SimpleEmail;
 
 import com.abastos.configuration.ConfigurationManager;
-import com.abastos.dao.ContenidoDAO;
-import com.abastos.dao.jdbc.ContenidoDAOImpl;
+
 import com.abastos.service.MailService;
 import com.abastos.service.exceptions.MailException;
 import com.abastos.service.utils.VelocityUtils;

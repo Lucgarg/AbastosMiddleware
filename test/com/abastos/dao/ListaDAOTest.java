@@ -1,9 +1,8 @@
 package com.abastos.dao;
 
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 
+import static org.junit.Assert.assertTrue;
 import java.sql.Connection;
 
 import org.apache.logging.log4j.LogManager;
@@ -16,10 +15,10 @@ import com.abastos.dao.jdbc.ListaDAOImpl;
 import com.abastos.dao.util.ConnectionManager;
 import com.abastos.model.LineaLista;
 import com.abastos.model.Lista;
-import com.abastos.service.ListaServiceImplTest;
+
 
 public class ListaDAOTest {
-	private static Logger logger = LogManager.getLogger(ListaServiceImplTest.class);
+	private static Logger logger = LogManager.getLogger(ListaDAOTest.class);
 	private ListaDAO listaDAO;
 	private Connection connection;
 	@Before

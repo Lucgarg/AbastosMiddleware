@@ -1,7 +1,7 @@
 package com.abastos.dao;
 
 import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.fail;
+
 
 import java.sql.Connection;
 import java.util.Collections;
@@ -12,7 +12,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.abastos.dao.jdbc.ContenidoDAOImpl;
+
 import com.abastos.dao.jdbc.ProductoIdiomaDAOImpl;
 import com.abastos.dao.util.ConnectionManager;
 

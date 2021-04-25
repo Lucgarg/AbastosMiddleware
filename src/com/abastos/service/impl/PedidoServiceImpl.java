@@ -2,7 +2,6 @@ package com.abastos.service.impl;
 
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.Date;
 import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
@@ -10,10 +9,10 @@ import org.apache.logging.log4j.Logger;
 
 import com.abastos.dao.ParticularDAO;
 import com.abastos.dao.PedidoDAO;
-import com.abastos.dao.ProductoDAO;
+
 import com.abastos.dao.jdbc.ParticularDAOImpl;
 import com.abastos.dao.jdbc.PedidoDAOImpl;
-import com.abastos.dao.jdbc.ProductoDAOImpl;
+
 import com.abastos.dao.util.ConnectionManager;
 import com.abastos.model.LineaPedido;
 import com.abastos.model.Pedido;
@@ -29,13 +28,13 @@ public class PedidoServiceImpl implements PedidoService{
 	private PedidoDAO pedidoDAO;
 	private LineaPedidoService lineaPedidoService;
 	private ParticularDAO particularDAO;
-	private ProductoDAO productoDAO;
+
 	public PedidoServiceImpl() {
 		lineaPedidoService = new LineaPedidoServiceImpl();
 		particular = new ParticularServiceImpl();
 		particularDAO = new ParticularDAOImpl();
 		pedidoDAO = new PedidoDAOImpl();
-		productoDAO = new ProductoDAOImpl();
+
 
 	}
 
@@ -129,7 +128,7 @@ public class PedidoServiceImpl implements PedidoService{
 		Pedido pedid  = null;
 		Double precioTotal;
 		int puntos;
-		int stock;
+	
 		try {
 
 			connection.setAutoCommit(false);

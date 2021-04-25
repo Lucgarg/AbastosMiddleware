@@ -1,29 +1,27 @@
 package com.abastos.service;
 
-import static org.junit.Assert.assertEquals;
+
+
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 
-import java.util.ArrayList;
+
+
 import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Ignore;
+
 import org.junit.Test;
 
-import com.abastos.model.Contenido;
+
 import com.abastos.model.DireccionDto;
 import com.abastos.model.Tienda;
-import com.abastos.service.exceptions.MailException;
-import com.abastos.service.exceptions.ServiceException;
+
 import com.abastos.service.impl.TiendaServiceImpl;
 
 public class TiendaServiceTest {
@@ -51,7 +49,7 @@ public class TiendaServiceTest {
 		logger.traceExit();
 
 	}
-	@Ignore
+
 	@Test
 	public void testFindByIdEmpresa() throws Exception{
 		logger.traceEntry();
@@ -68,9 +66,9 @@ public class TiendaServiceTest {
 
 		tiendaCrit.setIdEmpresa(1L);
 		logger.info(tiendaCrit.hashCode());
-		
+
 		tiendaService.findByCriteria(tiendaCrit, 1, 5);
-		 tiendaCrit = new TiendaCriteria();
+		tiendaCrit = new TiendaCriteria();
 
 		tiendaCrit.setIdEmpresa(1L);
 		logger.info(tiendaCrit.hashCode());
@@ -80,7 +78,7 @@ public class TiendaServiceTest {
 
 		logger.traceExit();
 	}
-	@Ignore
+
 	@Test
 	public void testFindByCriteriaNombreLocalidad() throws Exception{
 		logger.traceEntry();
@@ -89,11 +87,11 @@ public class TiendaServiceTest {
 		tiendaCrit.setNombre("Ali");
 		tiendaCrit.setIdLocalidad(1L);
 
-		assertNotEquals(Collections.EMPTY_LIST,tiendaService.findByCriteria(tiendaCrit));
+		assertNotEquals(Collections.EMPTY_LIST,tiendaService.findByCriteria(tiendaCrit, 1, 3));
 
 		logger.traceExit();
 	}
-	@Ignore
+
 	@Test
 	public void testFindByCriteriaCategoriaEnvio() throws Exception{
 		logger.traceEntry();
@@ -102,23 +100,23 @@ public class TiendaServiceTest {
 		tiendaCrit.setCategoria(8);
 		tiendaCrit.setEnvioDomicilio(false);
 
-		assertNotEquals(Collections.EMPTY_LIST,tiendaService.findByCriteria(tiendaCrit));
+		assertNotEquals(Collections.EMPTY_LIST,tiendaService.findByCriteria(tiendaCrit,1,3));
 
 		logger.traceExit();
-		
+
 	}
-	@Ignore
+
 	@Test
 	public void testFindByCriteriaNombre() throws Exception{
 		logger.traceEntry();
 		TiendaCriteria tiendaCrit = new TiendaCriteria();
 		tiendaCrit.setNombre("Ali");
 
-		assertNotEquals(Collections.EMPTY_LIST,tiendaService.findByCriteria(tiendaCrit));
+		assertNotEquals(Collections.EMPTY_LIST,tiendaService.findByCriteria(tiendaCrit,1,3));
 
 		logger.traceExit();
 	}
-	@Ignore
+
 	@Test
 	public void testFindByCriteriaLocalidad() throws Exception {
 		logger.traceEntry();
@@ -126,11 +124,11 @@ public class TiendaServiceTest {
 		tiendaCrit.setIdLocalidad(1L);
 
 
-		assertNotEquals(Collections.EMPTY_LIST,tiendaService.findByCriteria(tiendaCrit));
+		assertNotEquals(Collections.EMPTY_LIST,tiendaService.findByCriteria(tiendaCrit,1,3));
 
 		logger.traceExit();
 	}
-	@Ignore
+
 	@Test
 	public void testFindByCriteriaCategoria() throws Exception {
 		logger.traceEntry();
@@ -138,11 +136,11 @@ public class TiendaServiceTest {
 		tiendaCrit.setCategoria(8);
 
 
-		assertNotEquals(Collections.EMPTY_LIST,tiendaService.findByCriteria(tiendaCrit));
+		assertNotEquals(Collections.EMPTY_LIST,tiendaService.findByCriteria(tiendaCrit,1,3));
 
 		logger.traceExit();
 	}
-	@Ignore
+
 	@Test
 	public void testFindByCriteriaEnvio() throws Exception{
 		logger.traceEntry();
@@ -150,11 +148,11 @@ public class TiendaServiceTest {
 		tiendaCrit.setEnvioDomicilio(true);
 
 
-		assertNotEquals(Collections.EMPTY_LIST,tiendaService.findByCriteria(tiendaCrit));
+		assertNotEquals(Collections.EMPTY_LIST,tiendaService.findByCriteria(tiendaCrit,1,3));
 
 		logger.traceExit();
 	}
-	@Ignore
+
 	@Test
 	public void testCreate() throws Exception{
 		logger.traceEntry();
@@ -180,7 +178,7 @@ public class TiendaServiceTest {
 
 		logger.traceExit();
 	}
-	@Ignore
+
 	@Test
 	public void testUpdate() throws Exception{
 		logger.traceEntry();
@@ -192,13 +190,13 @@ public class TiendaServiceTest {
 
 		logger.traceExit();
 	}
-	@Ignore
+
 	@Test
 	public void testDelete() throws Exception{
 		logger.traceEntry();
-		
-			assertTrue(tiendaService.delete(1L));
-		
+
+		assertTrue(tiendaService.delete(1L));
+
 		logger.traceExit();
 	}
 

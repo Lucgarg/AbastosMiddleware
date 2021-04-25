@@ -2,9 +2,6 @@ package com.abastos.service;
 
 
 
-import java.sql.Connection;
-
-import com.abastos.model.Empresa;
 import com.abastos.model.Particular;
 import com.abastos.service.exceptions.ServiceException;
 

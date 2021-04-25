@@ -11,7 +11,6 @@ import com.abastos.dao.ContenidoProductoDAO;
 import com.abastos.dao.jdbc.ContenidoProductoDAOImpl;
 import com.abastos.dao.util.ConnectionManager;
 import com.abastos.model.ContenidoProducto;
-import com.abastos.model.Localidad;
 import com.abastos.service.ContenidoProductoService;
 import com.abastos.service.DataException;
 

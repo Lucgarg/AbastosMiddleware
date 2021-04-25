@@ -3,9 +3,9 @@ package com.abastos.service.impl;
 import java.sql.Connection;
 
 import java.sql.SQLException;
-import java.util.HashMap;
+
 import java.util.List;
-import java.util.Map;
+
 
 import org.apache.commons.collections4.keyvalue.MultiKey;
 import org.apache.logging.log4j.LogManager;
@@ -17,10 +17,9 @@ import com.abastos.dao.Results;
 import com.abastos.dao.TiendaDAO;
 import com.abastos.dao.jdbc.TiendaDAOImpl;
 import com.abastos.dao.util.ConnectionManager;
-import com.abastos.model.Producto;
 import com.abastos.model.Tienda;
 import com.abastos.service.DataException;
-import com.abastos.service.MailService;
+
 import com.abastos.service.TiendaCriteria;
 import com.abastos.service.TiendaService;
 import com.abastos.service.exceptions.LimitCreationException;
@@ -30,13 +29,10 @@ import com.abastos.service.utils.CacheNames;
 public class TiendaServiceImpl implements TiendaService{
 	private static Logger logger = LogManager.getLogger(TiendaServiceImpl.class);
 	private TiendaDAO tiendaDAO;
-	private Map<String, Object> velo;
 
-	private MailService mailService;
 	public TiendaServiceImpl() {
 		tiendaDAO = new TiendaDAOImpl();
-		velo = new HashMap<String, Object>();
-		mailService = new MailServiceImpl();
+
 	}
 
 	@Override

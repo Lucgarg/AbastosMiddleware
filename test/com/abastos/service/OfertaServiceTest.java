@@ -2,10 +2,6 @@ package com.abastos.service;
 
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
-
-import java.text.ParseException;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.After;
@@ -35,7 +31,7 @@ public class OfertaServiceTest {
 
 		
 		//oferta con fecha valida
-		assertNotNull(oferServ.findById(26L));
+		assertNotNull(oferServ.findById(1L));
 
 		logger.traceExit();
 	}
@@ -43,8 +39,8 @@ public class OfertaServiceTest {
 	public void testFindByIdEmpresa() throws Exception{
 		logger.traceEntry();
 
-		//oferta con fecha invalida
-		assertNull(oferServ.findByIdEmpresa(1L));
+
+		assertNotNull(oferServ.findByIdEmpresa(1L));
 	
 
 		logger.traceExit();
@@ -61,7 +57,7 @@ public class OfertaServiceTest {
 		oferta.setIdTipoOferta(1);
 		oferta.setNombreOferta("prueba0002");
 		oferta.setNombreTipoOfer("prueba004");
-
+		oferta.setIdEmpresa(1L);
 		oferta.setFechaDesde(DataUtils.formatDate("14-04-2021 12:02:02"));
 		oferta.setFechaHasta(DataUtils.formatDate("12-09-2021 12:02:02"));
 		assertNotNull(oferServ.create(oferta));

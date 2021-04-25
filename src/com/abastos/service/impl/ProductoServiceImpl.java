@@ -5,7 +5,6 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.collections4.keyvalue.MultiKey;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -17,7 +16,7 @@ import com.abastos.dao.jdbc.ProductoDAOImpl;
 import com.abastos.dao.util.ConnectionManager;
 import com.abastos.model.Producto;
 import com.abastos.service.DataException;
-import com.abastos.service.OfertaService;
+
 import com.abastos.service.ProductoCriteria;
 import com.abastos.service.ProductoService;
 import com.abastos.service.exceptions.LimitCreationException;
@@ -27,10 +26,10 @@ import com.abastos.service.utils.DescuentoUtils;
 public class ProductoServiceImpl implements ProductoService {
 	private static Logger logger = LogManager.getLogger(ProductoServiceImpl.class);
 	private ProductoDAO productoDAO;
-	private OfertaService ofertaService;
+
 	public ProductoServiceImpl() {
 		productoDAO = new ProductoDAOImpl();
-		ofertaService = new OfertaServiceImpl();
+
 	}
 
 	@Override

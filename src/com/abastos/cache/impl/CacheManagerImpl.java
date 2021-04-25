@@ -4,8 +4,7 @@ package com.abastos.cache.impl;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+
 
 
 import com.abastos.cache.Cache;
@@ -14,7 +13,7 @@ import com.abastos.cache.CacheManager;
 
 public class CacheManagerImpl implements CacheManager {
 	private static Map<String, Cache> caches = null;
-	private static Logger logger = LogManager.getLogger(CacheImpl.class);
+
 	
 	
 	

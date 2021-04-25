@@ -31,11 +31,11 @@ public class PuntuacionProductoServiceTest {
 		logger.traceEntry();
 
 		logger.trace("Por producto");
-		assertNotNull(puntProducto.findById(null, 2L));
+		assertNotNull(puntProducto.findByIdParticular(1L));
 
 
 		logger.trace("Por Particular");
-		assertNotNull(puntProducto.findById(2L, null));
+		assertNotNull(puntProducto.findByIdProducto(1L));
 
 		logger.traceExit();
 

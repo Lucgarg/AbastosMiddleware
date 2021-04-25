@@ -1,11 +1,8 @@
 package com.abastos.dao;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
-
 import java.sql.Connection;
 import java.util.Collections;
 
@@ -68,23 +65,25 @@ public class PedidoDAOTest {
 		linPed.setIdTipoOferta(2);
 		linPed.setNumeroUnidades(12);
 		linPed.setNombreProducto("prueba001");
-		linPed.setIdOferta(1L);
-		linPed.setIdProducto(20L);
+		linPed.setIdOferta(7L);
+		linPed.setIdProducto(15L);
 		linPed.setPrecio(13d);
 		linPed.setPrecioFinal(111.0);
+		linPed.setIdTienda(1L);
 		pedido.add(linPed);
-		//48  145,5
+		
 		linPed1.setDescuentoPcn(50d);
 		linPed1.setIdTipoOferta(3);
 		linPed1.setNumeroUnidades(6);
 		linPed1.setNombreProducto("prueba001");
-		linPed1.setIdOferta(1L);
+		linPed1.setIdOferta(7L);
 		linPed1.setIdProducto(18L);
-		linPed1.setIdProdOferta(20L);
+		linPed1.setIdProdOferta(15L);
 		linPed1.setPrecio(130d);
 		linPed1.setPrecioFinal(111.0);
+		linPed1.setIdTienda(1L);
 		pedido.add(linPed1);
-		//780
+	
 		pedido.setIdParticular(1L);
 		pedido.setAplicarDescuento(true);
 		pedido.setId(1L);

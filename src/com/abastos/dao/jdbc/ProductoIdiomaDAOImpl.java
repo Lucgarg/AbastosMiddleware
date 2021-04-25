@@ -4,10 +4,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
-import java.sql.Timestamp;
+
 import java.util.ArrayList;
-import java.util.Date;
+
 import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
@@ -15,9 +14,9 @@ import org.apache.logging.log4j.Logger;
 
 import com.abastos.dao.ProductoIdiomaDAO;
 import com.abastos.dao.util.ConnectionManager;
-import com.abastos.dao.util.DBNullUtils;
+
 import com.abastos.model.ProductoIdioma;
-import com.abastos.model.Tienda;
+
 import com.abastos.service.DataException;
 
 public class ProductoIdiomaDAOImpl implements ProductoIdiomaDAO {

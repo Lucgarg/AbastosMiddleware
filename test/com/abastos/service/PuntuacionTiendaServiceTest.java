@@ -40,17 +40,16 @@ public class PuntuacionTiendaServiceTest {
 
 		logger.trace("Por idParticular...");
 
-		assertNotEquals(Collections.EMPTY_LIST,puntuacion.findByIdTienda(1L, null));
+		assertNotEquals(Collections.EMPTY_LIST,puntuacion.findByIdTienda(1L));
 
 
 		logger.trace("Por idTienda...");
 
-		assertNotEquals(Collections.EMPTY_LIST,puntuacion.findByIdTienda(null, 1L));
+		assertNotEquals(Collections.EMPTY_LIST,puntuacion.findByIdParticular(1L));
 
 
-		logger.trace("Por IdTienda y IdParticular...");
 
-		assertNotEquals(Collections.EMPTY_LIST,puntuacion.findByIdTienda(1L, 1L));
+		
 
 		logger.traceExit();
 

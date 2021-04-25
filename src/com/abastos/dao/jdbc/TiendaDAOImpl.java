@@ -24,7 +24,6 @@ import com.abastos.dao.util.ConnectionManager;
 import com.abastos.dao.util.DAOUtils;
 import com.abastos.dao.util.DBNullUtils;
 import com.abastos.model.Direccion;
-import com.abastos.model.Producto;
 import com.abastos.model.Tienda;
 import com.abastos.service.DataException;
 import com.abastos.service.TiendaCriteria;

@@ -1,13 +1,11 @@
 package com.abastos.service;
 
-import static org.junit.Assert.assertEquals;
+
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.fail;
 
-import java.util.ArrayList;
 import java.util.Collections;
-import java.util.List;
+
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -16,9 +14,8 @@ import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 
-import com.abastos.model.Categoria;
 import com.abastos.service.impl.CategoriaServiceImpl;
-import com.abastos.service.impl.PaisServiceImpl;
+
 
 public class CategoriaServiceTest {
 	private static Logger logger = LogManager.getLogger(CategoriaServiceTest.class);
@@ -47,8 +44,7 @@ public class CategoriaServiceTest {
 	
 		logger.traceExit();
 	}
-
-@Ignore
+	@Test
 	public void testFindById() throws Exception{
 		logger.traceEntry();
 		
@@ -57,7 +53,7 @@ public class CategoriaServiceTest {
 		logger.traceExit();
 	}
 
-@Ignore
+	@Test
 	public void testFindByIdPadre() throws Exception{
 		logger.traceEntry();
 	

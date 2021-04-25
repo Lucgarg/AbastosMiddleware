@@ -1,6 +1,6 @@
 package com.abastos.dao;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
@@ -12,7 +12,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import com.abastos.dao.jdbc.OfertaDAOImpl;
@@ -66,18 +65,18 @@ public class ProductoDAOTest {
 			index += 10;
 
 		}
-		assertEquals(Collections.EMPTY_LIST,listProducts);
+		assertNotEquals(Collections.EMPTY_LIST,listProducts);
 		logger.traceExit();
 	}
-	@Ignore
+	
 	@Test
 	public void testfindByProducTOfert() throws Exception{
 		logger.traceEntry();
 		
-		assertEquals(Collections.EMPTY_LIST,  productoDAO.findByProductOfert(connection, "es"));
+		assertNotEquals(Collections.EMPTY_LIST,  productoDAO.findByProductOfert(connection, "es"));
 		logger.traceExit();
 	}
-	@Ignore
+	@Test
 	public void testFindByCategoriaPrecioDesde() throws Exception{
 		logger.traceEntry();
 		ProductoCriteria productoCriteria = new ProductoCriteria();
@@ -101,11 +100,11 @@ public class ProductoDAOTest {
 			index += 10;
 
 		}
-		assertEquals(Collections.EMPTY_LIST,listProducts);
+		assertNotEquals(Collections.EMPTY_LIST,listProducts);
 		logger.traceExit();
 
 	}
-	@Ignore
+	
 	@Test
 	public void testFindByOfertaPrecioHasta() throws Exception{
 		logger.traceEntry();
@@ -130,10 +129,10 @@ public class ProductoDAOTest {
 			index += 10;
 
 		}
-		assertEquals(Collections.EMPTY_LIST,listProducts);
+		assertNotEquals(Collections.EMPTY_LIST,listProducts);
 		logger.traceExit();
 	}
-	@Ignore
+	
 	@Test
 	public void testFindByOfertaOrigen() throws Exception{
 		logger.traceEntry();
@@ -158,10 +157,10 @@ public class ProductoDAOTest {
 			index += 10;
 
 		}
-		assertEquals(Collections.EMPTY_LIST,listProducts);
+		assertNotEquals(Collections.EMPTY_LIST,listProducts);
 		logger.traceExit();
 	}
-	@Ignore
+
 	@Test
 	public void testFindByCategoria() throws Exception{
 		logger.traceEntry();
@@ -184,10 +183,10 @@ public class ProductoDAOTest {
 			index += 10;
 
 		}
-		assertEquals(Collections.EMPTY_LIST,listProducts);
+		assertNotEquals(Collections.EMPTY_LIST,listProducts);
 		logger.traceExit();
 	}
-	@Ignore
+
 	@Test
 	public void testFindByOrigen() throws Exception{
 		logger.traceEntry();
@@ -210,10 +209,10 @@ public class ProductoDAOTest {
 			index += 10;
 
 		}
-		assertEquals(Collections.EMPTY_LIST,listProducts);
+		assertNotEquals(Collections.EMPTY_LIST,listProducts);
 		logger.traceExit();
 	}
-	@Ignore
+	
 	@Test
 	public void testFindByTienda() throws Exception{
 		logger.traceEntry();
@@ -236,10 +235,10 @@ public class ProductoDAOTest {
 			index += 10;
 
 		}
-		assertEquals(Collections.EMPTY_LIST,listProducts);
+		assertNotEquals(Collections.EMPTY_LIST,listProducts);
 		logger.traceExit();
 	}
-	@Ignore
+	
 	@Test
 	public void testFindByOferta() throws Exception{
 		logger.traceEntry();
@@ -262,10 +261,10 @@ public class ProductoDAOTest {
 			index += 10;
 
 		}
-		assertEquals(Collections.EMPTY_LIST,listProducts);
+		assertNotEquals(Collections.EMPTY_LIST,listProducts);
 		logger.traceExit();
 	}
-	@Ignore
+	
 	@Test
 	public void testFindByPrecioHasta() throws Exception{
 		logger.traceEntry();
@@ -289,10 +288,10 @@ public class ProductoDAOTest {
 			index += 10;
 
 		}
-		assertEquals(Collections.EMPTY_LIST,listProducts);
+		assertNotEquals(Collections.EMPTY_LIST,listProducts);
 		logger.traceExit();
 	}
-	@Ignore
+
 	@Test
 	public void testFindByPrecioDesde() throws Exception{
 		logger.traceEntry();
@@ -315,10 +314,10 @@ public class ProductoDAOTest {
 			index += 10;
 
 		}
-		assertEquals(Collections.EMPTY_LIST,listProducts);
+		assertNotEquals(Collections.EMPTY_LIST,listProducts);
 		logger.traceExit();
 	}
-	@Ignore
+
 	@Test
 	public void testFindById() throws Exception{
 		logger.traceEntry();
@@ -327,7 +326,7 @@ public class ProductoDAOTest {
 
 		logger.traceExit();
 	}
-	@Ignore
+	
 	@Test
 	public void testCreate() throws Exception{
 		logger.traceEntry();
@@ -368,13 +367,13 @@ public class ProductoDAOTest {
 
 
 	}
-	@Ignore
+	
 	@Test
 	public void testUpdate() throws Exception{
 		logger.traceEntry();
 		Producto producto = new Producto();
 
-		Oferta oferta;
+	
 
 
 		producto = productoDAO.findById(connection, 2L,  "en");
@@ -387,7 +386,7 @@ public class ProductoDAOTest {
 
 		logger.traceExit();
 	}
-	@Ignore
+
 	@Test
 	public void testDelete() throws Exception{
 		logger.traceEntry();
@@ -396,7 +395,7 @@ public class ProductoDAOTest {
 
 		logger.traceExit();
 	}
-	@Ignore
+
 	@Test
 	public void testUpdateStock() throws Exception {
 		logger.traceEntry();

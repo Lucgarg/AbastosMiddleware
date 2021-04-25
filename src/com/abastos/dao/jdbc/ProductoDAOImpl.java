@@ -633,7 +633,7 @@ public class ProductoDAOImpl implements ProductoDAO{
 	public boolean softDeleteByTienda(Connection connection ,Long idTienda) throws DataException {
 		PreparedStatement preparedStatement = null;
 		List<Producto> listProduct = null;
-		ProductoCriteria productoCriteria = null;
+		
 		StringBuilder sql=null;
 		try {
 			sql=new StringBuilder(); 

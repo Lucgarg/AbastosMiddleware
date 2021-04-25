@@ -14,17 +14,17 @@ import com.abastos.dao.util.ConnectionManager;
 import com.abastos.model.LineaPedido;
 import com.abastos.service.DataException;
 import com.abastos.service.LineaPedidoService;
-import com.abastos.service.ProductoService;
+
 import com.abastos.service.utils.ServiceUtils;
 
 public class LineaPedidoServiceImpl implements LineaPedidoService {
 	private static Logger logger = LogManager.getLogger(LineaPedidoServiceImpl.class);
 	private LineaPedidoDAO lineaPedidoDAO;
-	private ProductoService productoService;
+
 
 	public LineaPedidoServiceImpl() {
 		lineaPedidoDAO = new LineaPedidoDAOImpl();
-		productoService = new ProductoServiceImpl();
+
 	}
 
 

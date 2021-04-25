@@ -5,10 +5,6 @@ import java.sql.SQLException;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.ehcache.CacheManager;
-import org.ehcache.config.builders.CacheConfigurationBuilder;
-import org.ehcache.config.builders.CacheManagerBuilder;
-
 import com.abastos.dao.ContenidoDAO;
 import com.abastos.dao.jdbc.ContenidoDAOImpl;
 import com.abastos.dao.util.ConnectionManager;

@@ -1,11 +1,8 @@
 package com.abastos.dao;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
-
 import java.sql.Connection;
 import java.util.Collections;
 
@@ -13,13 +10,11 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import com.abastos.dao.jdbc.TiendaDAOImpl;
 import com.abastos.dao.util.ConnectionManager;
 import com.abastos.model.DireccionDto;
-import com.abastos.model.Producto;
 import com.abastos.model.Tienda;
 import com.abastos.service.TiendaCriteria;
 
@@ -38,7 +33,6 @@ public class TiendaDAOTest {
 	public void tearDown() throws Exception {
 		ConnectionManager.closeConnection(connection, false);
 	}
-	@Ignore
 	@Test
 	public void testFindById() throws Exception{
 		logger.traceEntry();
@@ -48,7 +42,7 @@ public class TiendaDAOTest {
 		logger.traceExit();
 
 	}
-	@Ignore
+
 	@Test
 	public void testFindByIdEmpresa() throws Exception{
 		logger.traceEntry();
@@ -58,7 +52,7 @@ public class TiendaDAOTest {
 
 		logger.traceExit();
 	}
-	
+
 	@Test
 	public void testFindByCriteria() throws Exception{
 		logger.traceEntry();
@@ -73,7 +67,7 @@ public class TiendaDAOTest {
 
 		Results<Tienda>  listTienda = null;
 		while(index < total) {
-			
+
 			listTienda = tiendaDAO.findByCriteria(connection, tiendaCrit, index, 3);
 			for(Tienda p : listTienda.getPage()) {
 				logger.info(p.getId());
@@ -82,10 +76,10 @@ public class TiendaDAOTest {
 			index +=2;
 
 		}
-		assertEquals(Collections.EMPTY_LIST,listTienda);
+		assertNotEquals(Collections.EMPTY_LIST,listTienda);
 		logger.traceExit();
 	}
-	@Ignore
+
 	@Test
 	public void testFindByCriteriaNombreLocalidad() throws Exception{
 		logger.traceEntry();
@@ -108,10 +102,10 @@ public class TiendaDAOTest {
 			index += 10;
 
 		}
-		assertEquals(Collections.EMPTY_LIST,listTienda);
+		assertNotEquals(Collections.EMPTY_LIST,listTienda);
 		logger.traceExit();
 	}
-	@Ignore
+
 	@Test
 	public void testFindByCriteriaCategoriaEnvio() throws Exception{
 		logger.traceEntry();
@@ -134,10 +128,10 @@ public class TiendaDAOTest {
 			index += 10;
 
 		}
-		assertEquals(Collections.EMPTY_LIST,listTienda);
+		assertNotEquals(Collections.EMPTY_LIST,listTienda);
 		logger.traceExit();
 	}
-	@Ignore
+
 	@Test
 	public void testFindByCriteriaNombre() throws Exception{
 		logger.traceEntry();
@@ -158,10 +152,10 @@ public class TiendaDAOTest {
 			index += 10;
 
 		}
-		assertEquals(Collections.EMPTY_LIST,listTienda);
+		assertNotEquals(Collections.EMPTY_LIST,listTienda);
 		logger.traceExit();
 	}
-	@Ignore
+
 	@Test
 	public void testFindByCriteriaLocalidad() throws Exception {
 		logger.traceEntry();
@@ -183,10 +177,10 @@ public class TiendaDAOTest {
 			index += 10;
 
 		}
-		assertEquals(Collections.EMPTY_LIST,listTienda);
+		assertNotEquals(Collections.EMPTY_LIST,listTienda);
 		logger.traceExit();
 	}
-	@Ignore
+
 	@Test
 	public void testFindByCriteriaCategoria() throws Exception {
 		logger.traceEntry();
@@ -208,10 +202,10 @@ public class TiendaDAOTest {
 			index += 10;
 
 		}
-		assertEquals(Collections.EMPTY_LIST,listTienda);
+		assertNotEquals(Collections.EMPTY_LIST,listTienda);
 		logger.traceExit();
 	}
-	@Ignore
+
 	@Test
 	public void testFindByCriteriaEnvio() throws Exception{
 		logger.traceEntry();
@@ -233,7 +227,7 @@ public class TiendaDAOTest {
 			index += 10;
 
 		}
-		assertEquals(Collections.EMPTY_LIST,listTienda);
+		assertNotEquals(Collections.EMPTY_LIST,listTienda);
 		logger.traceExit();
 	}
 
@@ -262,7 +256,7 @@ public class TiendaDAOTest {
 
 		logger.traceExit();
 	}
-	@Ignore
+
 	@Test
 	public void testUpdate() throws Exception{
 		logger.traceEntry();
@@ -274,17 +268,17 @@ public class TiendaDAOTest {
 
 		logger.traceExit();
 	}
-	@Ignore
+
 	@Test
 	public void testDelete() throws Exception{
 		logger.traceEntry();
-		
-			assertTrue(tiendaDAO.softDelete(connection,1L));
-		
+
+		assertTrue(tiendaDAO.softDelete(connection,1L));
+
 		logger.traceExit();
 	}
 
 
-	
+
 
 }

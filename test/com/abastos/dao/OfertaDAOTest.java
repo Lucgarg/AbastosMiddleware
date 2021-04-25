@@ -1,19 +1,15 @@
 package com.abastos.dao;
 
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.fail;
-
 import java.sql.Connection;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Ignore;
+
 import org.junit.Test;
 
-import com.abastos.dao.jdbc.ContenidoDAOImpl;
 import com.abastos.dao.jdbc.OfertaDAOImpl;
 import com.abastos.dao.util.ConnectionManager;
 import com.abastos.dao.util.DataUtils;
@@ -34,14 +30,12 @@ public class OfertaDAOTest {
 	public void tearDown() throws Exception {
 		ConnectionManager.closeConnection(connection, false);
 	}
-	@Ignore
+	
 	@Test
 	public void testFindById() throws Exception {
 		logger.traceEntry();
 
-		//oferta con fecha invalida
-		assertNull(ofertaDAO.findById(connection, 1L));
-		//oferta con fecha valida
+
 		assertNotNull(ofertaDAO.findById(connection, 2L));
 
 		logger.traceExit();
@@ -68,7 +62,7 @@ public class OfertaDAOTest {
 
 		logger.traceExit();
 	}
-	@Ignore
+
 	@Test
 	public void testUpdate() throws Exception{
 		logger.traceEntry();

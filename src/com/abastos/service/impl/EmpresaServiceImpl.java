@@ -3,9 +3,6 @@ package com.abastos.service.impl;
 import java.sql.Connection;
 
 import java.sql.SQLException;
-import java.util.HashMap;
-import java.util.Map;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jasypt.util.password.StrongPasswordEncryptor;
@@ -14,17 +11,12 @@ import com.abastos.dao.EmpresaDAO;
 import com.abastos.dao.jdbc.EmpresaDAOImpl;
 import com.abastos.dao.util.ConnectionManager;
 import com.abastos.model.Empresa;
-import com.abastos.model.Particular;
-import com.abastos.service.ContenidoService;
 import com.abastos.service.DataException;
 import com.abastos.service.EmpresaService;
-import com.abastos.service.MailService;
 import com.abastos.service.exceptions.ConfirmationRegistrationException;
 import com.abastos.service.exceptions.IncorrectPasswordException;
-import com.abastos.service.exceptions.MailException;
 import com.abastos.service.exceptions.ServiceException;
 import com.abastos.service.exceptions.UserNotFoundException;
-import com.abastos.service.utils.VelocityUtils;
 
 public class EmpresaServiceImpl implements EmpresaService{
 	private static Logger logger = LogManager.getLogger(EmpresaServiceImpl.class);

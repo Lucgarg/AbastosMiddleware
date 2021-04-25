@@ -14,7 +14,6 @@ import com.abastos.dao.PaisDAO;
 import com.abastos.dao.jdbc.PaisDAOImpl;
 import com.abastos.dao.util.ConnectionManager;
 import com.abastos.model.Pais;
-import com.abastos.model.Provincia;
 import com.abastos.service.DataException;
 import com.abastos.service.PaisService;
 import com.abastos.service.utils.CacheNames;

@@ -1,7 +1,5 @@
 package com.abastos.service.utils;
 
-import com.abastos.model.Oferta;
-
 import com.abastos.model.Producto;
 
 

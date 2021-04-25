@@ -11,7 +11,6 @@ import com.abastos.dao.ListaDAO;
 import com.abastos.dao.jdbc.ListaDAOImpl;
 import com.abastos.dao.util.ConnectionManager;
 import com.abastos.model.Lista;
-import com.abastos.model.Producto;
 import com.abastos.service.DataException;
 import com.abastos.service.ListaService;
 

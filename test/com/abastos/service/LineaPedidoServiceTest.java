@@ -2,7 +2,7 @@ package com.abastos.service;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.fail;
+
 
 import java.util.Collections;
 
@@ -10,13 +10,11 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Ignore;
+
 import org.junit.Test;
 
 import com.abastos.model.LineaPedido;
-import com.abastos.service.exceptions.NegativePriceDiscountException;
-import com.abastos.service.exceptions.ServiceException;
-import com.abastos.service.impl.LineaListaServiceImpl;
+
 import com.abastos.service.impl.LineaPedidoServiceImpl;
 
 public class LineaPedidoServiceTest {
@@ -63,6 +61,7 @@ public class LineaPedidoServiceTest {
 		lineaPedido.setPrecio(130d);
 		lineaPedido.setIdProducto(1L);
 		lineaPedido.setIdOferta(1L);
+		lineaPedido.setDescuentoFijo(0.0);
 		assertEquals(748.8, linServ.calcPrecio(lineaPedido), 0.01); 
 
 		logger.trace("por descuento numerador 4 denominador 6...");
@@ -76,6 +75,7 @@ public class LineaPedidoServiceTest {
 		lineaPedido.setPrecio(130d);
 		lineaPedido.setIdProducto(1L);
 		lineaPedido.setIdOferta(1L);
+		lineaPedido.setDescuentoFijo(0.0);
 		assertEquals(748.8, linServ.calcPrecio(lineaPedido), 0.01); 
 
 		logger.traceExit();
@@ -132,7 +132,7 @@ public class LineaPedidoServiceTest {
 		lineaPedido.setNombreProducto("prueba002");
 		lineaPedido.setNumeroUnidades(12);
 		lineaPedido.setIdProducto(16L);
-
+		lineaPedido.setIdTienda(1L);
 		linServ.create(lineaPedido);
 
 		logger.traceExit();

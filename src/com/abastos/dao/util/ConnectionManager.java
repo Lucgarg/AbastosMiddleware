@@ -11,7 +11,6 @@ import org.apache.logging.log4j.Logger;
 
 import com.abastos.configuration.ConfigurationManager;
 import com.abastos.service.DataException;
-import com.abastos.service.impl.LineaListaServiceImpl;
 
 public class ConnectionManager {
 	// JDBC driver name and database URL

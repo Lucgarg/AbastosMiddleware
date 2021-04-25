@@ -1,10 +1,8 @@
 package com.abastos.service;
 
-import java.sql.Connection;
 import java.util.List;
 
 import com.abastos.model.Pedido;
-import com.abastos.service.exceptions.MailException;
 
 public interface PedidoService {
 	

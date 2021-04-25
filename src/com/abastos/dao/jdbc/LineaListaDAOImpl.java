@@ -13,10 +13,10 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import com.abastos.dao.LineaListaDAO;
-import com.abastos.dao.ProductoDAO;
+
 import com.abastos.dao.util.ConnectionManager;
 import com.abastos.model.LineaLista;
-import com.abastos.model.Producto;
+
 import com.abastos.service.DataException;
 import com.abastos.service.impl.LineaListaServiceImpl;
 

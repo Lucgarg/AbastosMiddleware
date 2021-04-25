@@ -13,7 +13,6 @@ import com.abastos.cache.impl.CacheManagerImpl;
 import com.abastos.dao.ProvinciaDAO;
 import com.abastos.dao.jdbc.ProvinciaDAOImpl;
 import com.abastos.dao.util.ConnectionManager;
-import com.abastos.model.ComunidadAutonoma;
 import com.abastos.model.Provincia;
 import com.abastos.service.DataException;
 import com.abastos.service.ProvinciaService;

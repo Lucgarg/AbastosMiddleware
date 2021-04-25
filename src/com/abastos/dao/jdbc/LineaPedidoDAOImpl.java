@@ -12,13 +12,11 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import com.abastos.dao.LineaPedidoDAO;
-import com.abastos.dao.OfertaDAO;
-import com.abastos.dao.ProductoDAO;
+
 import com.abastos.dao.util.ConnectionManager;
 import com.abastos.dao.util.DBNullUtils;
 import com.abastos.model.LineaPedido;
-import com.abastos.model.Oferta;
-import com.abastos.model.Producto;
+
 import com.abastos.service.DataException;
 
 public class LineaPedidoDAOImpl implements LineaPedidoDAO{
@@ -90,8 +88,8 @@ public class LineaPedidoDAOImpl implements LineaPedidoDAO{
 			sql.append( " SELECT ID_PEDIDO, ID_PRODUCTO, ");
 			sql.append(" NUMERO_UNIDADES, ADD_DATE, PRECIO, ");
 			sql.append(" ID_OFERTA, DESCUENTO_PCN, DESCUENTO_FIJO, NUMERADOR, ");
-			sql.append(" DENOMINADOR, PRECIO_FINAL, NOMBRE_PRODUCTO , ID_TIENDA ");
-			sql.append("ID_TIPO_OFERTA, ID_PRODUCTO_OFERTA ");
+			sql.append(" DENOMINADOR, PRECIO_FINAL, NOMBRE_PRODUCTO , ");
+			sql.append(" ID_TIPO_OFERTA, ID_PRODUCTO_OFERTA,  ID_TIENDA ");
 			sql.append(" FROM LINEA_PEDIDO  ");
 
 			boolean isFirst = false;

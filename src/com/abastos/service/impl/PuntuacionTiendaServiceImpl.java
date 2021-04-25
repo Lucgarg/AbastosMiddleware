@@ -16,7 +16,6 @@ import com.abastos.model.PuntuacionTienda;
 import com.abastos.service.DataException;
 import com.abastos.service.PuntuacionTiendaService;
 import com.abastos.service.utils.CacheNames;
-import com.abastos.service.utils.ServiceUtils;
 
 public class PuntuacionTiendaServiceImpl implements PuntuacionTiendaService{
 	private static Logger logger = LogManager.getLogger(PuntuacionTiendaServiceImpl.class);

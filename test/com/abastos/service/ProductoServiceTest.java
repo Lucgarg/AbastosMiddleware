@@ -1,11 +1,12 @@
 package com.abastos.service;
 
-import static org.junit.Assert.assertEquals;
+
+
 
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+
 
 import java.util.Collections;
 
@@ -13,7 +14,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Ignore;
+
 import org.junit.Test;
 
 import com.abastos.model.Contenido;
@@ -37,7 +38,7 @@ public class ProductoServiceTest {
 	public void tearDown() throws Exception {
 	}
 
-	@Ignore
+
 	public void testFindBy() throws Exception{
 		logger.traceEntry();
 		ProductoCriteria productoCriteria = new ProductoCriteria();
@@ -45,17 +46,17 @@ public class ProductoServiceTest {
 		productoCriteria.setIdOrigen('I');
 		productoCriteria.setIdTienda(1L);
 		productoCriteria.setOferta(true);
-		
+
 		productoService.findBy(productoCriteria, "es", 1,3);
-		
+
 
 
 		assertNotEquals(Collections.EMPTY_LIST,productoService.findBy(productoCriteria, "es", 1,3));
 
 		logger.traceExit();
 	}
-	@Ignore
-	
+
+
 	public void testFindByCategoriaPrecioDesde() throws Exception{
 		logger.traceEntry();
 		ProductoCriteria productoCriteria = new ProductoCriteria();
@@ -65,11 +66,11 @@ public class ProductoServiceTest {
 		productoCriteria.setPredioDesde(10d);
 
 
-		assertNotEquals(Collections.EMPTY_LIST,productoService.findBy(productoCriteria, "es"));
+		assertNotEquals(Collections.EMPTY_LIST,productoService.findBy(productoCriteria, "es",1,3));
 
 		logger.traceExit();
 	}
-	@Ignore
+
 	public void testFindByOfertaPrecioHasta() throws Exception{
 		logger.traceEntry();
 		ProductoCriteria productoCriteria = new ProductoCriteria();
@@ -78,12 +79,12 @@ public class ProductoServiceTest {
 		productoCriteria.setOferta(false);
 		productoCriteria.setPrecioHasta(10d);
 
-		
-		assertNotEquals(Collections.EMPTY_LIST,productoService.findBy(productoCriteria, "es"));
+
+		assertNotEquals(Collections.EMPTY_LIST,productoService.findBy(productoCriteria, "es",1,3));
 
 		logger.traceExit();
 	}
-	@Ignore
+
 	public void testFindByOfertaOrigen() throws Exception{
 		logger.traceEntry();
 		ProductoCriteria productoCriteria = new ProductoCriteria();
@@ -91,60 +92,60 @@ public class ProductoServiceTest {
 		productoCriteria.setIdTienda(1L);
 		productoCriteria.setOferta(false);
 		productoCriteria.setIdOrigen('N');
-		
-		assertNotEquals(Collections.EMPTY_LIST,productoService.findBy(productoCriteria, "es"));
+
+		assertNotEquals(Collections.EMPTY_LIST,productoService.findBy(productoCriteria, "es",1,3));
 
 		logger.traceExit();
 	}
-	@Ignore
+
 	public void testFindByCategoria() throws Exception{
 		logger.traceEntry();
 		ProductoCriteria productoCriteria = new ProductoCriteria();
 		productoCriteria.setIdCategoria(46);
 		productoCriteria.setIdTienda(1L);
-	
-		assertNotEquals(Collections.EMPTY_LIST,productoService.findBy(productoCriteria, "es"));
+
+		assertNotEquals(Collections.EMPTY_LIST,productoService.findBy(productoCriteria, "es",1,3));
 
 		logger.traceExit();
 	}
 
-	@Ignore
+
 	public void testFindByOrigen() throws Exception{
 		logger.traceEntry();
 		ProductoCriteria productoCriteria = new ProductoCriteria();
 		productoCriteria.setIdOrigen('N');
 		productoCriteria.setIdTienda(1L);
 		productoCriteria.setOferta(false);
-		assertNotEquals(Collections.EMPTY_LIST,productoService.findBy(productoCriteria, "es"));
+		assertNotEquals(Collections.EMPTY_LIST,productoService.findBy(productoCriteria, "es",1,3));
 
 		logger.traceExit();
 	}
 
-	@Ignore
+
 	public void testFindByTienda() throws Exception{
 		logger.traceEntry();
 		ProductoCriteria productoCriteria = new ProductoCriteria();
 		productoCriteria.setIdTienda(1L);
 		productoCriteria.setOferta(false);
 
-		assertNotEquals(Collections.EMPTY_LIST,productoService.findBy(productoCriteria, "es"));
+		assertNotEquals(Collections.EMPTY_LIST,productoService.findBy(productoCriteria, "es",1,3));
 
 		logger.traceExit();
 	}
 
-	@Ignore
+
 	public void testFindByOferta() throws Exception{
 		logger.traceEntry();
 		ProductoCriteria productoCriteria = new ProductoCriteria();
 		productoCriteria.setIdTienda(1L);
 		productoCriteria.setOferta(false);
 
-		assertNotEquals(Collections.EMPTY_LIST,productoService.findBy(productoCriteria, "es"));
+		assertNotEquals(Collections.EMPTY_LIST,productoService.findBy(productoCriteria, "es",1,3));
 
 		logger.traceExit();
 	}
 
-	@Ignore
+
 	public void testFindByPrecioHasta() throws Exception{
 		logger.traceEntry();
 		ProductoCriteria productoCriteria = new ProductoCriteria();
@@ -152,19 +153,19 @@ public class ProductoServiceTest {
 		productoCriteria.setPrecioHasta(50d);
 		productoCriteria.setOferta(false);
 
-		assertNotEquals(Collections.EMPTY_LIST,productoService.findBy(productoCriteria, "es"));
+		assertNotEquals(Collections.EMPTY_LIST,productoService.findBy(productoCriteria, "es",1,3));
 
 		logger.traceExit();
 	}
 
-	@Ignore
+
 	public void testFindByPrecioDesde() throws Exception{
 		logger.traceEntry();
 		ProductoCriteria productoCriteria = new ProductoCriteria();
 		productoCriteria.setIdTienda(1L);
 		productoCriteria.setPredioDesde(10d);
 		productoCriteria.setOferta(false);
-		assertNotEquals(Collections.EMPTY_LIST,productoService.findBy(productoCriteria, "es"));
+		assertNotEquals(Collections.EMPTY_LIST,productoService.findBy(productoCriteria, "es",1,3));
 
 		logger.traceExit();
 	}
@@ -172,13 +173,13 @@ public class ProductoServiceTest {
 	@Test
 	public void testFindById() throws Exception{
 		logger.traceEntry();
-		
+
 		assertNotNull(productoService.findById(6L, "es"));
 
 		logger.traceExit();
 	}
 
-	@Ignore
+
 	public void testCreate() throws Exception{
 		logger.traceEntry();
 		Producto producto = new Producto();
@@ -218,12 +219,12 @@ public class ProductoServiceTest {
 
 	}
 
-	@Ignore
+
 	public void testUpdate() throws Exception{
 		logger.traceEntry();
 		Producto producto = new Producto();
 
-		Oferta oferta;
+
 
 
 		producto = productoService.findById(2L,  "en");
@@ -236,7 +237,7 @@ public class ProductoServiceTest {
 
 		logger.traceExit();
 	}
-	@Ignore
+
 	@Test
 	public void testDelete() throws Exception{
 		logger.traceEntry();
@@ -246,7 +247,7 @@ public class ProductoServiceTest {
 		logger.traceExit();
 	}
 
-	@Ignore
+
 	public void testUpdateStock() throws Exception {
 		logger.traceEntry();
 

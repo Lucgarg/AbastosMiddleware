@@ -11,7 +11,6 @@ import com.abastos.cache.impl.CacheManagerImpl;
 import com.abastos.dao.PuntuacionProductoDAO;
 import com.abastos.dao.jdbc.PuntuacionProductoDAOImpl;
 import com.abastos.dao.util.ConnectionManager;
-import com.abastos.model.Localidad;
 import com.abastos.service.DataException;
 import com.abastos.service.PuntuacionProductoService;
 import com.abastos.service.utils.CacheNames;

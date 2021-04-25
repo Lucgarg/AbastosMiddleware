@@ -1,6 +1,5 @@
 package com.abastos.service;
 
-import java.sql.Connection;
 import java.util.List;
 
 import com.abastos.model.Provincia;

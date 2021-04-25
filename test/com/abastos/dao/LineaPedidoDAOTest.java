@@ -1,8 +1,6 @@
 package com.abastos.dao;
 
 import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.fail;
-
 import java.sql.Connection;
 import java.util.Collections;
 
@@ -65,6 +63,7 @@ public class LineaPedidoDAOTest {
 		lineaPedido.setNumeroUnidades(12);
 		lineaPedido.setIdProducto(16L);
 		lineaPedido.setPrecioFinal(12.0);
+		lineaPedido.setIdTienda(1L);
 		linPedDAO.create(connection, lineaPedido);
 
 		logger.traceExit();

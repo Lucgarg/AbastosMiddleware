@@ -11,11 +11,9 @@ import org.apache.logging.log4j.Logger;
 import com.abastos.dao.TipoOfertaDAO;
 import com.abastos.dao.jdbc.TipoOfertaDAOImpl;
 import com.abastos.dao.util.ConnectionManager;
-import com.abastos.model.ComunidadAutonoma;
 import com.abastos.model.TipoOferta;
 import com.abastos.service.DataException;
 import com.abastos.service.TipoOfertaService;
-import com.abastos.service.utils.CacheNames;
 
 public class TipoOfertaServiceImpl implements TipoOfertaService{
 	private TipoOfertaDAO tipoOfertaDAO= null;
