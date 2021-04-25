@@ -17,6 +17,7 @@ import com.abastos.dao.jdbc.ProductoDAOImpl;
 import com.abastos.dao.util.ConnectionManager;
 import com.abastos.model.Producto;
 import com.abastos.service.DataException;
+import com.abastos.service.OfertaService;
 import com.abastos.service.ProductoCriteria;
 import com.abastos.service.ProductoService;
 import com.abastos.service.exceptions.LimitCreationException;
@@ -26,28 +27,26 @@ import com.abastos.service.utils.DescuentoUtils;
 public class ProductoServiceImpl implements ProductoService {
 	private static Logger logger = LogManager.getLogger(ProductoServiceImpl.class);
 	private ProductoDAO productoDAO;
+	private OfertaService ofertaService;
 	public ProductoServiceImpl() {
 		productoDAO = new ProductoDAOImpl();
-
+		ofertaService = new OfertaServiceImpl();
 	}
 
 	@Override
 	public Results<Producto> findBy(ProductoCriteria producto, String idioma, int startIndex, int count) throws DataException {
 		logger.info("Iniciando findBy...");
-		Cache cacheProducts = CacheManagerImpl.getInstance().get(CacheNames.PRODUCTO);
-		MultiKey mk = new MultiKey(producto, idioma, startIndex, count);
-		Results<Producto> produc =  (Results<Producto>)cacheProducts.get(mk);
-		if(produc != null) {
-			logger.info("cache hit");
-		}
 
-		else {
-			logger.info("cache miss");
-			Connection connection = ConnectionManager.getConnection();
-			boolean commit = false;
+		Results<Producto> produc =  null;
+
+		Connection connection = ConnectionManager.getConnection();
+		boolean commit = false;
 		try {
 			connection.setAutoCommit(false);
 			produc = productoDAO.findBy(connection, producto, idioma, startIndex, count);
+			for(int i = 0; i < produc.getPage().size() ; i++) {
+				produc.getPage().get(i).setPrecioFinal(finalPrice(produc.getPage().get(i)));
+			}
 			commit = true;
 		}catch(SQLException se) {
 			logger.error(se);
@@ -56,22 +55,21 @@ public class ProductoServiceImpl implements ProductoService {
 		finally {
 			ConnectionManager.closeConnection(connection, commit);
 		}
-		cacheProducts.put(mk, produc);
-		
-		}
+
 		return produc;
 	}
 
 	@Override
 	public Producto findById(Long idProducto, String idioma) throws DataException {
 		logger.info("Iniciando findById...");
-	
+
 		Connection connection = ConnectionManager.getConnection();
 		boolean commit = false;
 		Producto producto  = null;
 		try {
 			connection.setAutoCommit(false);
 			producto = productoDAO.findById(connection, idProducto, idioma);
+			producto.setPrecioFinal(finalPrice(producto));
 			commit = true;
 		}catch(SQLException se) {
 			logger.error(se);
@@ -90,6 +88,9 @@ public class ProductoServiceImpl implements ProductoService {
 		try {
 			connection.setAutoCommit(false);
 			producto = productoDAO.findByIdTienda(connection, idTienda, idioma);
+			for(int i = 0; i < producto.size(); i++) {
+				producto.get(i).setPrecioFinal(finalPrice(producto.get(i)));
+			}
 			commit = true;
 		}catch(SQLException se) {
 			logger.error(se);
@@ -105,26 +106,26 @@ public class ProductoServiceImpl implements ProductoService {
 		logger.info("Iniciando findByProducOfert...");
 		Cache cacheProducts = CacheManagerImpl.getInstance().get(CacheNames.PRODUCTO_OFERTA);
 		Map<Long,Producto> producto =  (Map<Long,Producto>)cacheProducts.get(idioma);
-		
+
 		if(producto != null) {
 			logger.info("cache hit");
 		}
 		else {
 			logger.info("cache miss");
-		Connection connection = ConnectionManager.getConnection();
-		boolean commit = false;
-		producto  = null;
-		try {
-			connection.setAutoCommit(false);
-			producto = productoDAO.findByProductOfert(connection,idioma);
-			commit = true;
-		}catch(SQLException se) {
-			logger.error(se);
-			throw new DataException(se);
-		}
-		finally {
-			ConnectionManager.closeConnection(connection, commit);
-		}
+			Connection connection = ConnectionManager.getConnection();
+			boolean commit = false;
+			producto  = null;
+			try {
+				connection.setAutoCommit(false);
+				producto = productoDAO.findByProductOfert(connection,idioma);
+				commit = true;
+			}catch(SQLException se) {
+				logger.error(se);
+				throw new DataException(se);
+			}
+			finally {
+				ConnectionManager.closeConnection(connection, commit);
+			}
 			cacheProducts.put(idioma, producto);
 		}
 		return producto;
@@ -132,30 +133,17 @@ public class ProductoServiceImpl implements ProductoService {
 	@Override
 	public Producto create(Producto producto) throws DataException, LimitCreationException {
 		logger.info("Creando producto...");
-		 CacheManagerImpl.getInstance().remove(CacheNames.PRODUCTO);
+		CacheManagerImpl.getInstance().remove(CacheNames.PRODUCTO);
 		Connection connection = ConnectionManager.getConnection();
 		boolean commit = false;
 		Producto product  = null;
 		try {
 			connection.setAutoCommit(false);
-			
+
 			if(productoDAO.count(connection, producto)==109) {
 				throw new LimitCreationException("Número máximo de producto creados alcanzado");
 			}
-			if(producto.getOferta() != null) {
-
-				if(producto.getOferta().getIdTipoOferta() == 1) {
-					
-					producto.setPrecioFinal(DescuentoUtils.descuento(producto));
-				}
-				else {
-					producto.setPrecioFinal(producto.getPrecio());
-				}
-			}
-			else {
-				
-				producto.setPrecioFinal(producto.getPrecio());
-			}
+			producto.setPrecioFinal(finalPrice(producto));
 			product = productoDAO.create(connection, producto);
 			commit = true;
 			logger.info(new StringBuilder().append("producto creado ").append(product.getId()).toString());
@@ -168,7 +156,22 @@ public class ProductoServiceImpl implements ProductoService {
 		}
 		return product;
 	}
+	private Double finalPrice(Producto producto) {
+		if(producto.getOferta() != null && producto.getOferta().getIdTipoOferta() != null) {
 
+			if(producto.getOferta().getIdTipoOferta() == 1) {
+
+				return DescuentoUtils.descuento(producto);
+			}
+			else {
+				return producto.getPrecio();
+			}
+		}
+		else {
+
+			return producto.getPrecio();
+		}
+	}
 	@Override
 	public Producto update(Producto producto, String idioma) throws DataException {
 		logger.info("Actualizando producto...");
@@ -177,10 +180,10 @@ public class ProductoServiceImpl implements ProductoService {
 		Producto product  = null;
 		try {
 			connection.setAutoCommit(false);
-			
+
 			if(producto.getOferta() !=null) {
 				if(producto.getOferta().getIdTipoOferta() == 1) {
-				producto.setPrecioFinal(DescuentoUtils.descuento(producto));
+					producto.setPrecioFinal(DescuentoUtils.descuento(producto));
 				}
 				else {
 					producto.setPrecioFinal(producto.getPrecio());
@@ -206,15 +209,15 @@ public class ProductoServiceImpl implements ProductoService {
 	@Override
 	public void updateStock(Integer stock, Long idProducto) throws DataException {
 		logger.info("Actualizando el stock del producto...");
-		 CacheManagerImpl.getInstance().remove(CacheNames.PRODUCTO);
-		 CacheManagerImpl.getInstance().remove(CacheNames.PRODUCTO_OFERTA);
+		CacheManagerImpl.getInstance().remove(CacheNames.PRODUCTO);
+		CacheManagerImpl.getInstance().remove(CacheNames.PRODUCTO_OFERTA);
 		Connection connection = ConnectionManager.getConnection();
 		boolean commit = false;
 		Producto product = null;
 		try {
 			connection.setAutoCommit(false);
 			product = findById(idProducto, "es");
-			
+
 			productoDAO.updateStock(connection, idProducto, product.getStock() - stock);
 			commit = true;
 			logger.info(new StringBuilder().append("Stock del producto").append(idProducto)

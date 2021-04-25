@@ -30,6 +30,7 @@ public class OfertaDAOImpl implements OfertaDAO {
 		ResultSet resultSet = null;
 		PreparedStatement preparedStatement = null;
 		StringBuilder sql=null;
+		Long date = new Date().getTime();
 		try {
 			sql=new StringBuilder();
 
@@ -39,14 +40,16 @@ public class OfertaDAOImpl implements OfertaDAO {
 			sql.append(" A.ID_TIPO_OFERTA, A.ID_PRODUCTO, A.NOMBRE_OFERTA, A.FECHA_DESDE, ");
 			sql.append(" A.FECHA_HASTA, F.ID_TIPO_OFERTA, F.NOMBRE, A.ID_EMPRESA FROM OFERTA A");
 			sql.append(" INNER JOIN TIPO_OFERTA F ON F.ID_TIPO_OFERTA = A.ID_TIPO_OFERTA ");
-			sql.append(" WHERE A.ID_OFERTA = ?  AND A.FECHA_HASTA > ? ");
+			sql.append(" WHERE A.ID_OFERTA = ? AND  A.FECHA_DESDE <= ? AND A.FECHA_HASTA > ? ");
 
 			preparedStatement = connection.prepareStatement(sql.toString(),
 					ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
 			logger.trace(sql.toString());
 			int i = 1;
 			preparedStatement.setLong(i++, idOferta);
-			preparedStatement.setTimestamp(i++,new java.sql.Timestamp(new Date().getTime()));
+			
+			preparedStatement.setTimestamp(i++,new java.sql.Timestamp(date));
+			preparedStatement.setTimestamp(i++,new java.sql.Timestamp(date));
 
 			resultSet = preparedStatement.executeQuery();
 
