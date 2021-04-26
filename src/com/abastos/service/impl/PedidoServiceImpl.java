@@ -133,12 +133,12 @@ public class PedidoServiceImpl implements PedidoService{
 
 			connection.setAutoCommit(false);
 
-			for(int i = 0; i < pedido.getLineaPedido().size(); i++) {
+			/*for(int i = 0; i < pedido.getLineaPedido().size(); i++) {
 
 				pedido.getLineaPedido().get(i).setPrecioFinal(
 						lineaPedidoService.calcPrecio(pedido.getLineaPedido().get(i)));
 				
-			}
+			}*/
 			pedido.setPrecioTotal(calcPrecio(pedido));
 			precioTotal = pedido.getPrecioTotal();
 			pedid = pedidoDAO.create(connection, pedido);

@@ -22,6 +22,7 @@ import com.abastos.service.ProductoService;
 import com.abastos.service.exceptions.LimitCreationException;
 import com.abastos.service.utils.CacheNames;
 import com.abastos.service.utils.DescuentoUtils;
+import com.abastos.service.utils.ServiceUtils;
 
 public class ProductoServiceImpl implements ProductoService {
 	private static Logger logger = LogManager.getLogger(ProductoServiceImpl.class);
@@ -160,7 +161,7 @@ public class ProductoServiceImpl implements ProductoService {
 
 			if(producto.getOferta().getIdTipoOferta() == 1) {
 
-				return DescuentoUtils.descuento(producto);
+				return ServiceUtils.round(DescuentoUtils.descuento(producto), 2);
 			}
 			else {
 				return producto.getPrecio();
