@@ -70,6 +70,9 @@ public class PedidoServiceImpl implements PedidoService{
 
 
 			precio -= particular.findPuntos(pedido.getIdParticular())/10;
+			if(precio < 0) {
+				precio = 0;
+			}
 
 		}
 		
@@ -128,7 +131,7 @@ public class PedidoServiceImpl implements PedidoService{
 		Pedido pedid  = null;
 		Double precioTotal;
 		int puntos;
-	
+		int puntosActuales;
 		try {
 
 			connection.setAutoCommit(false);
@@ -140,10 +143,12 @@ public class PedidoServiceImpl implements PedidoService{
 				
 			}*/
 			pedido.setPrecioTotal(calcPrecio(pedido));
-			precioTotal = pedido.getPrecioTotal();
 			pedid = pedidoDAO.create(connection, pedido);
-			pedid.setPrecioTotal(precioTotal);
 			puntos = calcPuntos(pedido.getPrecioTotal());
+			if(pedido.getAplicarDescuento() != true) {
+			puntosActuales =  particularDAO.findPuntos(connection, pedido.getIdParticular());
+			puntos += puntosActuales;
+			}
 			particularDAO.updatePuntos(connection, pedido.getIdParticular(), puntos);
 			pedidoDAO.updateEstado(connection, 'C', pedid.getId());
 		
