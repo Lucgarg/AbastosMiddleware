@@ -54,6 +54,7 @@ public class DireccionDTOServiceImpl implements DireccionDTOService{
 			commit = true;
 		}catch(SQLException se) {
 			logger.error(se);
+			
 			throw new DataException(se);
 		}
 		finally {
