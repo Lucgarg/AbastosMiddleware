@@ -17,29 +17,29 @@ public class VelocityUtils {
 	private static Logger logger = LogManager.getLogger( VelocityUtils.class);
 	private static ContenidoService contenidoService = new ContenidoServiceImpl();
 	public VelocityUtils() {
-		
+
 	}
 	public static String generateTemplate(Long templat, Map<String, Object> cont) {
-		 StringWriter  w = null;
+		StringWriter  w = null;
 		String temp = "";
 		try {
 			temp = contenidoService.findByIdTipo(templat).getTemplate();
-		
-		w = new StringWriter();
-	       
-		Velocity.init();
-		VelocityContext vc = new VelocityContext();
-		for(Map.Entry<String, Object> a : cont.entrySet()) {
-		vc.put(a.getKey(), a.getValue());
-		}
-		
-		 Velocity.evaluate( vc, w, "mystring", temp );
+
+			w = new StringWriter();
+
+			Velocity.init();
+			VelocityContext vc = new VelocityContext();
+			for(Map.Entry<String, Object> a : cont.entrySet()) {
+				vc.put(a.getKey(), a.getValue());
+			}
+
+			Velocity.evaluate( vc, w, "mystring", temp );
 		} catch (DataException e) {
 			logger.error(e);
 		}
-		 return w.toString();
-		
+		return w.toString();
+
 	}
-      
-        
-	}
+
+
+}

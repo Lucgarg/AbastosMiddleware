@@ -8,6 +8,7 @@ public class DescuentoUtils {
 	public DescuentoUtils() {
 		
 	}
+	//metodo para facilitar la comprobacion del tipo de descuento
 	public static Double descuento(Producto product)  {
 	
 		if(product.getOferta().getDescuentoFijo() != 0.0) {

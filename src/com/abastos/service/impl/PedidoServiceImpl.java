@@ -26,11 +26,9 @@ public class PedidoServiceImpl implements PedidoService{
 	private static Logger logger = LogManager.getLogger(PedidoServiceImpl.class);
 	private ParticularService particular;
 	private PedidoDAO pedidoDAO;
-	private LineaPedidoService lineaPedidoService;
 	private ParticularDAO particularDAO;
 
 	public PedidoServiceImpl() {
-		lineaPedidoService = new LineaPedidoServiceImpl();
 		particular = new ParticularServiceImpl();
 		particularDAO = new ParticularDAOImpl();
 		pedidoDAO = new PedidoDAOImpl();
@@ -44,26 +42,26 @@ public class PedidoServiceImpl implements PedidoService{
 		double descuento = 0.0d;
 
 		for(LineaPedido linPed: pedido.getLineaPedido()) {
-			
+
 			if(linPed.getIdTipoOferta() != null) {
-			if(linPed.getIdTipoOferta() == 3) {
-				
-				
-				for(LineaPedido linPedid: pedido.getLineaPedido()) {
-			
-					if(linPedid.getIdProducto() == linPed.getIdProdOferta()) {
-						
-						descuento = linPed.getDescuentoFijo() == 0.0? linPedid.getPrecio() * (linPed.getDescuentoPcn()/100)
-								: linPed.getDescuentoFijo();
-						
-						
-						
+				if(linPed.getIdTipoOferta() == 3) {
+
+
+					for(LineaPedido linPedid: pedido.getLineaPedido()) {
+
+						if(linPedid.getIdProducto() == linPed.getIdProdOferta()) {
+
+							descuento = linPed.getDescuentoFijo() == 0.0? linPedid.getPrecio() * (linPed.getDescuentoPcn()/100)
+									: linPed.getDescuentoFijo();
+
+
+
+						}
 					}
 				}
 			}
-			}
 			precio+=linPed.getPrecioFinal() - descuento;
-			
+
 			descuento = 0d;
 		}
 		if(pedido.getAplicarDescuento() == true) {
@@ -75,11 +73,11 @@ public class PedidoServiceImpl implements PedidoService{
 			}
 
 		}
-		
+
 		return ServiceUtils.round(precio,2);
 	}
 
-
+	//calcular puntos ganados con la compra del pedido
 	public Integer calcPuntos(Double precio)throws DataException{
 		int puntos = (int)ServiceUtils.round(precio/10, 0);
 
@@ -136,22 +134,16 @@ public class PedidoServiceImpl implements PedidoService{
 
 			connection.setAutoCommit(false);
 
-			/*for(int i = 0; i < pedido.getLineaPedido().size(); i++) {
-
-				pedido.getLineaPedido().get(i).setPrecioFinal(
-						lineaPedidoService.calcPrecio(pedido.getLineaPedido().get(i)));
-				
-			}*/
 			pedido.setPrecioTotal(calcPrecio(pedido));
 			pedid = pedidoDAO.create(connection, pedido);
 			puntos = calcPuntos(pedido.getPrecioTotal());
 			if(pedido.getAplicarDescuento() != true) {
-			puntosActuales =  particularDAO.findPuntos(connection, pedido.getIdParticular());
-			puntos += puntosActuales;
+				puntosActuales =  particularDAO.findPuntos(connection, pedido.getIdParticular());
+				puntos += puntosActuales;
 			}
 			particularDAO.updatePuntos(connection, pedido.getIdParticular(), puntos);
 			pedidoDAO.updateEstado(connection, 'C', pedid.getId());
-		
+
 			commit = true;
 
 			logger.info(new StringBuilder().append("Pedido creado ").append(pedid.getId()).toString());

@@ -6,8 +6,14 @@ import java.math.RoundingMode;
 public class ServiceUtils {
 
 	public ServiceUtils() {
-		// TODO Auto-generated constructor stub
+		
 	}
+
+	/**
+	 * @param a 
+	 * @param num numero de cifras decimales
+	 * @return valor aproximado con el número de cifras decimales indicadas
+	 */
 	public static double round(Double a, Integer num) {
 		 
 		    BigDecimal bd = new BigDecimal(Double.toString(a));

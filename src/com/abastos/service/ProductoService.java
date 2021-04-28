@@ -13,6 +13,7 @@ public interface ProductoService {
 	public Results<Producto> findBy(ProductoCriteria producto, String idioma, int startIndex, int count) throws DataException;
 	public Producto findById(Long idProducto, String idioma) throws DataException;
 	public List<Producto> findByIdTienda(Long idTienda, String idioma)throws DataException;
+	//para recuperar un mapa de valores idProducto, producto para recuperar el producto asociado a la oferta "Compra y llevate"
 	public Map<Long,Producto> findByProductOfert(String idioma)throws DataException;
 	public Producto create(Producto producto) throws DataException, LimitCreationException;
 	public Producto update( Producto producto, String idioma) throws DataException;

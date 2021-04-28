@@ -11,9 +11,12 @@ public interface ParticularService {
 	public Particular findByAlias( String alias) throws DataException;
 	public Particular login(String email, String alias, String password) throws DataException, ServiceException;
 	public Particular registrar( Particular Parti) throws DataException;
+	//recuperacion de puntos de un particular
 	public Integer findPuntos( Long idParticular) throws DataException;
 	public Particular update(Particular Parti) throws DataException;
+	//actualizacion de puntos de un particular tras la realizacion de un pedido
 	public boolean updatePuntos(Long idParticular, Integer puntos) throws DataException;
+	//para actualizar el estado de alta tras confirmar el registro
 	public boolean updateAlta( Long idParticular) throws DataException;
 	public boolean delete(Long idParticular) throws DataException;
 }
