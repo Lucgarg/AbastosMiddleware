@@ -13,6 +13,7 @@ import org.apache.logging.log4j.Logger;
 
 import com.abastos.dao.PuntuacionTiendaDAO;
 import com.abastos.dao.util.ConnectionManager;
+import com.abastos.dao.util.DBNullUtils;
 import com.abastos.model.PuntuacionMediaTienda;
 import com.abastos.model.PuntuacionTienda;
 import com.abastos.service.DataException;
@@ -303,6 +304,7 @@ public class PuntuacionTiendaDAOImpl implements PuntuacionTiendaDAO {
 			preparedStatement.setLong(i++, puntTienda.getIdTienda());
 			preparedStatement.setInt(i++, puntTienda.getValoracionAtncCliente());
 			preparedStatement.setInt(i++, puntTienda.getValoracionPrecio());
+			DBNullUtils.toNull(preparedStatement, i++, puntTienda.getValoracionServDomicilio());
 			preparedStatement.setInt(i++, puntTienda.getValoracionServDomicilio());
 			preparedStatement.setTimestamp(i++, new java.sql.Timestamp(new Date().getTime()));
 			preparedStatement.executeUpdate();
@@ -339,7 +341,7 @@ public class PuntuacionTiendaDAOImpl implements PuntuacionTiendaDAO {
 			int i = 1;
 			preparedStatement.setInt(i++, puntTienda.getValoracionAtncCliente());
 			preparedStatement.setInt(i++, puntTienda.getValoracionPrecio());
-			preparedStatement.setInt(i++, puntTienda.getValoracionServDomicilio());
+			DBNullUtils.toNull(preparedStatement, i++, puntTienda.getValoracionServDomicilio());
 			preparedStatement.setLong(i++, puntTienda.getIdPerfilParticular());
 			preparedStatement.setLong(i++, puntTienda.getIdTienda());
 
