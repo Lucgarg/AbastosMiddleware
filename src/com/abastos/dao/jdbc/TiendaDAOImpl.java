@@ -145,10 +145,10 @@ public class TiendaDAOImpl implements TiendaDAO {
 
 			logger.trace("Create statement...");
 
-			sql.append( " SELECT   A.ID_TIENDA,  A.NOMBRE_TIENDA, A.FECHA_CREACION, ");
-			sql.append("	A.ID_CATEGORIA,  A.NUMERO_MOVIL, A.NUMERO_TELEFONO,  ");
-			sql.append("	A.CORREO_ELECTRONICO,  A.ENVIO_DOMICILIO, A.ID_EMPRESA, A.ID_CONTENIDO ");
-			sql.append("	FROM TIENDA A  ");
+			sql.append(" SELECT   A.ID_TIENDA,  A.NOMBRE_TIENDA, A.FECHA_CREACION, ");
+			sql.append(" A.ID_CATEGORIA,  A.NUMERO_MOVIL, A.NUMERO_TELEFONO,  ");
+			sql.append(" A.CORREO_ELECTRONICO,  A.ENVIO_DOMICILIO, A.ID_EMPRESA, A.ID_CONTENIDO ");
+			sql.append(" FROM TIENDA A  ");
 
 
 			boolean isFirst = false;
@@ -204,7 +204,7 @@ public class TiendaDAOImpl implements TiendaDAO {
 					ResultSet.CONCUR_READ_ONLY);
 			logger.trace(sql.toString());
 
-		
+
 
 			int i = 1;
 

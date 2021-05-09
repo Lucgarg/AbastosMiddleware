@@ -140,7 +140,7 @@ public class ProductoServiceImpl implements ProductoService {
 		try {
 			connection.setAutoCommit(false);
 
-			if(productoDAO.count(connection, producto)==109) {
+			if(productoDAO.count(connection, producto)==120) {
 				throw new LimitCreationException("Número máximo de producto creados alcanzado");
 			}
 			producto.setPrecioFinal(finalPrice(producto));

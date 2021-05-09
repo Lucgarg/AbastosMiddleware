@@ -79,32 +79,32 @@ public class TiendaServiceImpl implements TiendaService{
 	@Override
 	public Results<Tienda> findByCriteria(TiendaCriteria tiendaCri, int startIndex, int count) throws DataException {
 		logger.info("Iniciando findByCriteria...");
-		
+
 		Cache cacheTienda = CacheManagerImpl.getInstance().get(CacheNames.TIENDA);
 		MultiKey<Object> mk = new MultiKey<Object>(tiendaCri, startIndex, count);
-	
+
 		Results<Tienda> tienda =  (Results<Tienda>)cacheTienda.get(mk);
 		if(tienda != null) {
 			logger.info("cache hit");
 		}
 		else {
 			logger.info("cache miss");
-		Connection connection = ConnectionManager.getConnection();
-		boolean commit = false;
-	
-		try {
-			
-			connection.setAutoCommit(false);
-			tienda = tiendaDAO.findByCriteria(connection, tiendaCri, startIndex, count);
-			commit = true;
-		}catch(SQLException se) {
-			logger.error(se);
-			throw new DataException(se);
-		}
-		finally {
-			ConnectionManager.closeConnection(connection, commit);
-		}
-		cacheTienda.put(mk, tienda);
+			Connection connection = ConnectionManager.getConnection();
+			boolean commit = false;
+
+			try {
+
+				connection.setAutoCommit(false);
+				tienda = tiendaDAO.findByCriteria(connection, tiendaCri, startIndex, count);
+				commit = true;
+			}catch(SQLException se) {
+				logger.error(se);
+				throw new DataException(se);
+			}
+			finally {
+				ConnectionManager.closeConnection(connection, commit);
+			}
+			cacheTienda.put(mk, tienda);
 		}
 		return tienda;	
 

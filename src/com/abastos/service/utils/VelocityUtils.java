@@ -16,6 +16,7 @@ import com.abastos.service.impl.ContenidoServiceImpl;
 public class VelocityUtils {
 	private static Logger logger = LogManager.getLogger( VelocityUtils.class);
 	private static ContenidoService contenidoService = new ContenidoServiceImpl();
+	private static final String LOGTAG = "mystring";
 	public VelocityUtils() {
 
 	}
@@ -33,7 +34,7 @@ public class VelocityUtils {
 				vc.put(a.getKey(), a.getValue());
 			}
 
-			Velocity.evaluate( vc, w, "mystring", temp );
+			Velocity.evaluate( vc, w, LOGTAG, temp );
 		} catch (DataException e) {
 			logger.error(e);
 		}
